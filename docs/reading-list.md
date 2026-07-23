@@ -7,13 +7,20 @@ depth.
 
 ## How to get the books (mostly free)
 
+**Onboarding step: get a BPL card.** Every team member is asked to sign up for a Boston Public
+Library card as part of joining — it's free, takes minutes, and unlocks this entire list
+digitally. Register at https://www.bpl.org/ecard/ (eCard: anyone who lives, attends school,
+owns property, or works in Massachusetts; covers **all online resources including O'Reilly
+Learning**). Upgrade to a physical card at any BPL branch (photo ID + MA address) if you also
+want to borrow print copies. Members outside Massachusetts use the free-online tier below.
+
+- **Boston Public Library** — the card gives free access to the **O'Reilly Learning** platform
+  (https://www.bpl.org/resource/oreilly/), which carries most titles below (O'Reilly,
+  Addison-Wesley/Pearson, and Manning publishers). Physical copies are in the BPL catalog —
+  per-title links in the table.
 - **Team shelf** — members lend personal copies at Tuesday Hack Nights. Add your name to the
   "team copy" column below if you're willing to lend one. (Lending physical books around is
   simple and legal; please don't share e-book files — licenses are personal.)
-- **Boston Public Library** — a BPL card gives free access to the **O'Reilly Learning**
-  platform (https://www.bpl.org/resource/oreilly/), which carries most titles below
-  (O'Reilly, Addison-Wesley/Pearson, and Manning publishers). Massachusetts residents can get
-  a BPL eCard online. Physical copies of most titles are also in the BPL catalog.
 - **Free online, legally** — several core references are free on the web (marked below).
 
 ## The list
