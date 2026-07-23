@@ -157,8 +157,10 @@ our practice — it is too heavy for routine diffs.)
 - **`AGENTS.md`** at the repo root — project conventions for coding agents, seeded from the
   docs; the learning loop's destination.
 - **Review recipes** (`docs/review-recipes/`) — `deep-review.md`, `falsify.md`, `red-team.md`.
-- **Advisory bot** — CodeRabbit (free for public repos) or GitHub Copilot review if members
-  already have it. Advisory only; never the approver.
+- **Advisory reviewer** — our own `quick-review.md` recipe (see
+  [home-grown-reviewer.md](home-grown-reviewer.md)), which absorbs the strong features of
+  commercial bots while obeying the output contract. CodeRabbit (free for public repos) may run
+  side-by-side during rollout as a comparator. Advisory only; never the approver.
 - A short review section in `CONTRIBUTING.md` pointing at lanes, contract, and checklist.
 
 ## Guardrails

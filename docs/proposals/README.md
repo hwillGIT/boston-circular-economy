@@ -28,3 +28,4 @@ then promote (see `CONTRIBUTING.md`).
 | Proposal | Status | Summary |
 |----------|--------|---------|
 | [code-review-process.md](code-review-process.md) | Proposed | A review process for AI-agent-written code with two goals: aggregate review quality beyond any single developer (multi-lens deep review + adversarial verification), delivered under an educational output contract (few taught findings, no nits, a learning loop into the docs). Free tooling only. |
+| [home-grown-reviewer.md](home-grown-reviewer.md) | Proposed | Companion design: absorb CodeRabbit's strong features (walkthroughs, diagrams, linter-fed review, path instructions, learnings, incremental re-review, committable fixes, issue validation) into our own free, in-repo reviewer bound to the educational contract. |
