@@ -1,122 +1,188 @@
-# Proposal: Code Review Process (with a focus on AI-agent-written code)
+# Proposal: Code Review Process (for a team that codes with AI agents)
 
-**Status:** Proposed — for discussion at a Hack Night / in #Circular-Economy. Not yet team policy.
+**Status:** Proposed — under refinement; for discussion at a Hack Night / in #Circular-Economy.
 
-A right-sized review process for this project: a public-GitHub, volunteer team where much of the
-code is written with AI agents (the onboarding doc explicitly encourages AI-assisted work). It
-adapts the ideas behind Cloudflare's AI code-review system and current industry practice, scaled
-down to what this team can actually run.
+## Goals
 
-## Where we are today (what this builds on)
+Two goals shape every choice below:
 
-The repo currently documents very little process, and this proposal is mostly **additive**:
+1. **In aggregate, the review should be better than any single developer could be** — not by
+   finding a smarter reviewer, but by combining many narrow perspectives (each with full
+   attention), verifying their findings adversarially, and synthesizing the result.
+2. **The review must educate, not annoy.** Output is capped, taught, and kind. A review that
+   raises cognitive load or nags about trivia costs us volunteers; a review that teaches is how a
+   rotating team levels up and why people stay. Success is measured by *declining* repeat
+   findings per contributor — not by findings volume.
 
-- `CONTRIBUTING.md` covers **prototyping only** — build freely under `client/src/pages/dev/`,
-  graduate when ready. This proposal keeps that culture intact (prototypes ride the light lane).
-- The only automation is the **GitHub Pages deploy**, which ships `main` to the public site on
-  every merge. There is **no CI gate** (no lint/tests run on PRs) — so today, review is the only
-  thing standing between a PR and production.
-- Review practice is informal: PRs linked to issues, discussed at Hack Nights, squash-merged.
-  Several PRs have sat unreviewed for weeks — review capacity, not code-writing, is the bottleneck.
+Everything proposed here uses free tooling (GitHub features, free-for-open-source apps, and
+prompt recipes run in whatever AI agent contributors already use). Nothing paid.
 
-## Why agent code needs a deliberate process
+## Where we are today
 
-AI agents produce plausible-looking code fast, which shifts the bottleneck from writing to
-reviewing. The specific failure modes to catch:
+- `CONTRIBUTING.md` covers prototyping only (build freely in `client/src/pages/dev/`, graduate
+  when ready). This proposal keeps that culture — prototypes ride the light lane.
+- The only automation is the GitHub Pages deploy: **every merge to `main` ships to the public
+  site**, and there is **no CI on pull requests**. Review is currently the only gate.
+- Review practice is informal (issue-linked PRs, Hack Night discussion, squash merge), and
+  reviewer capacity — not code-writing — is the bottleneck.
 
-- **Hallucinated APIs / dependencies** — calls to methods or packages that don't exist in the
-  pinned versions (including "slopsquatting": a made-up package name an attacker registered).
-- **Tests that pass but prove nothing** — agent-written tests often validate the code's own
-  (possibly flawed) logic instead of the requirement and its edge cases.
-- **Missing the intent** — the agent satisfies the literal prompt while missing what the ticket
-  actually needed.
-- **Silent security gaps** — missing input validation, missing checks on new endpoints, secrets
-  in code or fixtures.
-- **Over-engineering** — needless abstraction for a few-thousand-row directory app.
-- **Weakened quality gates** — a diff that quietly skips tests, loosens lint, or lowers coverage.
-- **Correlated failures** — when the same kind of AI writes and reviews the code, they share
-  blind spots and check the code against itself rather than against intent. A human must own the
-  intent check.
+## Why agent-written code needs a deliberate process
 
-## The proposed process (five layers)
+Agents produce plausible code fast, shifting the bottleneck from writing to reviewing. The
+failure modes to catch: hallucinated APIs and dependencies (including slopsquatting), tests that
+pass but prove nothing, code that satisfies the literal prompt while missing the ticket's intent,
+silent security gaps, over-engineering, quietly weakened quality gates — and **correlated
+failures**: when the same kind of AI writes and reviews the code, they share blind spots and check
+the code against itself rather than against intent. A human owns the intent check.
 
-Each layer filters issues so scarce human attention goes where only humans add value.
+## The process at a glance
 
-**Layer 0 — PR hygiene (author).** Small PRs (aim < ~250 lines); link the issue; fill the PR
-template, including an **AI-use disclosure** (which files were agent-written, what you verified).
-
-**Layer 1 — Automated pre-screen (CI, must pass first).** Lint, type-check, tests, and secret
-scanning on every PR: `ruff` + `pytest` for `etl/`, `eslint` + `tsc` for `client/`/`server/`.
-Cheapest, most reliable filter — and the single biggest gap today, since `main` auto-deploys.
-
-**Layer 2 — AI reviewer (advisory).** A review bot posts inline comments (hallucinated APIs,
-obvious bugs, style). **Advisory only — it cannot approve or merge.** Suggested: CodeRabbit
-(free for public repos, installs from the GitHub Marketplace).
-
-**Layer 3 — Human review (risk-triaged).** A human reads the PR against the checklist below,
-focusing on what tools miss: does it do what the ticket needed, does it fit the architecture,
-is it safe. Depth depends on the risk lane.
-
-**Layer 4 — Understanding + approval.** Beyond trivial changes, the author should be able to
-explain the approach the agent took — we don't merge code nobody understands. A **human approves
-and merges**; the heavier lanes get a second set of eyes.
+| Layer | What | Who/what runs it |
+|-------|------|------------------|
+| 0 | PR hygiene: small PRs, issue link, AI-use disclosure | Author |
+| 1 | Pre-screen: format, lint, type-check, tests, secret scan | CI (auto-fixes style; humans never comment on it) |
+| 2 | Advisory AI review comments | Free review bot (advisory only) |
+| 3 | Human review by risk lane, using the checklist | One volunteer (two for Red) |
+| 4 | Understanding + approval: author can explain the change; human merges | Author + reviewer |
+| Deep | Multi-lens panel + adversarial verification (significant changes) | `/deep-review` recipe, on demand |
 
 ## Risk lanes
 
 | Lane | Examples | Review depth |
 |------|----------|--------------|
-| Green | docs, copy, styling, `dev/` prototypes | CI + AI reviewer; one quick human OK |
-| Yellow | ETL pipelines, API endpoints, business logic | Full checklist; one human approval |
-| Red | secrets/keys, data-write paths, deploy/CI config, new dependencies | Full checklist; second experienced reviewer |
+| Green | docs, copy, styling, `dev/` prototypes | CI + bot; one quick human OK |
+| Yellow | ETL pipelines, API endpoints, business logic | Checklist review; one approval; adversarial tests encouraged |
+| Red | secrets/keys, data-write paths, deploy/CI config, new dependencies | Checklist + second reviewer + red-team pass |
 
-Green protects the prototype-first culture in `CONTRIBUTING.md` — experiments stay fast. Red is
-deliberately narrow: this project has no auth, payments, or PII yet, so the genuinely sensitive
-surface is small (the Google API key, the deploy pipeline, the data-integrity path, dependencies).
+Red is deliberately narrow — no auth, payments, or PII exist yet, so the sensitive surface is
+small (the Google API key, the deploy pipeline, data integrity, dependencies).
 
-## Review checklist for agent-written code
+## The educational output contract
 
-1. **Intent** — the diff implements the ticket's real requirement, not just the literal prompt.
+Applies to **every** reviewer — bot, panel, and human alike:
+
+- **Never send a human to do a linter's job.** Formatting and style are auto-fixed in CI and
+  never appear as review comments. Whole categories of nagging are deleted by automation.
+- **At most 3–5 findings per review**, ranked by what is most worth learning. Depth of analysis
+  is unlimited; demand on the reader is capped.
+- **Every finding teaches**: what → *why*, naming the principle or pattern involved → a concrete
+  better shape (a suggested diff when mechanical) → a link to the project's own reference
+  (`docs/design-patterns.md`, an ADR, `etl/README.md`). The named principle is the educational
+  payload — it transfers beyond this PR.
+- **Questions over commands** ("what happens if the source returns zero records?"), and **one
+  praise note that teaches** ("clean Repository usage — storage can now change freely").
+- **Progressive disclosure**: one-line verdict, then the taught findings, everything else in a
+  collapsed appendix.
+- **The learning loop**: a finding that recurs across PRs becomes a one-line addition to
+  `AGENTS.md` or the docs, so future agents and humans get it upstream and the lesson never
+  needs re-teaching. This is how the process reduces its own future workload.
+
+## Deep review: the multi-lens panel
+
+For significant changes, a panel of narrow reviewers — each reading the full change **plus the
+project's own ground truth** (ADRs, `docs/architecture.md`, `docs/design-patterns.md`, the DTO
+vocabulary) — so the review is against *our* architecture, not generic taste:
+
+1. **Architecture & design** — coupling, dependency direction, boundaries, SOLID; does it fit
+   the documented Querier → Normalizer → Ingester shape or silently fork it; ADR compliance.
+2. **Refactoring** — code smells (duplication, long methods, feature envy, primitive obsession,
+   dead code) and simplification. For each significant finding it must propose **2–3 alternative
+   shapes with tradeoffs** — multi-option thinking is required output, not just criticism.
+3. **Domain fit** — does the code's model match the product's (the Activity/ItemCategory
+   taxonomy, givers-first priority, the documented anti-goals)?
+4. **Evolution** — how does the change age? Open where change is coming (new data sources),
+   closed where it isn't.
+5. **Maintainability for this team** — can a rotating volunteer of average skill understand and
+   modify it? Cognitive load, explicitness, docs.
+6. **Testability & test honesty** — would the tests fail if the logic were wrong; what's untested.
+7. **Security & data integrity** — on the Red surface.
+
+Then two stages that make the aggregate exceed any individual reviewer:
+
+- **Adversarial verification** — skeptic passes (on a different model than the author's agent
+  where possible) try to *refute* each finding before it is shown to anyone. Plausible-but-wrong
+  critiques die here; this is the noise filter that keeps the panel from becoming spam.
+- **Synthesis judge** — dedupes, ranks by learning value and impact, and writes **one** coherent
+  review under the educational output contract. Seven lenses in; 3–5 taught findings out.
+
+**Triggers:** changes touching architecture, new abstractions or dependencies, the ETL/merge
+core, anything Red — or on demand by author or reviewer.
+
+**Implementation (free):** a prompt recipe in the repo (`docs/review-recipes/deep-review.md`)
+that any contributor runs in the AI agent they already use. No infrastructure, no shared API key,
+no spend beyond what contributors already have. If the team later wants it automatic, a GitHub
+Action can run the same recipe on a `deep-review` label — adopt only if someone volunteers to
+own the API key and budget.
+
+## Adversarial roles
+
+Three adversarial mechanisms, all free, adopted together for aggregate benefit:
+
+- **Adversarial test generation (Yellow/Red):** an agent whose only job is to *falsify* the PR —
+  write edge-case and failure-path tests that try to break it. It attacks the worst agent-code
+  failure mode (tests that prove nothing) and produces a concrete artifact — a failing test — that
+  a volunteer can evaluate in seconds. Recipe: `docs/review-recipes/falsify.md`.
+- **Red-team hunter (Red only):** an agent prompted purely to break the change — exploit it,
+  corrupt the data path, find the missed edge — scoped to the narrow Red surface.
+  Recipe: `docs/review-recipes/red-team.md`.
+- **The pre-mortem line (all human reviews):** before approving, the reviewer writes one
+  sentence: *"the most likely way this fails in production is ___."* Zero cost; forces
+  adversarial thinking as a habit.
+
+(A full advocate/refuter/judge debate is reserved for ADR-level decisions, where it is already
+our practice — it is too heavy for routine diffs.)
+
+## Review checklist (Layer 3)
+
+1. **Intent** — the diff implements the ticket's real requirement, not the literal prompt.
 2. **Real APIs** — every imported module/function exists in the pinned version.
-3. **Dependencies** — new packages use the correct registry name, are maintained, licensed OK.
+3. **Dependencies** — correct registry names, maintained, licensed OK.
 4. **No secrets** — no keys/tokens in code, tests, logs, or fixtures.
 5. **Validation & boundaries** — external input validated; SQL/output parameterized/escaped.
-6. **Tests exercise behavior** — failure paths and edge cases, not just the happy path; the tests
-   would fail if the logic were wrong.
+6. **Tests exercise behavior** — failure paths and edge cases; the tests would fail if the logic
+   were wrong.
 7. **No weakened gates** — the PR doesn't skip tests, loosen lint, or bypass hooks.
-8. **Architecture fit** — respects the module boundaries and patterns already in the codebase
-   (e.g. the ETL Querier → Normalizer → Ingester shape).
-9. **Right-sized** — no needless abstraction for this project's scale.
+8. **Architecture fit** — respects documented boundaries and patterns.
+9. **Simpler alternative?** — is there a materially simpler shape? For Yellow/Red PRs the author's
+   description states what alternatives were considered and why this shape won.
 10. **Understood** — the author can explain what it does and why.
+11. **Pre-mortem** — reviewer states the most likely production failure in one sentence.
 
-## Supporting artifacts (created if adopted)
+## Supporting artifacts (created if adopted — all free)
 
-- **CI workflow** (`.github/workflows/ci.yml`) — lint/type/test/secret-scan on every PR, required
-  to pass before merge (branch protection on `main`).
-- **PR template** (`.github/pull_request_template.md`) — issue link, AI-use disclosure, checklist
-  checkbox.
-- **`AGENTS.md`** at the repo root — project conventions for coding agents (stack, patterns,
-  "don't" rules, where things live). Better agent input means less to catch in review.
-- A short **review section in `CONTRIBUTING.md`** pointing at the lanes and checklist.
+- **CI workflow** (`.github/workflows/ci.yml`) — auto-format, `ruff` + `pytest` (etl), `eslint` +
+  `tsc` (client/server), secret scan; required before merge (branch protection on `main`).
+- **PR template** (`.github/pull_request_template.md`) — issue link, AI-use disclosure,
+  alternatives-considered (Yellow/Red), checklist checkbox.
+- **`AGENTS.md`** at the repo root — project conventions for coding agents, seeded from the
+  docs; the learning loop's destination.
+- **Review recipes** (`docs/review-recipes/`) — `deep-review.md`, `falsify.md`, `red-team.md`.
+- **Advisory bot** — CodeRabbit (free for public repos) or GitHub Copilot review if members
+  already have it. Advisory only; never the approver.
+- A short review section in `CONTRIBUTING.md` pointing at lanes, contract, and checklist.
 
 ## Guardrails
 
-- The AI reviewer is a supplement, **never the approver** — a human owns every merge decision.
-- Humans check **intent**, because AI review shares blind spots with AI generation.
-- Keep it light: one off-the-shelf bot + a CI gate + a checklist. No custom review orchestration.
-- Break-glass merges (skipping review for a genuine hotfix) should be rare and visible.
+- No reviewer — bot or panel — approves or merges. **A human owns every merge decision**, and
+  humans own intent, because AI review shares blind spots with AI generation.
+- The output contract binds everyone; a deep panel that dumps twenty findings has failed
+  regardless of how smart the findings are.
+- Break-glass merges (skipping review for a genuine hotfix) are rare and visible.
+- Revisit at a Hack Night after a month: are Green PRs flowing fast, are repeat findings
+  declining, is anything pure ceremony?
 
-## Proposed rollout order
+## Rollout order
 
-1. CI pre-screen (biggest single win — `main` currently deploys with zero automated checks).
-2. CodeRabbit on the repo (free, minutes to install).
+1. CI pre-screen with auto-formatting (biggest win; `main` currently deploys with zero checks).
+2. Advisory bot install (minutes; free).
 3. PR template + `AGENTS.md`.
-4. Risk lanes + checklist recorded in `CONTRIBUTING.md`.
-5. Revisit after a month at a Hack Night: are Green PRs flowing fast, is human time going to
-   Yellow/Red, is anything just ceremony?
+4. Review recipes (deep-review, falsify, red-team) + lanes and checklist into `CONTRIBUTING.md`.
+5. One-month retrospective against the education metric (repeat findings declining?).
 
 ## Open questions for the team
 
-- Do we have enough active reviewers to require one human approval on Yellow/Red without
-  stalling PRs — or should we set a "best effort within 48h" norm instead of a hard gate?
-- Is the AI-use disclosure acceptable friction for volunteers?
-- Who administers branch protection and the CodeRabbit install (needs repo admin)?
+- Enough active reviewers to hard-require one approval on Yellow/Red — or a
+  "best effort within 48h" norm instead?
+- Is the AI-use disclosure + alternatives-considered acceptable friction for volunteers?
+- Who administers branch protection and the bot install (needs repo admin)?
+- Where should deep-review runs be shared — as a PR comment, or a thread in #Circular-Economy?

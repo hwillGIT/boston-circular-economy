@@ -27,4 +27,4 @@ then promote (see `CONTRIBUTING.md`).
 
 | Proposal | Status | Summary |
 |----------|--------|---------|
-| [code-review-process.md](code-review-process.md) | Proposed | A review process for pull requests, focused on AI-agent-written code: CI pre-screen, an advisory AI reviewer, risk-lane human review, and an agent-code checklist. |
+| [code-review-process.md](code-review-process.md) | Proposed | A review process for AI-agent-written code with two goals: aggregate review quality beyond any single developer (multi-lens deep review + adversarial verification), delivered under an educational output contract (few taught findings, no nits, a learning loop into the docs). Free tooling only. |
