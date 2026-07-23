@@ -69,6 +69,16 @@ Applies to **every** reviewer — bot, panel, and human alike:
   better shape (a suggested diff when mechanical) → a link to the project's own reference
   (`docs/design-patterns.md`, an ADR, `etl/README.md`). The named principle is the educational
   payload — it transfers beyond this PR.
+- **Teach the why-not, not just the why.** Where an obvious or popular alternative exists, the
+  finding names it and explains why it isn't taken here ("you might expect a class hierarchy —
+  popular because X — but we use injected strategies because our matchers must swap and be
+  tested independently"). This is the ADR "considered options" habit at code scale, and it
+  answers the "why didn't you just…?" question before anyone has to ask it.
+- **Grounded in named sources, honestly.** Findings cite the principle *and* where it comes
+  from — our own docs first (`design-patterns.md`, an ADR), the canon second (e.g. "Fowler,
+  *Refactoring* — Feature Envy"). Where authorities disagree (they often do), the review says
+  so rather than presenting contested advice as settled law; our stance file
+  (`docs/engineering-stances.md`, proposed) records which side this team takes and why.
 - **Questions over commands** ("what happens if the source returns zero records?"), and **one
   praise note that teaches** ("clean Repository usage — storage can now change freely").
 - **Progressive disclosure**: one-line verdict, then the taught findings, everything else in a
