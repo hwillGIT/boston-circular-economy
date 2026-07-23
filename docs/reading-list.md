@@ -18,20 +18,23 @@ depth.
 
 ## The list
 
+Links go to the BPL catalog search (stable) and the O'Reilly platform search (sign in with your
+BPL card via the resource page, or your own subscription).
+
 | Book | Backs (in our process) | Access | Notes |
 |------|------------------------|--------|-------|
-| Ousterhout, *A Philosophy of Software Design* (2nd ed.) | Architecture & maintainability lenses; "right-sized" check | Buy / team shelf; his Google talks are free on YouTube | The modern core design text; deep modules, complexity |
-| Gamma et al., *Design Patterns* (GoF) | `design-patterns.md` vocabulary; architecture lens | BPL O'Reilly | Read as vocabulary; examples are dated — pair with refactoring.guru (free) |
-| Fowler, *Refactoring* (2nd ed.) | Refactoring lens — the smell catalog our reviews cite | BPL O'Reilly; catalog summaries free at martinfowler.com | 2nd-ed. examples are **JavaScript** — matches our client/server |
-| McConnell, *Code Complete 2* | Construction fundamentals; checklist items 5–9 | BPL O'Reilly | Encyclopedic; dip in by chapter |
-| Feathers, *Working Effectively with Legacy Code* | Testability lens; seams & characterization tests | BPL O'Reilly | Best when we start refactoring inherited pipeline code |
-| Kleppmann, *Designing Data-Intensive Applications* | ETL/merge/dedup work; data-integrity lens | BPL O'Reilly | The single most relevant book to our data layer |
-| Khorikov, *Unit Testing: Principles, Practices, and Patterns* | Test-honesty lens; falsify recipe | BPL O'Reilly (Manning) | Literally the "tests that prove something" material |
-| Hermans, *The Programmer's Brain* | The educational output contract itself | BPL O'Reilly (Manning) | The cognitive-load science behind "educate, don't overload" |
-| Khononov, *Learning Domain-Driven Design* | Domain-fit lens; our Normalizer-as-translator boundary | BPL O'Reilly | Accessible DDD entry; Evans' original for the ambitious |
-| Boswell & Foucher, *The Art of Readable Code* | Naming/clarity guidance | BPL O'Reilly | Recommended over *Clean Code* for the same goal |
-| Martin, *Clean Code* | Historical context | BPL O'Reilly | **Contested** — its tiny-functions dogma conflicts with Ousterhout; see the stances file for our position |
-| Winters et al., *Software Engineering at Google* | Review-as-education culture; learning loop | **Free online** (abseil.io/resources/swe-book) | The review-culture chapters are the best anywhere |
+| Ousterhout, *A Philosophy of Software Design* (2nd ed.) | Architecture & maintainability lenses; "right-sized" check | [BPL](https://bpl.bibliocommons.com/v2/search?query=philosophy%20of%20software%20design%20ousterhout&searchType=smart) / team shelf; his Google talk is free on YouTube | The modern core design text; self-published, so not on O'Reilly |
+| Gamma et al., *Design Patterns* (GoF) | `design-patterns.md` vocabulary; architecture lens | [BPL](https://bpl.bibliocommons.com/v2/search?query=design%20patterns%20gamma%20reusable%20object-oriented&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=design%20patterns%20gamma) | Read as vocabulary; examples are dated — pair with refactoring.guru (free) |
+| Fowler, *Refactoring* (2nd ed.) | Refactoring lens — the smell catalog our reviews cite | [BPL](https://bpl.bibliocommons.com/v2/search?query=refactoring%20fowler&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=refactoring%20fowler) · free catalog at martinfowler.com | 2nd-ed. examples are **JavaScript** — matches our client/server |
+| McConnell, *Code Complete 2* | Construction fundamentals; checklist items 5–9 | [BPL](https://bpl.bibliocommons.com/v2/search?query=code%20complete%20mcconnell&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=code%20complete%20mcconnell) | Encyclopedic; dip in by chapter |
+| Feathers, *Working Effectively with Legacy Code* | Testability lens; seams & characterization tests | [BPL](https://bpl.bibliocommons.com/v2/search?query=working%20effectively%20with%20legacy%20code%20feathers&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=working%20effectively%20with%20legacy%20code) | Best when we start refactoring inherited pipeline code |
+| Kleppmann, *Designing Data-Intensive Applications* | ETL/merge/dedup work; data-integrity lens | [BPL](https://bpl.bibliocommons.com/v2/search?query=designing%20data-intensive%20applications%20kleppmann&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=designing%20data-intensive%20applications) | The single most relevant book to our data layer |
+| Khorikov, *Unit Testing: Principles, Practices, and Patterns* | Test-honesty lens; falsify recipe | [BPL](https://bpl.bibliocommons.com/v2/search?query=unit%20testing%20principles%20practices%20patterns%20khorikov&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=unit%20testing%20khorikov) | Literally the "tests that prove something" material |
+| Hermans, *The Programmer's Brain* | The educational output contract itself | [BPL](https://bpl.bibliocommons.com/v2/search?query=programmer%27s%20brain%20hermans&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=programmer%27s%20brain%20hermans) | The cognitive-load science behind "educate, don't overload" |
+| Khononov, *Learning Domain-Driven Design* | Domain-fit lens; our Normalizer-as-translator boundary | [BPL](https://bpl.bibliocommons.com/v2/search?query=learning%20domain-driven%20design%20khononov&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=learning%20domain-driven%20design%20khononov) | Accessible DDD entry; Evans' original for the ambitious |
+| Boswell & Foucher, *The Art of Readable Code* | Naming/clarity guidance | [BPL](https://bpl.bibliocommons.com/v2/search?query=art%20of%20readable%20code%20boswell&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=art%20of%20readable%20code) | Recommended over *Clean Code* for the same goal |
+| Martin, *Clean Code* | Historical context | [BPL](https://bpl.bibliocommons.com/v2/search?query=clean%20code%20martin%20handbook&searchType=smart) · [O'Reilly](https://learning.oreilly.com/search/?q=clean%20code%20martin) | **Contested** — its tiny-functions dogma conflicts with Ousterhout; see the stances file for our position |
+| Winters et al., *Software Engineering at Google* | Review-as-education culture; learning loop | **[Free online](https://abseil.io/resources/swe-book)** · [O'Reilly](https://learning.oreilly.com/search/?q=software%20engineering%20at%20google) | The review-culture chapters are the best anywhere |
 
 Also free and citable in reviews: refactoring.guru (patterns + smells), martinfowler.com
 (catalogs & bliki), Google's eng-practices review guide (github.com/google/eng-practices).
