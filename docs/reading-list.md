@@ -51,6 +51,6 @@ Also free and citable in reviews: refactoring.guru (patterns + smells), martinfo
 - Findings cite **our docs first** (`design-patterns.md`, ADRs), then the canon — book +
   chapter/concept, with a "Further reading" line pointing here.
 - Where authorities conflict (they do), the review says so; the team's side lives in
-  `docs/engineering-stances.md` (proposed), not in any single book.
+  [`docs/engineering-stances.md`](engineering-stances.md), not in any single book.
 - If a book keeps illuminating the same recurring finding, that's the learning loop's cue: add a
   one-line rule to `AGENTS.md` citing it, so the lesson moves upstream.

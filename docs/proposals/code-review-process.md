@@ -80,7 +80,7 @@ Applies to **every** reviewer — bot, panel, and human alike:
   [`docs/reading-list.md`](../reading-list.md), where every title is available via the team
   shelf or free through the Boston Public Library's O'Reilly access. Where authorities disagree
   (they often do), the review says so rather than presenting contested advice as settled law;
-  our stance file (`docs/engineering-stances.md`, proposed) records which side this team takes
+  [`docs/engineering-stances.md`](../engineering-stances.md) records which side this team takes
   and why.
 - **Questions over commands** ("what happens if the source returns zero records?"), and **one
   praise note that teaches** ("clean Repository usage — storage can now change freely").
@@ -169,7 +169,10 @@ our practice — it is too heavy for routine diffs.)
   alternatives-considered (Yellow/Red), checklist checkbox.
 - **`AGENTS.md`** at the repo root — project conventions for coding agents, seeded from the
   docs; the learning loop's destination.
-- **Review recipes** (`docs/review-recipes/`) — `deep-review.md`, `falsify.md`, `red-team.md`.
+- **Review recipes** (`docs/review-recipes/`) — **drafted and ready to trial**:
+  [`quick-review.md`](../review-recipes/quick-review.md) (the standard advisory pass),
+  [`deep-review.md`](../review-recipes/deep-review.md) (the multi-lens panel),
+  [`falsify.md`](../review-recipes/falsify.md), [`red-team.md`](../review-recipes/red-team.md).
 - **Advisory reviewer** — our own `quick-review.md` recipe (see
   [home-grown-reviewer.md](home-grown-reviewer.md)), which absorbs the strong features of
   commercial bots while obeying the output contract. CodeRabbit (free for public repos) may run
