@@ -76,9 +76,12 @@ Applies to **every** reviewer — bot, panel, and human alike:
   answers the "why didn't you just…?" question before anyone has to ask it.
 - **Grounded in named sources, honestly.** Findings cite the principle *and* where it comes
   from — our own docs first (`design-patterns.md`, an ADR), the canon second (e.g. "Fowler,
-  *Refactoring* — Feature Envy"). Where authorities disagree (they often do), the review says
-  so rather than presenting contested advice as settled law; our stance file
-  (`docs/engineering-stances.md`, proposed) records which side this team takes and why.
+  *Refactoring* — Feature Envy") with a "Further reading" pointer into
+  [`docs/reading-list.md`](../reading-list.md), where every title is available via the team
+  shelf or free through the Boston Public Library's O'Reilly access. Where authorities disagree
+  (they often do), the review says so rather than presenting contested advice as settled law;
+  our stance file (`docs/engineering-stances.md`, proposed) records which side this team takes
+  and why.
 - **Questions over commands** ("what happens if the source returns zero records?"), and **one
   praise note that teaches** ("clean Repository usage — storage can now change freely").
 - **Progressive disclosure**: one-line verdict, then the taught findings, everything else in a
