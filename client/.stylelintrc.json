@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "declaration-property-value-no-unknown": true,
+    "custom-property-no-missing-var-function": true,
+    "color-no-invalid-hex": true,
+    "font-family-no-duplicate-names": true,
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "order/properties-alphabetical-order": true
+  }
+}

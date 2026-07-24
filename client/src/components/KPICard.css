@@ -1,0 +1,219 @@
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.kpi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4, 20px);
+  background: var(--color-surface, #ffffff);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-left: 4px solid var(--kpi-accent);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.1));
+  font-family: var(--font-family);
+  transition: transform var(--transition-base, 0.2s) ease, box-shadow var(--transition-base, 0.2s) ease;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--kpi-accent) 15%, transparent), transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition-base, 0.2s) ease;
+  pointer-events: none;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+}
+
+.kpi-card:hover::before {
+  opacity: 1;
+}
+
+.kpi-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2, 8px);
+}
+
+.kpi-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kpi-card-label {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--color-text-secondary, #5f6368);
+  letter-spacing: 0.05em;
+}
+
+/* ── Info Button ── */
+.kpi-info-wrapper {
+  position: relative;
+}
+
+.kpi-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary, #5f6368);
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.15s, color 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+
+.kpi-info-btn:hover {
+  background: var(--color-surface-hover, #f0f0f0);
+  color: var(--kpi-accent);
+}
+
+/* ── Tooltip Popover ── */
+.kpi-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: -8px;
+  z-index: 100;
+  width: 260px;
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--color-primary, #091F2F);
+  color: #fff;
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: tooltip-in 0.2s ease-out;
+}
+
+.kpi-tooltip-arrow {
+  position: absolute;
+  top: -6px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary, #091F2F);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+.kpi-tooltip-text {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-tooltip {
+    position: fixed;
+    top: auto;
+    right: var(--space-4, 16px);
+    left: var(--space-4, 16px);
+    bottom: var(--space-6, 24px);
+    width: auto;
+  }
+
+  .kpi-tooltip-arrow {
+    display: none;
+  }
+}
+
+.kpi-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--color-surface-hover, #f8f9fa);
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+.kpi-card-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1, 4px);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.kpi-card-value {
+  font-size: var(--text-3xl, 2rem);
+  font-weight: 700;
+  color: var(--text-primary, #202124);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* Fallback integer animation */
+.kpi-card-value.animate {
+  animation: counter 1.5s ease-out forwards;
+}
+
+@keyframes counter {
+  from { --num: 0; }
+  to { --num: var(--target-num); }
+}
+
+@supports (counter-increment: count var(--num)) {
+  .kpi-card-value.animate::after {
+    /* If we fully rely on CSS counters, we'd replace the text.
+       Since formatNumber is used in React, we'll just keep the React rendering
+       and not use ::after trick to avoid layout shift complexities. */
+  }
+}
+
+.kpi-card-unit {
+  font-size: var(--text-base, 1rem);
+  font-weight: 500;
+  color: var(--color-text-secondary, #5f6368);
+}
+
+.kpi-card-trend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 500;
+}
+
+.kpi-card-trend.is-up {
+  color: var(--color-green, #34a853);
+}
+
+.kpi-card-trend.is-down {
+  color: var(--color-error, #ea4335);
+}
+
+.kpi-card-trend-text {
+  color: var(--color-text-secondary, #5f6368);
+  font-weight: 400;
+}

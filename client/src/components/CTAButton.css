@@ -1,0 +1,136 @@
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  position: relative;
+  text-decoration: none;
+}
+
+.cta-button:focus-visible {
+  outline: 2px solid var(--color-primary, #091F2F);
+  outline-offset: 2px;
+}
+
+/* Sizes */
+.cta-button--sm {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12px;
+}
+
+.cta-button--md {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 14px;
+}
+
+.cta-button--lg {
+  height: 56px;
+  padding: 0 32px;
+  font-size: 16px;
+}
+
+/* Variants */
+.cta-button--primary {
+  background-color: var(--color-cta, #FF7B00);
+  color: var(--text-inverse);
+  box-shadow: 0 2px 4px rgba(255, 123, 0, 0.2);
+}
+
+.cta-button--primary:hover:not(.cta-button--disabled):not(.cta-button--loading) {
+  background-color: var(--color-cta-hover, #E66A00);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 123, 0, 0.3);
+}
+
+.cta-button--primary:active:not(.cta-button--disabled):not(.cta-button--loading) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 123, 0, 0.2);
+}
+
+.cta-button--secondary {
+  background-color: var(--color-primary, #091F2F);
+  color: var(--text-inverse);
+}
+
+.cta-button--secondary:hover:not(.cta-button--disabled):not(.cta-button--loading) {
+  background-color: var(--color-primary-light, #153247);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(9, 31, 47, 0.2);
+}
+
+.cta-button--outline {
+  background-color: transparent;
+  color: var(--text-primary, #333333);
+  border: 2px solid var(--color-border, #E0E0E0);
+}
+
+.cta-button--outline:hover:not(.cta-button--disabled):not(.cta-button--loading) {
+  border-color: var(--color-primary, #091F2F);
+  color: var(--color-primary, #091F2F);
+  transform: translateY(-2px);
+}
+
+/* Icon (built-in CSS arrow for primary) */
+.cta-button--with-icon .cta-button-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cta-button--with-icon .cta-button-label::after {
+  content: '→';
+  margin-left: 8px;
+  font-size: 1.2em;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.cta-button--with-icon:hover:not(.cta-button--disabled):not(.cta-button--loading) .cta-button-label::after {
+  transform: translateX(4px);
+}
+
+/* States */
+.cta-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cta-button--loading {
+  cursor: wait;
+}
+
+.cta-button-label {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Spinner */
+.cta-button-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: spin 1s linear infinite;
+}
+
+.cta-button--outline .cta-button-spinner {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: currentColor;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

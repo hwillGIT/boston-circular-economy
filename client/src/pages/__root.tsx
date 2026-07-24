@@ -1,13 +1,18 @@
-import { createRootRoute, Outlet, Link } from '@tanstack/react-router'
+import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { AuthProvider } from '../lib/auth'
+import AppHeader from '../components/AppHeader'
 
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/dev">Prototypes</Link>
-      </nav>
-      <Outlet />
-    </>
-  ),
+  component: RootLayout,
 })
+
+function RootLayout() {
+  return (
+    <AuthProvider>
+      <div className="app-shell">
+        <AppHeader />
+        <Outlet />
+      </div>
+    </AuthProvider>
+  )
+}

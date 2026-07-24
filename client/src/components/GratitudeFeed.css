@@ -1,0 +1,112 @@
+.gratitude-feed-container {
+  background: var(--bg-warm);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.gratitude-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.gratitude-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.gratitude-btn {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-accent);
+  transition: all var(--transition-fast);
+}
+
+.gratitude-btn:hover {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.gratitude-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  background: var(--bg-card);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.gratitude-input {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+}
+
+.gratitude-input:focus-visible {
+  outline: 2px solid var(--color-link);
+  border-color: var(--color-link);
+}
+
+.gratitude-submit-btn {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.gratitude-submit-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+.gratitude-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.gratitude-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: var(--bg-card);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.gratitude-emoji {
+  font-size: var(--text-xl);
+}
+
+.gratitude-text {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.gratitude-time {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}

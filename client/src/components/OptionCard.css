@@ -1,0 +1,141 @@
+.option-card {
+  --badge-recommended-bg: var(--color-green-light, #e6f4ea);
+  --badge-recommended-text: var(--color-green-dark, #137333);
+  --badge-fastest-bg: var(--color-blue, #e8f0fe);
+  --badge-fastest-text: var(--color-blue, #1967d2);
+  --badge-sustainable-bg: var(--color-teal-light, #e0f2f1);
+  --badge-sustainable-text: var(--color-teal, #00796b);
+  --badge-swap-bg: var(--color-purple-light, #f3e5f5);
+  --badge-swap-text: var(--color-purple, #6a1b9a);
+  --badge-free-bg: var(--warning-bg, #fef7e0);
+  --badge-free-text: var(--warning-text, #b06000);
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+  width: 100%;
+  padding: var(--space-4, 16px);
+  background: var(--color-surface, rgba(255, 255, 255, 0.8));
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s) ease;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.1));
+  font-family: var(--font-family);
+  
+  /* Staggered entrance animation */
+  animation: slideUpFadeIn 0.4s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.05s);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes slideUpFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+  border-color: var(--border-color, #bdbdbd);
+}
+
+.option-card.is-selected {
+  border-color: var(--color-green, #34a853);
+  background: var(--color-green-light, #f1f8f3);
+  box-shadow: 0 0 0 1px var(--color-green, #34a853);
+}
+
+.option-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3, 12px);
+}
+
+.option-card-title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 700;
+  color: var(--text-primary, #202124);
+  line-height: 1.3;
+}
+
+.option-card-badge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill, 9999px);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.option-card-badge--recommended { background: var(--badge-recommended-bg); color: var(--badge-recommended-text); }
+.option-card-badge--fastest { background: var(--badge-fastest-bg); color: var(--badge-fastest-text); }
+.option-card-badge--sustainable { background: var(--badge-sustainable-bg); color: var(--badge-sustainable-text); }
+.option-card-badge--swap { background: var(--badge-swap-bg); color: var(--badge-swap-text); }
+.option-card-badge--free { background: var(--badge-free-bg); color: var(--badge-free-text); }
+
+.option-card-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-3, 12px);
+}
+
+.option-metric {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+}
+
+.option-metric-icon {
+  font-size: var(--text-xl, 1.25rem);
+}
+
+.option-metric-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-metric-label {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #5f6368);
+  font-weight: 500;
+}
+
+.option-metric-value {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--text-primary, #202124);
+}
+
+.option-metric-value.is-free { color: var(--color-green-dark, #137333); }
+.option-metric-value.positive { color: var(--color-green-dark, #137333); }
+.option-metric-value.highlight { color: var(--color-primary, #091F2F); }
+
+.option-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-3, 12px);
+  border-top: 1px solid var(--border-light, #f1f3f4);
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.option-social-proof {
+  color: var(--color-text-secondary, #5f6368);
+}
+
+.option-vetted {
+  color: var(--color-green, #34a853);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

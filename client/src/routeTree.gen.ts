@@ -10,18 +10,53 @@
 
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as IndexRouteImport } from './pages/index'
+import { Route as ChallengesRouteImport } from './pages/challenges'
+import { Route as DashboardRouteImport } from './pages/dashboard'
+import { Route as EventsRouteImport } from './pages/events'
+import { Route as ExploreRouteImport } from './pages/explore'
+import { Route as LoginRouteImport } from './pages/login'
 import { Route as DevIndexRouteImport } from './pages/dev/index'
-import { Route as DevPrototypeFolderExampleIndexRouteImport } from './pages/dev/prototype-folder-example/index'
 import { Route as DevFuzzySearchIndexRouteImport } from './pages/dev/fuzzy-search/index'
+import { Route as DevPrototypeFolderExampleIndexRouteImport } from './pages/dev/prototype-folder-example/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChallengesRoute = ChallengesRouteImport.update({
+  id: '/challenges',
+  path: '/challenges',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevIndexRoute = DevIndexRouteImport.update({
   id: '/dev/',
   path: '/dev/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevFuzzySearchIndexRoute = DevFuzzySearchIndexRouteImport.update({
+  id: '/dev/fuzzy-search/',
+  path: '/dev/fuzzy-search/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DevPrototypeFolderExampleIndexRoute =
@@ -30,20 +65,25 @@ const DevPrototypeFolderExampleIndexRoute =
     path: '/dev/prototype-folder-example/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DevFuzzySearchIndexRoute = DevFuzzySearchIndexRouteImport.update({
-  id: '/dev/fuzzy-search/',
-  path: '/dev/fuzzy-search/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
   '/dev/': typeof DevIndexRoute
   '/dev/fuzzy-search/': typeof DevFuzzySearchIndexRoute
   '/dev/prototype-folder-example/': typeof DevPrototypeFolderExampleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
   '/dev': typeof DevIndexRoute
   '/dev/fuzzy-search': typeof DevFuzzySearchIndexRoute
   '/dev/prototype-folder-example': typeof DevPrototypeFolderExampleIndexRoute
@@ -51,6 +91,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
   '/dev/': typeof DevIndexRoute
   '/dev/fuzzy-search/': typeof DevFuzzySearchIndexRoute
   '/dev/prototype-folder-example/': typeof DevPrototypeFolderExampleIndexRoute
@@ -59,14 +104,33 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/challenges'
+    | '/dashboard'
+    | '/events'
+    | '/explore'
+    | '/login'
     | '/dev/'
     | '/dev/fuzzy-search/'
     | '/dev/prototype-folder-example/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dev' | '/dev/fuzzy-search' | '/dev/prototype-folder-example'
+  to:
+    | '/'
+    | '/challenges'
+    | '/dashboard'
+    | '/events'
+    | '/explore'
+    | '/login'
+    | '/dev'
+    | '/dev/fuzzy-search'
+    | '/dev/prototype-folder-example'
   id:
     | '__root__'
     | '/'
+    | '/challenges'
+    | '/dashboard'
+    | '/events'
+    | '/explore'
+    | '/login'
     | '/dev/'
     | '/dev/fuzzy-search/'
     | '/dev/prototype-folder-example/'
@@ -74,6 +138,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChallengesRoute: typeof ChallengesRoute
+  DashboardRoute: typeof DashboardRoute
+  EventsRoute: typeof EventsRoute
+  ExploreRoute: typeof ExploreRoute
+  LoginRoute: typeof LoginRoute
   DevIndexRoute: typeof DevIndexRoute
   DevFuzzySearchIndexRoute: typeof DevFuzzySearchIndexRoute
   DevPrototypeFolderExampleIndexRoute: typeof DevPrototypeFolderExampleIndexRoute
@@ -88,18 +157,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/challenges': {
+      id: '/challenges'
+      path: '/challenges'
+      fullPath: '/challenges'
+      preLoaderRoute: typeof ChallengesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dev/': {
       id: '/dev/'
       path: '/dev'
       fullPath: '/dev/'
       preLoaderRoute: typeof DevIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dev/prototype-folder-example/': {
-      id: '/dev/prototype-folder-example/'
-      path: '/dev/prototype-folder-example'
-      fullPath: '/dev/prototype-folder-example/'
-      preLoaderRoute: typeof DevPrototypeFolderExampleIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dev/fuzzy-search/': {
@@ -109,11 +206,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DevFuzzySearchIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dev/prototype-folder-example/': {
+      id: '/dev/prototype-folder-example/'
+      path: '/dev/prototype-folder-example'
+      fullPath: '/dev/prototype-folder-example/'
+      preLoaderRoute: typeof DevPrototypeFolderExampleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChallengesRoute: ChallengesRoute,
+  DashboardRoute: DashboardRoute,
+  EventsRoute: EventsRoute,
+  ExploreRoute: ExploreRoute,
+  LoginRoute: LoginRoute,
   DevIndexRoute: DevIndexRoute,
   DevFuzzySearchIndexRoute: DevFuzzySearchIndexRoute,
   DevPrototypeFolderExampleIndexRoute: DevPrototypeFolderExampleIndexRoute,

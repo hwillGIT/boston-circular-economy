@@ -1,0 +1,393 @@
+/* ── Ultra-low Friction Activity Log Form ── */
+
+.alf-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(9, 31, 47, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 16px;
+  animation: alf-fadeIn 0.2s ease-out;
+}
+
+.alf-modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  overflow: hidden;
+  animation: alf-slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alf-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.alf-close:hover,
+.alf-close:focus-visible {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.alf-body {
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.alf-step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.alf-step.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  gap: 0;
+}
+
+.alf-step label {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Action Chips */
+.alf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.alf-chip {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alf-chip:hover,
+.alf-chip:focus-visible {
+  border-color: var(--color-green);
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+  outline: none;
+}
+
+.alf-chip.active {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--bg-primary);
+}
+
+.alf-chip-check {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Inputs */
+.alf-step input[type="text"] {
+  font-family: var(--font-family);
+  font-size: 16px;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.alf-step input[type="text"]:focus,
+.alf-step input[type="text"]:focus-visible {
+  border-color: var(--color-green);
+  background: var(--bg-primary);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  outline: none;
+}
+
+/* Preview Panel */
+.alf-preview-panel {
+  background: var(--color-green-light);
+  border: 1px solid var(--color-green-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  animation: alf-slideDown 0.3s ease-out;
+}
+
+.alf-preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.alf-preview-item:last-child {
+  margin-bottom: 0;
+}
+
+.alf-preview-item span {
+  color: var(--text-secondary);
+}
+
+.alf-preview-subtext {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-green);
+  margin-top: -6px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+/* Optional Fields */
+.alf-optional-section {
+  border-top: 1px solid var(--bg-hover);
+  padding-top: 16px;
+}
+
+.alf-optional-toggle {
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.alf-optional-toggle:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.alf-optional-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  animation: alf-slideDown 0.2s ease-out;
+}
+
+.alf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alf-field label {
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.alf-field input,
+.alf-field textarea {
+  font-family: var(--font-family);
+  font-size: 15px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.alf-field input:focus,
+.alf-field input:focus-visible,
+.alf-field textarea:focus,
+.alf-field textarea:focus-visible {
+  border-color: var(--color-green);
+  outline: none;
+}
+
+.alf-field textarea {
+  resize: vertical;
+}
+
+/* Submit Button */
+.alf-submit-btn {
+  background: var(--color-green);
+  color: var(--bg-primary);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alf-submit-btn:hover:not(:disabled),
+.alf-submit-btn:focus-visible:not(:disabled) {
+  background: var(--color-green-dark);
+  outline: none;
+}
+
+.alf-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.alf-submit-btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.alf-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--bg-primary);
+  animation: alf-spin 1s ease-in-out infinite;
+}
+
+/* Error */
+.alf-error {
+  background: #FEF2F2;
+  color: var(--color-error);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 14px;
+  border: 1px solid #FECACA;
+}
+
+/* Success State */
+.alf-success {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  animation: alf-fadeIn 0.3s ease-out;
+}
+
+.alf-success-icon {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 20px;
+  animation: alf-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alf-success h3 {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+
+.alf-success p {
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.alf-success strong {
+  color: var(--color-green);
+}
+
+/* Animations */
+@keyframes alf-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes alf-slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes alf-slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes alf-bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes alf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .alf-modal {
+    border-radius: 16px 16px 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+    align-self: flex-end;
+  }
+  .alf-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+}
