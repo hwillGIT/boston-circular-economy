@@ -2,6 +2,17 @@
 
 Data pipeline for collecting, normalizing, and storing circular economy locations.
 
+## Domain context
+
+This pipeline operates on **source-scoped records**, not canonical domain entities:
+
+- A `RawLocation` is an observation from one external source at a point in time. It is not a domain Location.
+- A `NormalizedLocation` is a `RawLocation` mapped to the shared schema. It still belongs to one source. It is not a canonical domain Location.
+- Both `data_source` and `data_source_id` must be preserved through all pipeline stages. Do not discard provenance.
+- The `MergeProcessor` is where cross-source records become candidates for canonical output — that step is not yet implemented.
+
+Do not expose `NormalizedLocation` records directly as if they are verified, curated domain data. See [`docs/architecture/domain-model.md`](../docs/architecture/domain-model.md) for the full model.
+
 ## Pipeline
 
 ```mermaid
