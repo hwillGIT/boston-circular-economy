@@ -247,7 +247,7 @@ Protecting your API key and managing costs is critical before going to productio
 
 ## 7. Interactive Developer Sandbox Access
 
-Developers can explore the interactive version of this guide by running the bundled web sandbox:
+Developers can explore the interactive version of this guide by running the local dev server:
 
-- **Local Path**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Start**: `pnpm run dev` from the project root
 - **Features**: Interactive map layer toggles, simulated eco-routing, code playground, and security score calculator.

@@ -181,5 +181,5 @@ For municipal waste management, non-profit circular initiatives, or strict data 
 
 The developer web application has been updated with a live **Engine Switcher & Isochrone Simulator**:
 
-- **Web App**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Web App**: `pnpm run dev` from the project root
 - **Features**: Live side-by-side comparison of Google Maps vs Mapbox GL JS vs MapLibre GL JS, Isochrone radius calculator, and dynamic code playground.

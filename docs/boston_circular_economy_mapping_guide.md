@@ -224,5 +224,5 @@ if __name__ == "__main__":
 
 The web sandbox has been updated with real Boston coordinates and presets:
 
-- **Web App**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Web App**: `pnpm run dev` from the project root
 - **Features**: Live Boston map view, Overpass QL tag generator for Boston, and code snippets for `client/`, `server/`, and `etl/`.

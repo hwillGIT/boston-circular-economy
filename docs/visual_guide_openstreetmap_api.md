@@ -182,5 +182,5 @@ For 100% data privacy and offline capability in circular economy projects:
 
 The developer web application has been updated with a dedicated **OpenStreetMap & Overpass API Sandbox**:
 
-- **Web App**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Web App**: `pnpm run dev` from the project root
 - **Features**: Interactive Overpass QL Query Generator, Leaflet.js marker simulator, and Nominatim address search demo.

@@ -105,5 +105,5 @@ When you look at a map on a website, the browser runs a mathematical conversion 
 
 Test all these concepts visually in our interactive developer sandbox:
 
-- **Web App Sandbox**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Web App Sandbox**: `pnpm run dev` from the project root
 - **Features**: Live Tile Grid Inspector, Lat/Lng ➔ Pixel Converter, GeoJSON Visualizer, and Overpass Tag Explorer.

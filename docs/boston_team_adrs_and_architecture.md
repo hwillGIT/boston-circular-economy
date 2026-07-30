@@ -145,5 +145,5 @@ The team built a **Merge Processor** script in `etl/merge_processor.py`!
 
 Test the team's Merge Processor and Dual Pipeline visually:
 
-- **Web App Sandbox**: [index.html](file:///C:/Users/huber/.gemini/antigravity/scratch/google_maps_circular_economy_guide/index.html)
+- **Web App Sandbox**: `pnpm run dev` from the project root
 - **Features**: Visual Merge Processor Simulator, Dual Pipeline Inspector, and Boston Map Viewport.
