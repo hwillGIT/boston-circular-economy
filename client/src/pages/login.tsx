@@ -1,144 +1,47 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState, useMemo } from 'react'
-import { useAuth } from '../lib/auth'
-import './Login.css'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useAuth } from '../lib/auth';
+import { useAuthForm } from '../hooks/useAuthForm';
+import { AuthHeroPanel } from '../components/AuthHeroPanel';
+import '../styles/forms.css';
+import './Login.css';
 
 export const Route = createFileRoute('/login')({
   component: LoginPage,
-})
-
-/* ── Password Strength Calculator ── */
-function getPasswordStrength(pw: string): { level: number; label: string; key: string } {
-  if (!pw) return { level: 0, label: '', key: '' }
-
-  let score = 0
-  if (pw.length >= 8) score++
-  if (pw.length >= 12) score++
-  if (/[A-Z]/.test(pw)) score++
-  if (/[0-9]/.test(pw)) score++
-  if (/[^A-Za-z0-9]/.test(pw)) score++
-
-  if (score <= 1) return { level: 1, label: 'Weak', key: 'weak' }
-  if (score <= 2) return { level: 2, label: 'Fair', key: 'fair' }
-  if (score <= 3) return { level: 3, label: 'Strong', key: 'strong' }
-  return { level: 4, label: 'Excellent', key: 'excellent' }
-}
-
-/* ── Validation ── */
-function validateEmail(email: string): string | null {
-  if (!email) return 'Email is required'
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Enter a valid email address'
-  return null
-}
-
-function validatePassword(pw: string): string | null {
-  if (!pw) return 'Password is required'
-  if (pw.length < 8) return 'Password must be at least 8 characters'
-  return null
-}
+});
 
 function LoginPage() {
-  const navigate = useNavigate()
-  const { signIn, isLoggedIn } = useAuth()
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   // Redirect if already logged in
   if (isLoggedIn) {
-    navigate({ to: '/explore' })
+    navigate({ to: '/explore' });
   }
 
-  const [mode, setMode] = useState<'login' | 'register'>('login')
-  const [displayName, setDisplayName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const strength = useMemo(() => getPasswordStrength(password), [password])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setFieldErrors({})
-
-    // Validate
-    const errors: Record<string, string> = {}
-    const emailErr = validateEmail(email)
-    const pwErr = validatePassword(password)
-
-    if (emailErr) errors.email = emailErr
-    if (pwErr) errors.password = pwErr
-
-    if (mode === 'register') {
-      if (!displayName.trim()) errors.displayName = 'Display name is required'
-      if (password !== confirmPassword) errors.confirmPassword = 'Passwords do not match'
-      if (strength.level < 2) errors.password = 'Password is too weak'
-    }
-
-    if (Object.keys(errors).length > 0) {
-      setFieldErrors(errors)
-      return
-    }
-
-    setIsSubmitting(true)
-
-    try {
-      // TODO: Replace with real API call when backend auth is ready
-      // For now, use the existing mock auth
-      if (mode === 'register') {
-        signIn(displayName, email)
-      } else {
-        signIn(email.split('@')[0] || 'User', email)
-      }
-      navigate({ to: '/explore' })
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Authentication failed. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const switchMode = (newMode: 'login' | 'register') => {
-    setMode(newMode)
-    setError(null)
-    setFieldErrors({})
-    setPassword('')
-    setConfirmPassword('')
-  }
+  const {
+    mode,
+    displayName,
+    setDisplayName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    showPassword,
+    setShowPassword,
+    error,
+    fieldErrors,
+    isSubmitting,
+    strength,
+    handleSubmit,
+    switchMode,
+  } = useAuthForm();
 
   return (
     <div className="auth-page">
       {/* ── Left Hero Panel ── */}
-      <div className="auth-hero">
-        <div className="auth-hero-content">
-          <div className="auth-hero-icon">🌿</div>
-          <h1>
-            Don't toss it.<br />
-            <span className="highlight">Fix it. Share it. Swap it.</span>
-          </h1>
-          <p className="auth-hero-subtitle">
-            Join Boston's circular economy community. Find repair shops,
-            donation centers, and swap events — track your impact and
-            earn credits for keeping stuff out of the landfill.
-          </p>
-          <div className="auth-hero-stats">
-            <div className="auth-hero-stat">
-              <span className="auth-hero-stat-value">12,450</span>
-              <span className="auth-hero-stat-label">lbs diverted</span>
-            </div>
-            <div className="auth-hero-stat">
-              <span className="auth-hero-stat-value">3,100+</span>
-              <span className="auth-hero-stat-label">residents</span>
-            </div>
-            <div className="auth-hero-stat">
-              <span className="auth-hero-stat-value">154</span>
-              <span className="auth-hero-stat-label">locations</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AuthHeroPanel />
 
       {/* ── Right Form Panel ── */}
       <div className="auth-form-panel">
@@ -153,9 +56,9 @@ function LoginPage() {
           </div>
 
           {/* ── Tab Switcher ── */}
-          <div className="auth-tabs" role="tablist">
+          <div className="auth-tabs chip-container" role="tablist">
             <button
-              className={`auth-tab ${mode === 'login' ? 'active' : ''}`}
+              className={`auth-tab chip-toggle ${mode === 'login' ? 'active' : ''}`}
               onClick={() => switchMode('login')}
               role="tab"
               aria-selected={mode === 'login'}
@@ -163,7 +66,7 @@ function LoginPage() {
               Sign In
             </button>
             <button
-              className={`auth-tab ${mode === 'register' ? 'active' : ''}`}
+              className={`auth-tab chip-toggle ${mode === 'register' ? 'active' : ''}`}
               onClick={() => switchMode('register')}
               role="tab"
               aria-selected={mode === 'register'}
@@ -174,7 +77,7 @@ function LoginPage() {
 
           {/* ── Error Banner ── */}
           {error && (
-            <div className="auth-error" role="alert">
+            <div className="auth-error form-error" role="alert">
               <span>⚠️</span> {error}
             </div>
           )}
@@ -189,10 +92,10 @@ function LoginPage() {
                   id="auth-name"
                   type="text"
                   value={displayName}
-                  onChange={e => setDisplayName(e.target.value)}
+                  onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="How neighbors will see you"
                   autoComplete="name"
-                  className={fieldErrors.displayName ? 'error' : ''}
+                  className={`form-input ${fieldErrors.displayName ? 'error' : ''}`}
                   aria-describedby={fieldErrors.displayName ? 'auth-name-error' : undefined}
                 />
                 {fieldErrors.displayName && (
@@ -210,11 +113,11 @@ function LoginPage() {
                 id="auth-email"
                 type="email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 autoComplete="email"
                 autoFocus
-                className={fieldErrors.email ? 'error' : ''}
+                className={`form-input ${fieldErrors.email ? 'error' : ''}`}
                 aria-describedby={fieldErrors.email ? 'auth-email-error' : undefined}
               />
               {fieldErrors.email && (
@@ -232,15 +135,19 @@ function LoginPage() {
                   id="auth-password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder={mode === 'login' ? 'Enter your password' : 'Min 8 characters, mix it up'}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder={
+                    mode === 'login' ? 'Enter your password' : 'Min 8 characters, mix it up'
+                  }
                   autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                  className={fieldErrors.password ? 'error' : ''}
+                  className={`form-input ${fieldErrors.password ? 'error' : ''}`}
                   aria-describedby={
                     [
                       fieldErrors.password ? 'auth-pw-error' : '',
                       mode === 'register' && password ? 'auth-pw-strength' : '',
-                    ].filter(Boolean).join(' ') || undefined
+                    ]
+                      .filter(Boolean)
+                      .join(' ') || undefined
                   }
                 />
                 <button
@@ -263,7 +170,7 @@ function LoginPage() {
               {mode === 'register' && password && (
                 <>
                   <div className="auth-strength-meter" aria-hidden="true">
-                    {[1, 2, 3, 4].map(i => (
+                    {[1, 2, 3, 4].map((i) => (
                       <div
                         key={i}
                         className={`auth-strength-segment ${i <= strength.level ? `filled ${strength.key}` : ''}`}
@@ -289,10 +196,10 @@ function LoginPage() {
                   id="auth-confirm"
                   type={showPassword ? 'text' : 'password'}
                   value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter your password"
                   autoComplete="new-password"
-                  className={fieldErrors.confirmPassword ? 'error' : ''}
+                  className={`form-input ${fieldErrors.confirmPassword ? 'error' : ''}`}
                   aria-describedby={fieldErrors.confirmPassword ? 'auth-confirm-error' : undefined}
                 />
                 {fieldErrors.confirmPassword && (
@@ -304,23 +211,22 @@ function LoginPage() {
             )}
 
             {/* Submit */}
-            <button
-              type="submit"
-              className="auth-submit"
-              disabled={isSubmitting}
-            >
+            <button type="submit" className="auth-submit btn-primary" disabled={isSubmitting}>
               {isSubmitting
                 ? 'Please wait...'
                 : mode === 'login'
                   ? 'Sign In →'
-                  : 'Create Account →'
-              }
+                  : 'Create Account →'}
             </button>
 
             {/* Links */}
             {mode === 'login' && (
               <div className="auth-links">
-                <button type="button" className="auth-link" onClick={() => alert('Password reset coming soon')}>
+                <button
+                  type="button"
+                  className="auth-link"
+                  onClick={() => alert('Password reset coming soon')}
+                >
                   Forgot password?
                 </button>
                 <button type="button" className="auth-link" onClick={() => switchMode('register')}>
@@ -342,5 +248,5 @@ function LoginPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

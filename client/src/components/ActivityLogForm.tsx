@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Location } from '../lib/types';
 import { logActivity } from '../lib/api';
 import { estimateMultiImpact } from '../lib/co2';
+import '../styles/forms.css';
 import './ActivityLogForm.css';
 
 const ACTION_CHIPS = [
@@ -20,11 +21,7 @@ interface ActivityLogFormProps {
   onSuccess?: () => void;
 }
 
-const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
-  location,
-  onClose,
-  onSuccess,
-}) => {
+const ActivityLogForm: React.FC<ActivityLogFormProps> = ({ location, onClose, onSuccess }) => {
   const [actions, setActions] = useState<Set<string>>(new Set());
   const [item, setItem] = useState('');
   const [notes, setNotes] = useState('');
@@ -47,7 +44,7 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
   const isFormValid = actions.size > 0 && item.trim().length > 0;
 
   const toggleAction = (value: string) => {
-    setActions(prev => {
+    setActions((prev) => {
       const next = new Set(prev);
       if (next.has(value)) {
         next.delete(value);
@@ -109,13 +106,9 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
   };
 
   return (
-    <div className="alf-overlay" onClick={onClose}>
-      <div className="alf-modal" onClick={e => e.stopPropagation()}>
-        <button
-          className="alf-close"
-          onClick={onClose}
-          aria-label="Close form"
-        >
+    <div className="alf-overlay modal-overlay" onClick={onClose}>
+      <div className="alf-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="alf-close" onClick={onClose} aria-label="Close form">
           ✕
         </button>
 
@@ -124,8 +117,8 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
             <div className="alf-success-icon">✅</div>
             <h3>Activity Logged!</h3>
             <p>
-              You prevented <strong>{impact?.co2} lbs</strong> CO₂<br />
-              — {impact?.equivalency}!
+              You prevented <strong>{impact?.co2} lbs</strong> CO₂
+              <br />— {impact?.equivalency}!
             </p>
             {impact?.credits ? <p>Eco streak: +{impact.credits} credits!</p> : null}
           </div>
@@ -133,12 +126,12 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
           <form onSubmit={handleSubmit} className="alf-body">
             <div className="alf-step">
               <label>1. What did you do?</label>
-              <div className="alf-chips">
-                {ACTION_CHIPS.map(a => (
+              <div className="alf-chips chip-container">
+                {ACTION_CHIPS.map((a) => (
                   <button
                     key={a.value}
                     type="button"
-                    className={`alf-chip ${actions.has(a.value) ? 'active' : ''}`}
+                    className={`alf-chip chip-toggle ${actions.has(a.value) ? 'active' : ''}`}
                     onClick={() => toggleAction(a.value)}
                   >
                     {a.label}
@@ -154,11 +147,12 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
                 id="alf-item"
                 type="text"
                 value={item}
-                onChange={e => setItem(e.target.value)}
+                onChange={(e) => setItem(e.target.value)}
                 placeholder="e.g. Winter jacket, Toaster"
                 required
                 autoComplete="off"
                 autoFocus={actions.size > 0}
+                className="form-input"
               />
             </div>
 
@@ -169,12 +163,12 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
                   <strong>{impact.co2} lbs</strong>
                 </div>
                 <div className="alf-preview-subtext">{impact.equivalency}</div>
-                
+
                 <div className="alf-preview-item">
                   <span>⭐ Credits earned</span>
                   <strong>{impact.credits} credits</strong>
                 </div>
-                
+
                 {location && (
                   <div className="alf-preview-item">
                     <span>📍 Location</span>
@@ -185,14 +179,14 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
             )}
 
             <div className="alf-optional-section">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="alf-optional-toggle"
                 onClick={() => setShowOptional(!showOptional)}
               >
                 Add details {showOptional ? '▲' : '▼'}
               </button>
-              
+
               {showOptional && (
                 <div className="alf-optional-fields">
                   <div className="alf-field">
@@ -203,8 +197,9 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
                       min="0"
                       step="0.01"
                       value={savings}
-                      onChange={e => setSavings(e.target.value)}
+                      onChange={(e) => setSavings(e.target.value)}
                       placeholder="0.00"
+                      className="form-input"
                     />
                   </div>
                   <div className="alf-field">
@@ -212,20 +207,21 @@ const ActivityLogForm: React.FC<ActivityLogFormProps> = ({
                     <textarea
                       id="alf-notes"
                       value={notes}
-                      onChange={e => setNotes(e.target.value)}
+                      onChange={(e) => setNotes(e.target.value)}
                       placeholder="Any extra details?"
                       rows={2}
+                      className="form-input"
                     />
                   </div>
                 </div>
               )}
             </div>
 
-            {error && <div className="alf-error">{error}</div>}
+            {error && <div className="alf-error form-error">{error}</div>}
 
             <button
               type="submit"
-              className="alf-submit-btn"
+              className="alf-submit-btn btn-primary"
               disabled={!isFormValid || isSubmitting}
             >
               {isSubmitting ? <span className="alf-spinner"></span> : 'Log This Activity →'}
