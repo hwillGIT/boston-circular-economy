@@ -7,7 +7,7 @@
 
 **OpenStreetMap (OSM)** is a collaborative, open-data mapping database distributed under the Open Database License (ODbL). Unlike proprietary APIs (such as Google Maps Platform), OSM empowers developers with **complete data access, zero API key lock-in, and 100% self-hostable spatial infrastructure**.
 
-![OpenStreetMap Ecosystem Architecture](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/osm_architecture_flow.jpg)
+![OpenStreetMap Ecosystem Architecture](images/osm_architecture_flow.jpg)
 
 ### Five Pillar Tools of the OpenStreetMap Stack
 

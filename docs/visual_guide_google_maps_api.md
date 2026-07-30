@@ -7,7 +7,7 @@
 
 Google Maps Platform consists of several interconnected location services. For developers building a **Circular Economy Application** (such as mapping recycling facilities, community repair cafes, material drop-off points, and reverse logistics), four core APIs form the technical foundation:
 
-![Google Maps API Ecosystem Architecture](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/maps_api_architecture.jpg)
+![Google Maps API Ecosystem Architecture](images/maps_api_architecture.jpg)
 
 ### Core APIs for Circular Economy Applications
 
@@ -50,7 +50,7 @@ sequenceDiagram
 
 In circular economy platforms, geographic data represents **nodes** (facilities) and **vectors** (material flow). 
 
-![Circular Economy Mapping Visual Framework](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/circular_mapping_demo.jpg)
+![Circular Economy Mapping Visual Framework](images/circular_mapping_demo.jpg)
 
 ### Architecture Patterns for Circular Nodes & Routes:
 1. **Facility Nodes (`AdvancedMarkerElement`)**: Represent recycling drop-offs, battery collection boxes, and repair hubs with real-time capacity badges.
@@ -232,7 +232,7 @@ function renderGeoJsonMaterialFlows(map, geoJsonData) {
 
 Protecting your API key and managing costs is critical before going to production.
 
-![API Security Architecture Diagram](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/maps_security_flow.jpg)
+![API Security Architecture Diagram](images/maps_security_flow.jpg)
 
 ### Production Security Checklist
 

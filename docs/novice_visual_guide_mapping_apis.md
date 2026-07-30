@@ -65,7 +65,7 @@ How does a browser render a map of the entire planet without crashing? **Slippy 
 
 Instead of loading one giant 50-Gigabyte image of Earth, web maps break the planet into thousands of small **256x256 pixel square image tiles**.
 
-![Web Map Tile Grid System & Zoom Levels](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/tile_grid_system.jpg)
+![Web Map Tile Grid System & Zoom Levels](images/tile_grid_system.jpg)
 
 #### How Zoom Levels Work:
 - **Zoom Level 0**: The entire planet fits inside **1 single tile** (`0/0/0.png`).
@@ -85,19 +85,19 @@ Example (Boston):   https://tile.openstreetmap.org/12/1215/1537.png
 
 When you look at a map on a website, the browser runs a mathematical conversion called **Mercator Projection** to turn real-world coordinates into pixel locations inside an HTML `<div>`.
 
-![DOM Marker Projection Math Visualizer](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/dom_marker_projection.jpg)
+![DOM Marker Projection Math Visualizer](images/dom_marker_projection.jpg)
 
 ---
 
 ## LEVEL 3: Spatial Data Formats Demystified (GeoJSON)
 
-![GeoJSON Geometries Visual Guide](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/geojson_demystified.jpg)
+![GeoJSON Geometries Visual Guide](images/geojson_demystified.jpg)
 
 ---
 
 ## LEVEL 4: Full-Stack Architecture (How Your App Talks to APIs)
 
-![Full-Stack Mapping Data Journey](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/novice_full_stack_flow.jpg)
+![Full-Stack Mapping Data Journey](images/novice_full_stack_flow.jpg)
 
 ---
 

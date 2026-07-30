@@ -17,7 +17,7 @@ boston-circular-economy/
 └── data-explorations/  # Jupyter notebooks for spatial equity & neighborhood waste analysis
 ```
 
-![Boston Circular Economy Mapping Architecture](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/boston_circular_mapping_flow.jpg)
+![Boston Circular Economy Mapping Architecture](images/boston_circular_mapping_flow.jpg)
 
 ---
 

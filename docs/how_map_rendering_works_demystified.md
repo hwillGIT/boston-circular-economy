@@ -9,7 +9,7 @@
 
 Here is the high-resolution Nano Banana generated visual architecture diagram demystifying the complete 5-stage rendering pipeline:
 
-![HOW MAP RENDERING WORKS (DEMYSTIFIED)](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/map_rendering_nano_banana_1785271084009.jpg)
+![HOW MAP RENDERING WORKS (DEMYSTIFIED)](images/map_rendering_nano_banana_1785271084009.jpg)
 
 ---
 

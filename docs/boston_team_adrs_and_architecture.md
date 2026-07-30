@@ -9,7 +9,7 @@
 
 Below is the complete visual architecture preserving all interior box details with clean 1-to-1 parallel arrows, valid Python code text, and formatted JSON `{}` syntax:
 
-![Boston Circular Economy Data Pipelines](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/boston_data_pipelines_architecture.jpg)
+![Boston Circular Economy Data Pipelines](images/boston_data_pipelines_architecture.jpg)
 
 ### Demystifying the 3 Pipeline Columns & Arrows
 
@@ -128,7 +128,7 @@ If a repair shop like *"Mattapan Community Repair"* exists in both OpenStreetMap
 
 The team built a **Merge Processor** script in `etl/merge_processor.py`!
 
-![Merge Processor & Spatial Deduplication Engine](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/boston_merge_processor_deduplication.jpg)
+![Merge Processor & Spatial Deduplication Engine](images/boston_merge_processor_deduplication.jpg)
 
 ### How the Merge Algorithm Works (3 Steps):
 

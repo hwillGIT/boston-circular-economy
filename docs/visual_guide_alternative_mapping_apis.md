@@ -8,7 +8,7 @@
 
 While Google Maps Platform offers comprehensive global POI data, modern spatial applications—especially in the **Circular Economy, Smart Cities, and Open Data sectors**—frequently use alternative mapping engines: **Mapbox GL JS** and **MapLibre GL JS (OpenStreetMap)**.
 
-![Alternative Geographic Mapping APIs Architecture](file:///C:/Users/huber/.gemini/antigravity/brain/0d18a02f-8b58-4fea-84c2-22970cc05218/alternative_apis_architecture.jpg)
+![Alternative Geographic Mapping APIs Architecture](images/alternative_apis_architecture.jpg)
 
 ### Why Consider Alternative Mapping APIs?
 
