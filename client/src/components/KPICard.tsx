@@ -61,16 +61,13 @@ const KPICard: React.FC<KPICardProps> = ({
   };
 
   const isPositiveTrend = trendDirection === 'up';
-  
+
   // Render the unit label separately from the number to avoid
   // subscript characters (like ₂ in CO₂) leaking into the value
   const displayUnit = unit === '$' ? '' : unit;
 
   return (
-    <div 
-      className="kpi-card"
-      style={{ '--kpi-accent': accentColor } as React.CSSProperties}
-    >
+    <div className="kpi-card" style={{ '--kpi-accent': accentColor } as React.CSSProperties}>
       <div className="kpi-card-header">
         <span className="kpi-card-label">{label}</span>
         <div className="kpi-card-header-right">
@@ -95,9 +92,9 @@ const KPICard: React.FC<KPICardProps> = ({
           <div className="kpi-card-icon">{icon}</div>
         </div>
       </div>
-      
+
       <div className="kpi-card-value-container">
-        <span 
+        <span
           className={`kpi-card-value ${mounted ? 'animate' : ''}`}
           style={{ '--target-num': value } as React.CSSProperties}
         >
@@ -108,9 +105,7 @@ const KPICard: React.FC<KPICardProps> = ({
 
       {trend !== undefined && (
         <div className={`kpi-card-trend ${isPositiveTrend ? 'is-up' : 'is-down'}`}>
-          <span className="kpi-card-trend-icon">
-            {isPositiveTrend ? '↑' : '↓'}
-          </span>
+          <span className="kpi-card-trend-icon">{isPositiveTrend ? '↑' : '↓'}</span>
           <span className="kpi-card-trend-value">{trend}%</span>
           <span className="kpi-card-trend-text">vs last month</span>
         </div>

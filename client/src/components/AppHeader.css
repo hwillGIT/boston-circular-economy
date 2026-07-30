@@ -1,22 +1,22 @@
 .app-header {
-  height: var(--header-height, 64px);
-  background-color: var(--color-primary, #091F2F);
-  border-bottom: 4px solid var(--color-accent, #F44336);
-  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.06));
-  display: flex;
   align-items: center;
+  background-color: var(--color-primary, #091f2f);
+  border-bottom: 4px solid var(--color-accent, #f44336);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgb(0 0 0 / 6%));
+  box-sizing: border-box;
+  color: var(--text-inverse, #fff);
+  display: flex;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  height: var(--header-height, 64px);
   justify-content: space-between;
   padding: 0 var(--space-6, 24px);
   position: sticky;
   top: 0;
   z-index: 800;
-  color: var(--text-inverse, #ffffff);
-  font-family: var(--font-family, 'Inter', sans-serif);
-  box-sizing: border-box;
 }
 
 .app-header a {
-  color: var(--text-inverse, #ffffff);
+  color: var(--text-inverse, #fff);
   text-decoration: none;
   transition: opacity var(--transition-fast, 150ms ease-out);
 }
@@ -26,27 +26,27 @@
 }
 
 .app-header-left {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .app-header-logo-container {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--space-4, 16px);
 }
 
 .app-header-logo-mark {
-  background-color: var(--color-accent, #F44336);
-  color: var(--text-inverse, #ffffff);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm, 0.5rem);
-  display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: 700;
+  background-color: var(--color-accent, #f44336);
+  border-radius: var(--radius-sm, 0.5rem);
+  color: var(--text-inverse, #fff);
+  display: flex;
   font-size: var(--text-xl, 1.25rem);
+  font-weight: 700;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
 }
 
 .app-header-logo-text {
@@ -56,10 +56,10 @@
 }
 
 .app-header-city {
+  color: rgb(255 255 255 / 80%);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
 }
 
@@ -70,56 +70,56 @@
 }
 
 .app-header-center {
-  flex: 1;
   display: flex;
+  flex: 1;
   justify-content: center;
   padding: 0 var(--space-6, 24px);
 }
 
 /* ── Navigation ── */
 .app-header-nav {
-  display: flex;
   align-items: center;
-  gap: var(--space-1, 4px);
+  display: flex;
   flex: 1;
+  gap: var(--space-1, 4px);
   justify-content: center;
 }
 
 .app-header-nav-link {
-  display: flex;
   align-items: center;
-  gap: var(--space-2, 8px);
-  padding: var(--space-2, 8px) var(--space-4, 16px);
   border-radius: var(--radius-md, 0.75rem);
+  color: rgb(255 255 255 / 70%);
+  display: flex;
   font-size: var(--text-sm, 0.875rem);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  position: relative;
   text-decoration: none;
   transition: all var(--transition-fast, 150ms ease-out);
-  position: relative;
 }
 
 .app-header-nav-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgb(255 255 255 / 8%);
+  color: #fff;
   opacity: 1;
 }
 
 .app-header-nav-link.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgb(255 255 255 / 12%);
+  color: #fff;
 }
 
 .app-header-nav-link.active::after {
-  content: '';
-  position: absolute;
+  background: var(--color-cta, #f97316);
+  border-radius: 2px;
   bottom: -6px;
+  content: '';
+  height: 3px;
   left: 50%;
+  position: absolute;
   transform: translateX(-50%);
   width: 20px;
-  height: 3px;
-  background: var(--color-cta, #F97316);
-  border-radius: 2px;
 }
 
 .app-header-nav-icon {
@@ -132,8 +132,8 @@
 }
 
 .app-header-right {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--space-4, 16px);
 }
 
@@ -142,30 +142,30 @@
 }
 
 .app-header-auth {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--space-3, 12px);
 }
 
 .app-header-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  border-radius: 50%;
   color: white;
-  font-weight: 600;
+  display: flex;
   font-size: var(--text-sm, 14px);
+  font-weight: 600;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
 }
 
 .app-header-username {
+  display: none;
   font-size: var(--text-sm, 14px);
   font-weight: 500;
-  display: none;
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
   .app-header-username {
     display: inline;
   }
@@ -173,52 +173,52 @@
 
 .app-header-signout {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--text-inverse, #ffffff);
-  padding: var(--space-1, 4px) var(--space-3, 12px);
+  border: 1px solid rgb(255 255 255 / 30%);
   border-radius: var(--radius-sm, 4px);
-  font-size: var(--text-xs, 12px);
+  color: var(--text-inverse, #fff);
   cursor: pointer;
-  transition: background-color 0.2s;
   font-family: inherit;
+  font-size: var(--text-xs, 12px);
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  transition: background-color 0.2s;
 }
 
 .app-header-signout:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(255 255 255 / 10%);
 }
 
 .app-header-signin {
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: var(--radius-sm, 4px);
   font-size: var(--text-sm, 14px);
   font-weight: 500;
   padding: var(--space-1, 4px) var(--space-3, 12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-sm, 4px);
 }
 
 .app-header-signin:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(255 255 255 / 10%);
 }
 
 .app-header-prototype-badge {
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: var(--radius-pill, 9999px);
+  color: rgb(255 255 255 / 60%);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: var(--space-1, 4px) var(--space-2, 8px);
-  border-radius: var(--radius-pill, 9999px);
   text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .app-header {
     padding: 0 var(--space-4, 16px);
   }
-  
+
   .app-header-city {
     display: none;
   }
-  
+
   .app-header-center {
     display: none;
   }

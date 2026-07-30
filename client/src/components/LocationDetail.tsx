@@ -8,16 +8,12 @@ export interface LocationDetailProps {
   onLogActivity: () => void;
 }
 
-const LocationDetail: React.FC<LocationDetailProps> = ({
-  location,
-  onClose,
-  onLogActivity,
-}) => {
+const LocationDetail: React.FC<LocationDetailProps> = ({ location, onClose, onLogActivity }) => {
   // Determine badge based on type/source
   let badgeIcon = '🌱';
   let badgeText = 'Community';
   let badgeClass = 'badge-community';
-  
+
   if (location.type === 'bcyf' || location.source === 'bcyf') {
     badgeIcon = '✓';
     badgeText = 'Municipal';
@@ -31,20 +27,26 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
   return (
     <>
       <div className="location-detail-backdrop" onClick={onClose} aria-hidden="true" />
-      <div className="location-detail-panel" role="dialog" aria-modal="true" aria-labelledby="location-detail-title">
+      <div
+        className="location-detail-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="location-detail-title"
+      >
         <div className="location-detail-header">
           <div>
             <div className={`location-trust-badge ${badgeClass}`}>
-              <span className="badge-icon" aria-hidden="true">{badgeIcon}</span> {badgeText}
+              <span className="badge-icon" aria-hidden="true">
+                {badgeIcon}
+              </span>{' '}
+              {badgeText}
             </div>
-            <h2 id="location-detail-title" className="location-detail-name">{location.name}</h2>
+            <h2 id="location-detail-title" className="location-detail-name">
+              {location.name}
+            </h2>
             <p className="location-detail-address">{location.address}</p>
           </div>
-          <button 
-            className="location-detail-close" 
-            onClick={onClose}
-            aria-label="Close details"
-          >
+          <button className="location-detail-close" onClick={onClose} aria-label="Close details">
             ✕
           </button>
         </div>
@@ -55,7 +57,12 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
           )}
 
           <div className="location-quick-actions">
-            <a href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`} target="_blank" rel="noopener noreferrer" className="quick-action-pill">
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="quick-action-pill"
+            >
               <span aria-hidden="true">📍</span> Directions
             </a>
             {location.phone && (
@@ -64,7 +71,12 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
               </a>
             )}
             {location.website && (
-              <a href={location.website} target="_blank" rel="noopener noreferrer" className="quick-action-pill">
+              <a
+                href={location.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="quick-action-pill"
+              >
                 <span aria-hidden="true">🌐</span> Website
               </a>
             )}
@@ -73,7 +85,9 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
           <div className="location-detail-info-grid">
             {location.hours && (
               <div className="info-item">
-                <span className="info-icon" aria-hidden="true">🕒</span>
+                <span className="info-icon" aria-hidden="true">
+                  🕒
+                </span>
                 <span>{location.hours}</span>
               </div>
             )}
@@ -84,7 +98,9 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
               <h4 className="section-title">Features</h4>
               <div className="feature-chips">
                 {location.features.map((feature, idx) => (
-                  <span key={idx} className="feature-chip">✓ {feature}</span>
+                  <span key={idx} className="feature-chip">
+                    ✓ {feature}
+                  </span>
                 ))}
               </div>
             </div>
@@ -94,7 +110,9 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
             <h4 className="section-title">Activities Available</h4>
             <div className="activity-tags">
               {(location.activities || []).map((activity, idx) => (
-                <span key={idx} className="activity-tag">{activity}</span>
+                <span key={idx} className="activity-tag">
+                  {activity}
+                </span>
               ))}
             </div>
           </div>
@@ -110,7 +128,9 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
               <div className="impact-metrics">
                 {location.co2_saved && (
                   <div className="impact-metric">
-                    <span className="impact-icon" aria-hidden="true">🌱</span>
+                    <span className="impact-icon" aria-hidden="true">
+                      🌱
+                    </span>
                     <div>
                       <span className="impact-value">{location.co2_saved} lbs</span>
                       <span className="impact-label">CO₂ Saved</span>
@@ -119,7 +139,9 @@ const LocationDetail: React.FC<LocationDetailProps> = ({
                 )}
                 {location.credits && (
                   <div className="impact-metric">
-                    <span className="impact-icon" aria-hidden="true">⭐</span>
+                    <span className="impact-icon" aria-hidden="true">
+                      ⭐
+                    </span>
                     <div>
                       <span className="impact-value">Up to {location.credits}</span>
                       <span className="impact-label">Boston Credits</span>

@@ -1,11 +1,9 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState, useEffect } from 'react'
-import { getAllLocations } from '../lib/api'
-import './Landing.css'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useState, useEffect } from 'react';
+import { getAllLocations } from '../lib/api';
+import './Landing.css';
 
-export const Route = createFileRoute('/')(
-  { component: Landing }
-)
+export const Route = createFileRoute('/')({ component: Landing });
 
 const CATEGORIES = [
   {
@@ -28,7 +26,7 @@ const CATEGORIES = [
     key: 'donate',
     emoji: '🤝',
     name: 'Donate & Share',
-    desc: 'Drop-off points, community fridges, tool libraries — share what you don\'t need',
+    desc: "Drop-off points, community fridges, tool libraries — share what you don't need",
     gradient: 'linear-gradient(135deg, #99F6E4 0%, #0D9488 100%)',
     activities: ['donate'],
   },
@@ -56,14 +54,14 @@ const CATEGORIES = [
     gradient: 'linear-gradient(135deg, #93C5FD 0%, #3B82F6 100%)',
     activities: ['workshop'],
   },
-]
+];
 
 const HOW_STEPS = [
   {
     icon: '🔍',
     bg: '#EFF6FF',
     title: 'Tell Us What You Need',
-    desc: 'Search by item or browse categories — we\'ll find the right option near you',
+    desc: "Search by item or browse categories — we'll find the right option near you",
   },
   {
     icon: '📍',
@@ -83,26 +81,26 @@ const HOW_STEPS = [
     title: 'See Your Impact',
     desc: 'Watch your CO₂ savings, landfill diversion, and community contributions grow',
   },
-]
+];
 
 function Landing() {
-  const navigate = useNavigate()
-  const [locationCount, setLocationCount] = useState<number | null>(null)
+  const navigate = useNavigate();
+  const [locationCount, setLocationCount] = useState<number | null>(null);
 
   useEffect(() => {
     getAllLocations()
-      .then(locs => setLocationCount(locs.length))
-      .catch(() => setLocationCount(154)) // Fallback
-  }, [])
+      .then((locs) => setLocationCount(locs.length))
+      .catch(() => setLocationCount(154)); // Fallback
+  }, []);
 
-  const handleCategoryClick = (category: typeof CATEGORIES[number]) => {
+  const handleCategoryClick = (category: (typeof CATEGORIES)[number]) => {
     navigate({
       to: '/explore',
       search: { activity: category.activities[0] },
     }).catch(() => {
-      window.location.hash = `#/explore?activity=${category.activities[0]}`
-    })
-  }
+      window.location.hash = `#/explore?activity=${category.activities[0]}`;
+    });
+  };
 
   return (
     <div className="landing">
@@ -114,21 +112,30 @@ function Landing() {
             Don't toss it. <span>Fix it. Share it. Swap it.</span>
           </h1>
           <p className="hero-subtitle">
-            {locationCount ?? '150+'} repair shops, donation centers, and community resources across Greater Boston.
+            {locationCount ?? '150+'} repair shops, donation centers, and community resources across
+            Greater Boston.
           </p>
           <div className="hero-actions">
             <button
               className="explore-cta"
-              onClick={() => navigate({ to: '/explore' }).catch(() => {
-                window.location.hash = '#/explore'
-              })}
+              onClick={() =>
+                navigate({ to: '/explore' }).catch(() => {
+                  window.location.hash = '#/explore';
+                })
+              }
             >
               Explore the Map
             </button>
             <div className="hero-stats-inline">
-              <span><strong>{locationCount ?? '154'}</strong> locations</span>
-              <span><strong>6</strong> categories</span>
-              <span><strong>21</strong> neighborhoods</span>
+              <span>
+                <strong>{locationCount ?? '154'}</strong> locations
+              </span>
+              <span>
+                <strong>6</strong> categories
+              </span>
+              <span>
+                <strong>21</strong> neighborhoods
+              </span>
             </div>
           </div>
         </div>
@@ -142,15 +149,17 @@ function Landing() {
             <div
               key={cat.key}
               className="category-card"
-              style={{
-                '--i': i,
-                '--card-gradient': cat.gradient,
-              } as React.CSSProperties}
+              style={
+                {
+                  '--i': i,
+                  '--card-gradient': cat.gradient,
+                } as React.CSSProperties
+              }
               onClick={() => handleCategoryClick(cat)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') handleCategoryClick(cat)
+                if (e.key === 'Enter' || e.key === ' ') handleCategoryClick(cat);
               }}
             >
               <div className="category-emoji">{cat.emoji}</div>
@@ -169,15 +178,8 @@ function Landing() {
         </p>
         <div className="how-steps">
           {HOW_STEPS.map((step, i) => (
-            <div
-              key={step.title}
-              className="how-step"
-              style={{ '--i': i } as React.CSSProperties}
-            >
-              <div
-                className="how-step-icon"
-                style={{ backgroundColor: step.bg }}
-              >
+            <div key={step.title} className="how-step" style={{ '--i': i } as React.CSSProperties}>
+              <div className="how-step-icon" style={{ backgroundColor: step.bg }}>
                 {step.icon}
               </div>
               <h3 className="how-step-title">{step.title}</h3>
@@ -209,5 +211,5 @@ function Landing() {
         </div>
       </section>
     </div>
-  )
+  );
 }

@@ -11,8 +11,18 @@ interface GratitudeMessage {
 const STORAGE_KEY = 'bce_gratitude_feed';
 
 const MOCK_MESSAGES: GratitudeMessage[] = [
-  { id: '1', locationName: 'Boston Building Resources', activity: 'helping me fix my door', timestamp: Date.now() - 3600000 },
-  { id: '2', locationName: 'JP Tool Library', activity: 'lending a drill', timestamp: Date.now() - 7200000 },
+  {
+    id: '1',
+    locationName: 'Boston Building Resources',
+    activity: 'helping me fix my door',
+    timestamp: Date.now() - 3600000,
+  },
+  {
+    id: '2',
+    locationName: 'JP Tool Library',
+    activity: 'lending a drill',
+    timestamp: Date.now() - 7200000,
+  },
 ];
 
 export default function GratitudeFeed() {
@@ -77,7 +87,9 @@ export default function GratitudeFeed() {
             onChange={(e) => setActivity(e.target.value)}
             required
           />
-          <button type="submit" className="gratitude-submit-btn">Post Thanks</button>
+          <button type="submit" className="gratitude-submit-btn">
+            Post Thanks
+          </button>
         </form>
       )}
 
@@ -88,9 +100,7 @@ export default function GratitudeFeed() {
             <div className="gratitude-text">
               User thanked <strong>{msg.locationName}</strong> for {msg.activity}
             </div>
-            <div className="gratitude-time">
-              {new Date(msg.timestamp).toLocaleDateString()}
-            </div>
+            <div className="gratitude-time">{new Date(msg.timestamp).toLocaleDateString()}</div>
           </div>
         ))}
       </div>

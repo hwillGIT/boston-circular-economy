@@ -34,48 +34,56 @@ const LocationCard: React.FC<LocationCardProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={`location-card ${isHovered ? 'is-hovered' : ''} ${isSelected ? 'is-selected' : ''}`}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') onClick();
+      }}
     >
       <div className="location-card-header">
         <h3 className="location-card-name">{location.name}</h3>
         <span className="location-card-type">{location.type}</span>
       </div>
-      
+
       {hours && (
-        <div className={`location-card-hours ${isOpen === true ? 'is-open' : isOpen === false ? 'is-closed' : ''}`}>
+        <div
+          className={`location-card-hours ${isOpen === true ? 'is-open' : isOpen === false ? 'is-closed' : ''}`}
+        >
           <span className="location-card-hours-dot"></span>
           <span className="location-card-hours-label">
-            {isOpen === true ? 'Open' : (isOpen === false ? 'Closed' : 'Hours available')}
+            {isOpen === true ? 'Open' : isOpen === false ? 'Closed' : 'Hours available'}
           </span>
         </div>
       )}
-      
+
       <p className="location-card-address">{location.address}</p>
-      
+
       <div className="location-card-activities">
         {(location.activities || []).map((activity, idx) => (
           <span key={idx} className="location-card-activity-tag">
-            {activity.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+            {activity.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
           </span>
         ))}
       </div>
-      
+
       <div className="location-card-footer">
         <div className="location-card-source">
-          <span className="location-card-source-icon" aria-hidden="true">✓</span>
-          {location.source === 'bcyf' ? 'BCYF Center' : (location.type === 'community' ? 'Community location' : 'Professional service')}
+          <span className="location-card-source-icon" aria-hidden="true">
+            ✓
+          </span>
+          {location.source === 'bcyf'
+            ? 'BCYF Center'
+            : location.type === 'community'
+              ? 'Community location'
+              : 'Professional service'}
         </div>
-        {location.cost_tier && (
-          <span className="location-card-cost">{location.cost_tier}</span>
-        )}
-        
+        {location.cost_tier && <span className="location-card-cost">{location.cost_tier}</span>}
+
         <div className="location-card-meta">
           {location.walk_minutes && location.mbta_station && (
             <span className="location-card-transit">

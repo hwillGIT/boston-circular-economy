@@ -1,9 +1,9 @@
-import type { Database } from 'better-sqlite3'
+import type { Database } from 'better-sqlite3';
 
 /**
  * Executes database migrations to ensure required tables and schema alterations are applied.
  * Creates 'users' and 'sessions' tables if they do not exist, and attempts to alter the 'activities' table safely.
- * 
+ *
  * @category Database
  * @param {import('better-sqlite3').Database} db The database connection instance to run migrations on.
  * @example
@@ -36,14 +36,14 @@ export function runMigrations(db: Database) {
       expires_at TEXT NOT NULL,
       created_at TEXT DEFAULT (datetime('now'))
     );
-  `)
+  `);
 
   try {
-    db.exec(`ALTER TABLE activities ADD COLUMN user_id TEXT REFERENCES users(id)`)
+    db.exec(`ALTER TABLE activities ADD COLUMN user_id TEXT REFERENCES users(id)`);
   } catch (error) {
     // Ignore if column already exists
     if (error instanceof Error && !error.message.includes('duplicate column name')) {
-      console.error('Error adding user_id to activities:', error)
+      console.error('Error adding user_id to activities:', error);
     }
   }
 }

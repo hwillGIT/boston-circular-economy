@@ -22,16 +22,13 @@ export default function EcoKudos({ targetId }: Props) {
     setKudos(newKudos);
     const key = `bce_kudos_${targetId}`;
     localStorage.setItem(key, newKudos.toString());
-    
+
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 300);
   };
 
   return (
-    <button 
-      className={`eco-kudos-btn ${isAnimating ? 'animating' : ''}`} 
-      onClick={handleTap}
-    >
+    <button className={`eco-kudos-btn ${isAnimating ? 'animating' : ''}`} onClick={handleTap}>
       <span className="eco-kudos-emoji">🌿</span>
       <span className="eco-kudos-count">{kudos > 0 ? kudos : 'Give Kudos'}</span>
     </button>

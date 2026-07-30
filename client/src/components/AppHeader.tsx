@@ -34,7 +34,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ children }) => {
 
       {/* ── Main Navigation ── */}
       <nav className="app-header-nav" aria-label="Main navigation">
-        {NAV_ITEMS.map(item => {
+        {NAV_ITEMS.map((item) => {
           const isActive = matchRoute({ to: item.to, fuzzy: true });
           return (
             <Link
@@ -63,10 +63,14 @@ const AppHeader: React.FC<AppHeaderProps> = ({ children }) => {
               </div>
             </Link>
             <span className="app-header-username">{user.displayName}</span>
-            <button className="app-header-signout" onClick={signOut}>Sign Out</button>
+            <button className="app-header-signout" onClick={signOut}>
+              Sign Out
+            </button>
           </div>
         ) : (
-          <Link to="/login" className="app-header-signin">Sign In</Link>
+          <Link to="/login" className="app-header-signin">
+            Sign In
+          </Link>
         )}
         <span className="app-header-prototype-badge">PROTOTYPE</span>
       </div>

@@ -15,7 +15,7 @@ export default function CurbsideMode() {
   const handleReport = (e: React.FormEvent) => {
     e.preventDefault();
     if (!description || !address) return;
-    
+
     // In a real app, this would get coordinates from address and save to global state/map
     alert(`Reported: ${description} at ${address}`);
     setIsFormOpen(false);
@@ -25,10 +25,7 @@ export default function CurbsideMode() {
 
   return (
     <div className="curbside-container">
-      <button 
-        className={`curbside-toggle ${isActive ? 'active' : ''}`}
-        onClick={toggleMode}
-      >
+      <button className={`curbside-toggle ${isActive ? 'active' : ''}`} onClick={toggleMode}>
         🚶 Curbside Finds
       </button>
 
@@ -38,19 +35,14 @@ export default function CurbsideMode() {
             <h4>Allston Christmas Mode 🎄</h4>
             <p>Report curbside finds for neighbors!</p>
           </div>
-          
-          <button 
-            className="curbside-report-btn"
-            onClick={() => setIsFormOpen(!isFormOpen)}
-          >
+
+          <button className="curbside-report-btn" onClick={() => setIsFormOpen(!isFormOpen)}>
             📸 Report a Find
           </button>
 
           {isFormOpen && (
             <form className="curbside-form" onSubmit={handleReport}>
-              <div className="curbside-photo-placeholder">
-                📷 Tap to add photo
-              </div>
+              <div className="curbside-photo-placeholder">📷 Tap to add photo</div>
               <input
                 type="text"
                 className="curbside-input"
@@ -67,7 +59,9 @@ export default function CurbsideMode() {
                 onChange={(e) => setAddress(e.target.value)}
                 required
               />
-              <button type="submit" className="curbside-submit-btn">Post Find</button>
+              <button type="submit" className="curbside-submit-btn">
+                Post Find
+              </button>
             </form>
           )}
         </div>

@@ -33,9 +33,14 @@ export default function Leaderboard() {
           const isUser = neighborhood.name === currentUserNeighborhood;
 
           return (
-            <div key={neighborhood.name} className={`leaderboard-item ${isUser ? 'user-neighborhood' : ''}`}>
+            <div
+              key={neighborhood.name}
+              className={`leaderboard-item ${isUser ? 'user-neighborhood' : ''}`}
+            >
               <div className="leaderboard-rank">{rankIcon}</div>
-              <div className="leaderboard-name">{neighborhood.name} {isUser && '(You)'}</div>
+              <div className="leaderboard-name">
+                {neighborhood.name} {isUser && '(You)'}
+              </div>
               <div className="leaderboard-stats">
                 <span className="leaderboard-items">{neighborhood.items} items</span>
                 <span className="leaderboard-co2">{neighborhood.co2} lbs CO₂</span>

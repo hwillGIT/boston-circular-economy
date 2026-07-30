@@ -1,18 +1,18 @@
 .replacement-cost-bar {
-  display: flex;
   align-items: center;
-  gap: var(--space-3, 12px);
-  padding: var(--space-3, 12px) var(--space-4, 16px);
   background: var(--warning-bg, #fef7e0);
   border: 1px solid #fbbc04; /* Amber border */
   border-radius: var(--radius-sm);
-  font-family: var(--font-family);
   color: var(--warning-text, #b06000);
+  display: flex;
+  font-family: var(--font-family);
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
 }
 
 .replacement-icon {
-  font-size: 1.25rem;
   flex-shrink: 0;
+  font-size: 1.25rem;
 }
 
 .replacement-text {
@@ -25,17 +25,17 @@
   opacity: 0.5;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .replacement-cost-bar {
     align-items: flex-start;
   }
-  
+
   .replacement-text {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
-  
+
   .replacement-dot {
     display: none;
   }

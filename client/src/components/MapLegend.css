@@ -1,18 +1,17 @@
 .map-legend {
-  position: absolute;
-  bottom: var(--space-6, 1.5rem);
-  right: var(--space-6, 1.5rem);
-  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--color-border, #E2E8F0);
+  background: rgb(255 255 255 / 85%);
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1));
+  bottom: var(--space-6, 1.5rem);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%));
   font-family: var(--font-family);
-  z-index: 1000; /* Above Leaflet controls */
   min-width: 180px;
-  transition: all 0.3s ease;
   overflow: hidden;
+  position: absolute;
+  right: var(--space-6, 1.5rem);
+  transition: all 0.3s ease;
+  z-index: 1000; /* Above Leaflet controls */
 }
 
 .map-legend.collapsed {
@@ -20,53 +19,53 @@
 }
 
 .map-legend-header {
+  align-items: center;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
-  cursor: pointer;
   user-select: none;
 }
 
 .map-legend-title {
+  color: var(--color-text, #0f172a);
   font-size: var(--text-sm, 0.875rem);
   font-weight: 600;
-  color: var(--color-text, #0F172A);
   margin: 0;
 }
 
 .map-legend-toggle {
+  align-items: center;
   background: none;
   border: none;
-  color: var(--color-text-secondary, #64748B);
-  font-size: 1.25rem;
-  line-height: 1;
-  padding: 0;
+  color: var(--color-text-secondary, #64748b);
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
+  font-size: 1.25rem;
   height: 20px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 20px;
 }
 
 .map-legend-content {
-  padding: 0 var(--space-4, 1rem) var(--space-4, 1rem);
   display: flex;
   flex-direction: column;
   gap: var(--space-2, 0.5rem);
+  padding: 0 var(--space-4, 1rem) var(--space-4, 1rem);
 }
 
 .map-legend-item {
-  display: flex;
   align-items: center;
-  width: 100%;
   background: none;
   border: none;
-  padding: var(--space-1, 0.25rem) 0;
   cursor: pointer;
+  display: flex;
+  padding: var(--space-1, 0.25rem) 0;
   text-align: left;
   transition: opacity 0.2s;
+  width: 100%;
 }
 
 .map-legend-item:hover {
@@ -79,30 +78,30 @@
 
 .map-legend-item.hidden-layer .map-legend-color {
   background-color: transparent !important;
-  border: 2px solid currentColor;
+  border: 2px solid currentcolor;
 }
 
 .map-legend-color {
-  width: 12px;
-  height: 12px;
   border-radius: 50%;
-  margin-right: var(--space-3, 0.75rem);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%);
   flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+  height: 12px;
+  margin-right: var(--space-3, 0.75rem);
+  width: 12px;
 }
 
 .map-legend-label {
+  color: var(--color-text, #0f172a);
   flex: 1;
   font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text, #0F172A);
   font-weight: 500;
 }
 
 .map-legend-count {
-  font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text-secondary, #64748B);
-  background-color: var(--color-surface-hover, #F1F5F9);
-  padding: 2px 6px;
+  background-color: var(--color-surface-hover, #f1f5f9);
   border-radius: var(--radius-pill, 9999px);
+  color: var(--color-text-secondary, #64748b);
+  font-size: var(--text-xs, 0.75rem);
   margin-left: var(--space-2, 0.5rem);
+  padding: 2px 6px;
 }

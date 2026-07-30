@@ -1,107 +1,108 @@
 .cta-button {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-family);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  font-family: var(--font-family);
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.5px;
   outline: none;
   position: relative;
   text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cta-button:focus-visible {
-  outline: 2px solid var(--color-primary, #091F2F);
+  outline: 2px solid var(--color-primary, #091f2f);
   outline-offset: 2px;
 }
 
 /* Sizes */
 .cta-button--sm {
+  font-size: 12px;
   height: 36px;
   padding: 0 16px;
-  font-size: 12px;
 }
 
 .cta-button--md {
+  font-size: 14px;
   height: 48px;
   padding: 0 24px;
-  font-size: 14px;
 }
 
 .cta-button--lg {
+  font-size: 16px;
   height: 56px;
   padding: 0 32px;
-  font-size: 16px;
 }
 
 /* Variants */
 .cta-button--primary {
-  background-color: var(--color-cta, #FF7B00);
+  background-color: var(--color-cta, #ff7b00);
+  box-shadow: 0 2px 4px rgb(255 123 0 / 20%);
   color: var(--text-inverse);
-  box-shadow: 0 2px 4px rgba(255, 123, 0, 0.2);
 }
 
-.cta-button--primary:hover:not(.cta-button--disabled):not(.cta-button--loading) {
-  background-color: var(--color-cta-hover, #E66A00);
+.cta-button--primary:hover:not(.cta-button--disabled, .cta-button--loading) {
+  background-color: var(--color-cta-hover, #e66a00);
+  box-shadow: 0 4px 8px rgb(255 123 0 / 30%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 123, 0, 0.3);
 }
 
-.cta-button--primary:active:not(.cta-button--disabled):not(.cta-button--loading) {
+.cta-button--primary:active:not(.cta-button--disabled, .cta-button--loading) {
+  box-shadow: 0 2px 4px rgb(255 123 0 / 20%);
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(255, 123, 0, 0.2);
 }
 
 .cta-button--secondary {
-  background-color: var(--color-primary, #091F2F);
+  background-color: var(--color-primary, #091f2f);
   color: var(--text-inverse);
 }
 
-.cta-button--secondary:hover:not(.cta-button--disabled):not(.cta-button--loading) {
+.cta-button--secondary:hover:not(.cta-button--disabled, .cta-button--loading) {
   background-color: var(--color-primary-light, #153247);
+  box-shadow: 0 4px 8px rgb(9 31 47 / 20%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(9, 31, 47, 0.2);
 }
 
 .cta-button--outline {
   background-color: transparent;
-  color: var(--text-primary, #333333);
-  border: 2px solid var(--color-border, #E0E0E0);
+  border: 2px solid var(--color-border, #e0e0e0);
+  color: var(--text-primary, #333);
 }
 
-.cta-button--outline:hover:not(.cta-button--disabled):not(.cta-button--loading) {
-  border-color: var(--color-primary, #091F2F);
-  color: var(--color-primary, #091F2F);
+.cta-button--outline:hover:not(.cta-button--disabled, .cta-button--loading) {
+  border-color: var(--color-primary, #091f2f);
+  color: var(--color-primary, #091f2f);
   transform: translateY(-2px);
 }
 
 /* Icon (built-in CSS arrow for primary) */
 .cta-button--with-icon .cta-button-label {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
 }
 
 .cta-button--with-icon .cta-button-label::after {
   content: '→';
-  margin-left: 8px;
   font-size: 1.2em;
   line-height: 1;
+  margin-left: 8px;
   transition: transform 0.2s ease;
 }
 
-.cta-button--with-icon:hover:not(.cta-button--disabled):not(.cta-button--loading) .cta-button-label::after {
+.cta-button--with-icon:hover:not(.cta-button--disabled, .cta-button--loading)
+  .cta-button-label::after {
   transform: translateX(4px);
 }
 
 /* States */
 .cta-button--disabled {
-  opacity: 0.5;
   cursor: not-allowed;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -116,17 +117,17 @@
 
 /* Spinner */
 .cta-button-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: currentColor;
   animation: spin 1s linear infinite;
+  border: 2px solid rgb(255 255 255 / 30%);
+  border-radius: 50%;
+  border-top-color: currentcolor;
+  height: 20px;
+  width: 20px;
 }
 
 .cta-button--outline .cta-button-spinner {
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-top-color: currentColor;
+  border: 2px solid rgb(0 0 0 / 10%);
+  border-top-color: currentcolor;
 }
 
 @keyframes spin {

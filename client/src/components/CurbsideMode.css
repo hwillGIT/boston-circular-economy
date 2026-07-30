@@ -7,15 +7,15 @@
 .curbside-toggle {
   background: var(--bg-card);
   border: 2px solid var(--border-color);
-  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+  cursor: pointer;
   font-family: var(--font-family);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--text-primary);
-  cursor: pointer;
+  padding: var(--space-2) var(--space-4);
   transition: all var(--transition-fast);
-  box-shadow: var(--shadow-sm);
 }
 
 .curbside-toggle.active {
@@ -25,44 +25,51 @@
 }
 
 .curbside-banner {
-  margin-top: var(--space-3);
+  animation: slide-down 0.3s ease-out;
   background: var(--warning-bg);
   border: 2px solid var(--warning-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-4);
   box-shadow: var(--shadow-md);
-  animation: slideDown 0.3s ease-out;
+  margin-top: var(--space-3);
+  padding: var(--space-4);
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .curbside-banner-header h4 {
-  margin: 0 0 var(--space-1) 0;
   color: var(--warning-text);
   font-size: var(--text-lg);
+  margin: 0 0 var(--space-1) 0;
 }
 
 .curbside-banner-header p {
-  margin: 0 0 var(--space-4) 0;
   color: var(--warning-text);
   font-size: var(--text-sm);
+  margin: 0 0 var(--space-4) 0;
   opacity: 0.9;
 }
 
 .curbside-report-btn {
-  width: 100%;
   background: var(--color-cta);
-  color: white;
   border: none;
-  padding: var(--space-3);
   border-radius: var(--radius-md);
-  font-weight: 600;
+  color: white;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  font-weight: 600;
   margin-bottom: var(--space-4);
+  padding: var(--space-3);
+  transition: background var(--transition-fast);
+  width: 100%;
 }
 
 .curbside-report-btn:hover {
@@ -70,47 +77,47 @@
 }
 
 .curbside-form {
+  background: white;
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  background: white;
   padding: var(--space-4);
-  border-radius: var(--radius-md);
 }
 
 .curbside-photo-placeholder {
-  width: 100%;
-  height: 120px;
   background: var(--bg-hover);
   border: 2px dashed var(--border-color);
   border-radius: var(--radius-md);
-  display: grid;
-  place-items: center;
   color: var(--text-secondary);
-  font-weight: 500;
   cursor: pointer;
+  display: grid;
+  font-weight: 500;
+  height: 120px;
+  place-items: center;
+  width: 100%;
 }
 
 .curbside-input {
-  width: 100%;
-  padding: var(--space-3);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   font-family: var(--font-family);
   font-size: var(--text-sm);
+  padding: var(--space-3);
+  width: 100%;
 }
 
 .curbside-input:focus-visible {
-  outline: 2px solid var(--color-cta);
   border-color: var(--color-cta);
+  outline: 2px solid var(--color-cta);
 }
 
 .curbside-submit-btn {
   background: var(--color-primary);
-  color: white;
   border: none;
-  padding: var(--space-3);
   border-radius: var(--radius-md);
-  font-weight: 600;
+  color: white;
   cursor: pointer;
+  font-weight: 600;
+  padding: var(--space-3);
 }

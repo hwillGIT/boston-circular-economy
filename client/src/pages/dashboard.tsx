@@ -1,51 +1,51 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState, useEffect } from 'react'
-import { getActivities, computeImpactStats } from '../lib/api'
-import type { Activity, ImpactStats } from '../lib/types'
-import KPICard from '../components/KPICard'
-import ActivityTable from '../components/ActivityTable'
-import CTAButton from '../components/CTAButton'
-import EcoStreak from '../components/EcoStreak'
-import BadgeGrid from '../components/BadgeGrid'
-import Leaderboard from '../components/Leaderboard'
-import GratitudeFeed from '../components/GratitudeFeed'
-import './Dashboard.css'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useState, useEffect } from 'react';
+import { getActivities, computeImpactStats } from '../lib/api';
+import type { Activity, ImpactStats } from '../lib/types';
+import KPICard from '../components/KPICard';
+import ActivityTable from '../components/ActivityTable';
+import CTAButton from '../components/CTAButton';
+import EcoStreak from '../components/EcoStreak';
+import BadgeGrid from '../components/BadgeGrid';
+import Leaderboard from '../components/Leaderboard';
+import GratitudeFeed from '../components/GratitudeFeed';
+import './Dashboard.css';
 
 export const Route = createFileRoute('/dashboard')({
   component: DashboardPage,
-})
+});
 
 function DashboardPage() {
-  const navigate = useNavigate()
-  const [activities, setActivities] = useState<Activity[]>([])
+  const navigate = useNavigate();
+  const [activities, setActivities] = useState<Activity[]>([]);
   const [stats, setStats] = useState<ImpactStats>({
     items_diverted: 0,
     co2_prevented: 0,
     money_saved: 0,
     credits_earned: 0,
-  })
-  const [_loading, setLoading] = useState(true)
-  const [dateRange, setDateRange] = useState('all')
+  });
+  const [_loading, setLoading] = useState(true);
+  const [dateRange, setDateRange] = useState('all');
 
   useEffect(() => {
     getActivities()
-      .then(data => {
-        setActivities(data)
-        setStats(computeImpactStats(data))
-        setLoading(false)
+      .then((data) => {
+        setActivities(data);
+        setStats(computeImpactStats(data));
+        setLoading(false);
       })
       .catch(() => {
         // API may not have activities yet — show empty state
-        setLoading(false)
-      })
-  }, [])
+        setLoading(false);
+      });
+  }, []);
 
   const handleExport = (format: 'csv' | 'pdf') => {
     // Future: generate real exports
-    alert(`Export as ${format.toUpperCase()} coming soon!`)
-  }
+    alert(`Export as ${format.toUpperCase()} coming soon!`);
+  };
 
-  const repairs = activities.filter(a => a.action === 'repair').length
+  const repairs = activities.filter((a) => a.action === 'repair').length;
 
   return (
     <div className="dashboard-page">
@@ -101,16 +101,34 @@ function DashboardPage() {
         <div className="sdg-bar">
           <span className="sdg-bar-label">Contributing to UN Goals</span>
           <div className="sdg-bar-badges">
-            <span className="sdg-dot" style={{ backgroundColor: 'var(--sdg-11)' }} title="SDG 11: Sustainable Cities — Your local repairs strengthen community infrastructure">11</span>
-            <span className="sdg-dot" style={{ backgroundColor: 'var(--sdg-12)' }} title="SDG 12: Responsible Consumption — Every item diverted reduces demand for new manufacturing">12</span>
-            <span className="sdg-dot" style={{ backgroundColor: 'var(--sdg-13)' }} title="SDG 13: Climate Action — Repairing prevents CO₂ from manufacturing and shipping">13</span>
+            <span
+              className="sdg-dot"
+              style={{ backgroundColor: 'var(--sdg-11)' }}
+              title="SDG 11: Sustainable Cities — Your local repairs strengthen community infrastructure"
+            >
+              11
+            </span>
+            <span
+              className="sdg-dot"
+              style={{ backgroundColor: 'var(--sdg-12)' }}
+              title="SDG 12: Responsible Consumption — Every item diverted reduces demand for new manufacturing"
+            >
+              12
+            </span>
+            <span
+              className="sdg-dot"
+              style={{ backgroundColor: 'var(--sdg-13)' }}
+              title="SDG 13: Climate Action — Repairing prevents CO₂ from manufacturing and shipping"
+            >
+              13
+            </span>
           </div>
         </div>
 
         <div className="dashboard-main-layout">
           <div className="dashboard-left-col">
             <BadgeGrid items={stats.items_diverted} co2={stats.co2_prevented} repairs={repairs} />
-            
+
             {/* ── Activity Log ── */}
             <section className="dashboard-section">
               <div className="dashboard-section-header">
@@ -119,23 +137,17 @@ function DashboardPage() {
                   <select
                     className="report-select"
                     value={dateRange}
-                    onChange={e => setDateRange(e.target.value)}
+                    onChange={(e) => setDateRange(e.target.value)}
                   >
                     <option value="all">All Time</option>
                     <option value="30d">Last 30 Days</option>
                     <option value="7d">Last 7 Days</option>
                     <option value="today">Today</option>
                   </select>
-                  <button
-                    className="export-btn"
-                    onClick={() => handleExport('csv')}
-                  >
+                  <button className="export-btn" onClick={() => handleExport('csv')}>
                     📥 Export CSV
                   </button>
-                  <button
-                    className="export-btn"
-                    onClick={() => handleExport('pdf')}
-                  >
+                  <button className="export-btn" onClick={() => handleExport('pdf')}>
                     📄 Export PDF
                   </button>
                 </div>
@@ -148,12 +160,10 @@ function DashboardPage() {
               ) : (
                 <div className="dashboard-empty">
                   <div className="dashboard-empty-icon">📊</div>
-                  <h3 className="dashboard-empty-title">
-                    No activities logged yet
-                  </h3>
+                  <h3 className="dashboard-empty-title">No activities logged yet</h3>
                   <p className="dashboard-empty-sub">
-                    Start by finding a repair option or donation center near you.
-                    Every action you log contributes to Boston's circular economy.
+                    Start by finding a repair option or donation center near you. Every action you
+                    log contributes to Boston's circular economy.
                   </p>
                   <CTAButton
                     label="Explore the Map"
@@ -173,5 +183,5 @@ function DashboardPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

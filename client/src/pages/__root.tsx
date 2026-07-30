@@ -1,10 +1,10 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { AuthProvider } from '../lib/auth'
-import AppHeader from '../components/AppHeader'
+import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { AuthProvider } from '../lib/auth';
+import AppHeader from '../components/AppHeader';
 
 export const Route = createRootRoute({
   component: RootLayout,
-})
+});
 
 function RootLayout() {
   return (
@@ -14,5 +14,5 @@ function RootLayout() {
         <Outlet />
       </div>
     </AuthProvider>
-  )
+  );
 }

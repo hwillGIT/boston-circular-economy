@@ -1,9 +1,9 @@
-import { MBTA_LINES } from '../lib/types'
-import './MBTAFilter.css'
+import { MBTA_LINES } from '../lib/types';
+import './MBTAFilter.css';
 
 interface MBTAFilterProps {
-  selectedLine: string
-  onChange: (lineKey: string) => void
+  selectedLine: string;
+  onChange: (lineKey: string) => void;
 }
 
 export default function MBTAFilter({ selectedLine, onChange }: MBTAFilterProps) {
@@ -25,16 +25,16 @@ export default function MBTAFilter({ selectedLine, onChange }: MBTAFilterProps) 
             </option>
           ))}
         </select>
-        
+
         {/* Visual indicator of the selected color */}
-        <div 
-          className="mbta-color-indicator" 
-          style={{ 
-            backgroundColor: MBTA_LINES.find(l => l.key === selectedLine)?.color || '#64748B' 
+        <div
+          className="mbta-color-indicator"
+          style={{
+            backgroundColor: MBTA_LINES.find((l) => l.key === selectedLine)?.color || '#64748B',
           }}
           aria-hidden="true"
         />
       </div>
     </div>
-  )
+  );
 }

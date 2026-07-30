@@ -31,17 +31,16 @@ const CTAButton: React.FC<CTAButtonProps> = ({
     disabled ? `${baseClass}--disabled` : '',
     loading ? `${baseClass}--loading` : '',
     icon && variant === 'primary' ? `${baseClass}--with-icon` : '',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const classes = [baseClass, variantClass, sizeClass, statesClass, className].filter(Boolean).join(' ');
+  const classes = [baseClass, variantClass, sizeClass, statesClass, className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <button
-      type={type}
-      className={classes}
-      onClick={onClick}
-      disabled={disabled || loading}
-    >
+    <button type={type} className={classes} onClick={onClick} disabled={disabled || loading}>
       {loading ? (
         <span className="cta-button-spinner" />
       ) : (

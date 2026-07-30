@@ -46,9 +46,7 @@ const OptionCard: React.FC<OptionCardProps> = ({
       <div className="option-card-header">
         <h3 className="option-card-title">{title}</h3>
         {badge && (
-          <span className={`option-card-badge option-card-badge--${badgeType}`}>
-            {badge}
-          </span>
+          <span className={`option-card-badge option-card-badge--${badgeType}`}>{badge}</span>
         )}
       </div>
 
@@ -60,7 +58,7 @@ const OptionCard: React.FC<OptionCardProps> = ({
             <span className={`option-metric-value ${isFree ? 'is-free' : ''}`}>{displayCost}</span>
           </div>
         </div>
-        
+
         {savings && (
           <div className="option-metric">
             <span className="option-metric-icon">💵</span>
@@ -103,15 +101,9 @@ const OptionCard: React.FC<OptionCardProps> = ({
       {(helpedCount || communityVetted) && (
         <div className="option-card-footer">
           {helpedCount && (
-            <span className="option-social-proof">
-              👥 {helpedCount} neighbors helped
-            </span>
+            <span className="option-social-proof">👥 {helpedCount} neighbors helped</span>
           )}
-          {communityVetted && (
-            <span className="option-vetted">
-              ✓ Community Vetted
-            </span>
-          )}
+          {communityVetted && <span className="option-vetted">✓ Community Vetted</span>}
         </div>
       )}
     </button>

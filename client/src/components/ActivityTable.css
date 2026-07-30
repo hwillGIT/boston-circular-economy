@@ -1,31 +1,31 @@
 .activity-table-container {
-  width: 100%;
-  overflow-x: auto;
-  background: var(--color-surface, #ffffff);
+  background: var(--color-surface, #fff);
   border: 1px solid var(--color-border, #e0e0e0);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-sm, 0 1px 3px rgb(0 0 0 / 10%));
   font-family: var(--font-family);
+  overflow-x: auto;
+  width: 100%;
 }
 
 .activity-table {
-  width: 100%;
   border-collapse: collapse;
   text-align: left;
   white-space: nowrap;
+  width: 100%;
 }
 
 .activity-table th {
-  position: sticky;
-  top: 0;
   background: var(--color-surface-hover, #f8f9fa);
-  padding: var(--space-3, 12px) var(--space-4, 16px);
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  color: var(--color-text-secondary, #5f6368);
   font-size: var(--text-xs, 0.75rem);
   font-weight: 600;
-  color: var(--color-text-secondary, #5f6368);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  position: sticky;
+  text-transform: uppercase;
+  top: 0;
   z-index: 10;
 }
 
@@ -40,10 +40,10 @@
 }
 
 .activity-table td {
-  padding: var(--space-3, 12px) var(--space-4, 16px);
-  font-size: var(--text-sm, 0.875rem);
-  color: var(--text-primary, #202124);
   border-bottom: 1px solid var(--border-light, #f1f3f4);
+  color: var(--text-primary, #202124);
+  font-size: var(--text-sm, 0.875rem);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
 }
 
 .activity-table tbody tr:last-child td {
@@ -51,7 +51,7 @@
 }
 
 .activity-table tbody tr:nth-child(even) {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgb(0 0 0 / 2%);
 }
 
 .activity-table tbody tr:hover {
@@ -60,11 +60,12 @@
 
 .activity-table th.numeric,
 .activity-table td.numeric {
-  text-align: right;
   font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
-.date-cell, .location-cell {
+.date-cell,
+.location-cell {
   color: var(--color-text-secondary, #5f6368);
 }
 
@@ -78,35 +79,50 @@
 }
 
 .highlight {
-  color: var(--color-primary, #091F2F) !important;
+  color: var(--color-primary, #091f2f) !important;
   font-weight: 600;
 }
 
 .action-badge {
-  padding: 4px 8px;
   border-radius: var(--radius-pill, 9999px);
   font-size: var(--text-xs, 0.75rem);
   font-weight: 600;
+  padding: 4px 8px;
   text-transform: uppercase;
 }
 
-.action-repair { background: var(--color-info-light, #e8f0fe); color: var(--color-blue, #1967d2); }
-.action-donate { background: var(--color-green-light, #e6f4ea); color: var(--color-green-dark, #137333); }
-.action-swap { background: var(--color-purple-light, #f3e5f5); color: var(--color-purple, #6a1b9a); }
-.action-recycle { background: var(--color-teal-light, #e0f2f1); color: var(--color-teal, #00796b); }
+.action-repair {
+  background: var(--color-info-light, #e8f0fe);
+  color: var(--color-blue, #1967d2);
+}
+
+.action-donate {
+  background: var(--color-green-light, #e6f4ea);
+  color: var(--color-green-dark, #137333);
+}
+
+.action-swap {
+  background: var(--color-purple-light, #f3e5f5);
+  color: var(--color-purple, #6a1b9a);
+}
+
+.action-recycle {
+  background: var(--color-teal-light, #e0f2f1);
+  color: var(--color-teal, #00796b);
+}
 
 .sort-indicator {
-  margin-left: 4px;
   display: inline-block;
+  margin-left: 4px;
 }
 
 .activity-table-empty {
-  padding: var(--space-8, 64px) var(--space-4, 16px);
-  text-align: center;
-  background: var(--color-surface, #ffffff);
+  background: var(--color-surface, #fff);
   border: 1px dashed var(--border-color, #9aa0a6);
   border-radius: var(--radius-md);
   font-family: var(--font-family);
+  padding: var(--space-8, 64px) var(--space-4, 16px);
+  text-align: center;
 }
 
 .empty-icon {
@@ -115,14 +131,14 @@
 }
 
 .activity-table-empty p {
-  margin: 0 0 8px 0;
-  font-size: var(--text-base, 1rem);
   color: var(--text-primary, #202124);
+  font-size: var(--text-base, 1rem);
   font-weight: 500;
+  margin: 0 0 8px;
 }
 
 .activity-table-empty .empty-subtext {
-  font-size: var(--text-sm, 0.875rem);
   color: var(--color-text-secondary, #5f6368);
+  font-size: var(--text-sm, 0.875rem);
   font-weight: 400;
 }

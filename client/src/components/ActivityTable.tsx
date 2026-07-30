@@ -53,13 +53,22 @@ const ActivityTable: React.FC<ActivityTableProps> = ({
             <th onClick={() => handleSort('location')} className={onSort ? 'sortable' : ''}>
               Location {renderSortIndicator('location')}
             </th>
-            <th className={`numeric ${onSort ? 'sortable' : ''}`} onClick={() => handleSort('co2_saved')}>
+            <th
+              className={`numeric ${onSort ? 'sortable' : ''}`}
+              onClick={() => handleSort('co2_saved')}
+            >
               CO₂ Saved {renderSortIndicator('co2_saved')}
             </th>
-            <th className={`numeric ${onSort ? 'sortable' : ''}`} onClick={() => handleSort('savings')}>
+            <th
+              className={`numeric ${onSort ? 'sortable' : ''}`}
+              onClick={() => handleSort('savings')}
+            >
               Savings {renderSortIndicator('savings')}
             </th>
-            <th className={`numeric ${onSort ? 'sortable' : ''}`} onClick={() => handleSort('credits')}>
+            <th
+              className={`numeric ${onSort ? 'sortable' : ''}`}
+              onClick={() => handleSort('credits')}
+            >
               Credits {renderSortIndicator('credits')}
             </th>
             <th className="kudos-col">Kudos</th>

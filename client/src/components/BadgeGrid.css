@@ -1,17 +1,17 @@
 .badge-section-container {
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  padding: var(--space-6);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
 }
 
 .badge-section-title {
+  color: var(--text-primary);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: var(--text-primary);
-  margin-top: 0;
   margin-bottom: var(--space-4);
+  margin-top: 0;
 }
 
 .badge-grid {
@@ -22,32 +22,32 @@
 }
 
 .badge-item {
-  width: 64px;
-  height: 64px;
   border-radius: 50%;
+  cursor: pointer;
   display: grid;
+  height: 64px;
   place-items: center;
   position: relative;
-  cursor: pointer;
   transition: all var(--transition-base);
+  width: 64px;
 }
 
 .badge-item.earned {
   background: var(--color-green-light);
   border: 2px solid var(--color-green);
-  box-shadow: 0 0 10px rgba(5, 150, 105, 0.2);
+  box-shadow: 0 0 10px rgb(5 150 105 / 20%);
 }
 
 .badge-item.earned:hover {
+  box-shadow: 0 0 15px rgb(5 150 105 / 40%);
   transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(5, 150, 105, 0.4);
 }
 
 .badge-item.locked {
   background: var(--bg-secondary);
   border: 2px solid var(--border-color);
-  opacity: 0.6;
   filter: grayscale(1);
+  opacity: 0.6;
 }
 
 .badge-icon {
@@ -55,22 +55,22 @@
 }
 
 .badge-tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
+  bottom: calc(100% + 10px);
   box-shadow: var(--shadow-md);
-  width: max-content;
+  left: 50%;
   max-width: 200px;
-  text-align: center;
-  z-index: 10;
   opacity: 0;
-  visibility: hidden;
+  padding: var(--space-2) var(--space-3);
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
   transition: opacity var(--transition-fast);
+  visibility: hidden;
+  width: max-content;
+  z-index: 10;
 }
 
 .badge-item:hover .badge-tooltip {
@@ -79,29 +79,29 @@
 }
 
 .badge-tooltip strong {
+  color: var(--text-primary);
   display: block;
   font-size: var(--text-sm);
-  color: var(--text-primary);
   margin-bottom: var(--space-1);
 }
 
 .badge-tooltip p {
-  font-size: var(--text-xs);
   color: var(--text-secondary);
+  font-size: var(--text-xs);
   margin: 0;
 }
 
 .next-badge-container {
   background: var(--bg-secondary);
-  padding: var(--space-4);
   border-radius: var(--radius-md);
+  padding: var(--space-4);
 }
 
 .next-badge-info {
   display: flex;
+  font-size: var(--text-sm);
   justify-content: space-between;
   margin-bottom: var(--space-2);
-  font-size: var(--text-sm);
 }
 
 .next-badge-label {
@@ -113,20 +113,20 @@
 }
 
 .next-badge-progress-text {
-  font-weight: 600;
   color: var(--color-link);
+  font-weight: 600;
 }
 
 .next-badge-progress-bar {
-  height: 8px;
   background: var(--border-color);
   border-radius: var(--radius-pill);
+  height: 8px;
   overflow: hidden;
 }
 
 .next-badge-progress-fill {
-  height: 100%;
   background: var(--color-link);
   border-radius: var(--radius-pill);
+  height: 100%;
   transition: width var(--transition-slow);
 }

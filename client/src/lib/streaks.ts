@@ -22,7 +22,7 @@ export function getCurrentWeek(): string {
   const d = new Date();
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  const weekNo = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
   return `${d.getUTCFullYear()}-W${weekNo}`;
 }
 
@@ -68,7 +68,7 @@ export function recordActivity(): StreakData {
   if (data.lastActiveWeek) {
     const [lastYear, lastWeek] = data.lastActiveWeek.split('-W').map(Number);
     const [currYear, currWeek] = currentWeek.split('-W').map(Number);
-    
+
     // Very basic check for consecutive weeks
     if (currYear === lastYear && currWeek === lastWeek + 1) {
       streakContinues = true;
@@ -80,11 +80,11 @@ export function recordActivity(): StreakData {
   data.currentStreak = streakContinues ? data.currentStreak + 1 : 1;
   data.longestStreak = Math.max(data.longestStreak, data.currentStreak);
   data.lastActiveWeek = currentWeek;
-  
+
   if (!data.weeklyHistory.includes(currentWeek)) {
     data.weeklyHistory.push(currentWeek);
   }
-  
+
   localStorage.setItem(STREAK_KEY, JSON.stringify(data));
   return data;
 }
