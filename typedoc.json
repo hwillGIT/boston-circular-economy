@@ -1,0 +1,43 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "client/src/lib/api.ts",
+    "client/src/lib/auth.tsx",
+    "client/src/lib/authApi.ts",
+    "client/src/lib/userTypes.ts",
+    "client/src/lib/badges.ts",
+    "client/src/lib/streaks.ts",
+    "client/src/lib/co2.ts",
+    "server/src/index.ts",
+    "server/src/db/index.ts",
+    "server/src/db/migrations.ts",
+    "server/src/routes/auth.ts",
+    "server/src/routes/activities.ts",
+    "server/src/routes/locations.ts",
+    "server/src/services/authService.ts",
+    "server/src/middleware/auth.ts"
+  ],
+  "out": "docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "name": "Boston Circular Economy — API Reference",
+  "readme": "docs/index.md",
+  "entryPointStrategy": "expand",
+  "exclude": ["**/*.test.*", "**/*.spec.*", "**/node_modules/**"],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": false,
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "categoryOrder": ["Auth", "Database", "Routes", "Services", "Middleware", "Client", "Types", "*"],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "sort": ["source-order"],
+  "kindSortOrder": ["Module", "Class", "Interface", "TypeAlias", "Function", "Variable"],
+  "outputFileStrategy": "modules",
+  "hidePageHeader": false,
+  "hidePageTitle": false,
+  "hideGroupHeadings": false,
+  "useCodeBlocks": true
+}
