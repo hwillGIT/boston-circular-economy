@@ -2,7 +2,6 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": [
     "client/src/lib/api.ts",
-    "client/src/lib/auth.tsx",
     "client/src/lib/authApi.ts",
     "client/src/lib/userTypes.ts",
     "client/src/lib/badges.ts",
@@ -39,5 +38,6 @@
   "hidePageHeader": false,
   "hidePageTitle": false,
   "hideGroupHeadings": false,
-  "useCodeBlocks": true
+  "useCodeBlocks": true,
+  "tsconfig": "tsconfig.typedoc.json"
 }

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": false
+  },
+  "include": [
+    "client/src/env.d.ts",
+    "client/src/lib/**/*",
+    "server/src/**/*"
+  ],
+  "exclude": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/node_modules/**",
+    "client/src/pages/**",
+    "client/src/components/**",
+    "client/src/lib/map/**",
+    "client/src/lib/auth.tsx",
+    "client/src/main.tsx"
+  ]
+}
