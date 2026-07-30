@@ -9,6 +9,21 @@ openstreetmap_query_args: list[dict[str, str]] = []
 
 
 def main() -> None:
+    """Executes the scraping job and writes to the local data store.
+
+    This function iterates through query arguments for Google Places
+    and OpenStreetMap, fetches the raw locations, normalizes them, and
+    saves the snapshots using LocalDataStore.
+
+    Args:
+        None.
+
+    Returns:
+        None.
+
+    Examples:
+        >>> # main()  # executes the scraping job
+    """
     # reads and writes normalized locations to the local output file
     store = LocalDataStore()
 

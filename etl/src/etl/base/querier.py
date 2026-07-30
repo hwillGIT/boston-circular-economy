@@ -13,4 +13,22 @@ class BaseQuerier(ABC):
 
     @abstractmethod
     def fetch(self) -> list[RawLocation]:
+        """Fetches all locations from the data source.
+
+        Args:
+            None.
+
+        Returns:
+            A list of raw locations retrieved from the source.
+
+        Raises:
+            NotImplementedError: If not implemented by subclass.
+
+        Examples:
+            >>> class MyQuerier(BaseQuerier):
+            ...     def fetch(self): return []
+            >>> querier = MyQuerier()
+            >>> querier.fetch()
+            []
+        """
         pass

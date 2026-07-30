@@ -14,4 +14,22 @@ class BaseNormalizer(ABC):
 
     @abstractmethod
     def normalize(self, raw_locations: list[RawLocation]) -> list[NormalizedLocation]:
+        """Normalizes a list of raw locations into the common schema.
+
+        Args:
+            raw_locations: A list of raw location data objects.
+
+        Returns:
+            A list of locations normalized to the standard format.
+
+        Raises:
+            NotImplementedError: If not implemented by subclass.
+
+        Examples:
+            >>> class MyNormalizer(BaseNormalizer):
+            ...     def normalize(self, locs): return []
+            >>> norm = MyNormalizer()
+            >>> norm.normalize([])
+            []
+        """
         pass

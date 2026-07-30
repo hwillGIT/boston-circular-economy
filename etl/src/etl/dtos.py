@@ -81,6 +81,8 @@ class NormalizedLocation(BaseModel):
     services: list[Service]
     availability: Availability
     last_verified: str | None = None
+    rating: float | None = None
+    review_count: int | None = None
 
 
 # MatchGroup is the boundary between MergeProcessor.match() and .prioritize().

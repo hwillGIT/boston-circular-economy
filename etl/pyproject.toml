@@ -12,9 +12,7 @@ scrape-to-local = "etl.jobs.scrape_to_local:main"
 merge-process-to-local = "etl.jobs.merge_process_to_local:main"
 
 [dependency-groups]
-dev = [
-    "pytest>=9.0.3",
-]
+dev = ["pytest>=9.0.3", "ruff>=0.12.0", "mypy>=1.16.0"]
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]
@@ -24,3 +22,42 @@ where = ["src"]
 
 [tool.uv]
 package = true
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["etl"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false

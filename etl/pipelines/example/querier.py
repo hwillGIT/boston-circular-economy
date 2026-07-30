@@ -55,11 +55,20 @@ MOCK_DATA = [
 
 
 class ExampleQuerier(BaseQuerier):
+    """
+    Return example source data in the same shape a real API querier would use.
+
+    This class is deliberately simple. It shows the contract for a querier:
+    fetch source records, keep the original payload, and add pipeline metadata.
+    """
 
     def fetch(self) -> list[RawLocation]:
+        """Wrap each mock record in RawLocation so the normalizer has one input shape."""
         fetched_at = datetime.now(timezone.utc)
         raw_locations = []
         for item in MOCK_DATA:
+            # RawLocation preserves the original source payload.
+            # The normalizer decides how to map that payload into our shared schema.
             raw_locations.append(RawLocation(
                 data_source="example",
                 data_source_id=item["id"],
