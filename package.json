@@ -6,6 +6,35 @@
     "server"
   ],
   "scripts": {
-    "dev": "npm run dev -w client & npm run dev -w server"
+    "dev": "npm run dev -w client & npm run dev -w server",
+    "lint": "npm run lint -w client && npm run lint -w server",
+    "lint:css": "stylelint 'client/src/**/*.css'",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docs:generate": "typedoc",
+    "docs:audit": "typedoc --emit none --logLevel Warn",
+    "typecheck": "npm run build -w client -- --noEmit && npm run build -w server -- --noEmit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "client/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "server/**/*.{ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "client/**/*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.12.0"
   }
 }
