@@ -14,6 +14,8 @@
     "docs:generate": "typedoc",
     "docs:audit": "typedoc --emit none --logLevel Warn",
     "typecheck": "pnpm --filter client build --noEmit && pnpm --filter server build --noEmit",
+    "replit:build": "cd client && npm install && npx vite build",
+    "replit:start": "cd server && npm install && NODE_ENV=production node --import @swc-node/register/esm-register src/index.ts",
     "prepare": "husky"
   },
   "lint-staged": {
