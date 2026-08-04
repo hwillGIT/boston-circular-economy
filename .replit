@@ -9,6 +9,7 @@ expertMode = true
 [deployment]
 build = ["sh", "-c", "npm run replit:build"]
 run = ["sh", "-c", "npm run replit:start"]
+deploymentTarget = "vm"
 
 [workflows]
 runButton = "Project"
