@@ -12,6 +12,38 @@ import type { Database } from 'better-sqlite3';
  */
 export function runMigrations(db: Database) {
   db.exec(`
+    CREATE TABLE IF NOT EXISTS locations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      data_source TEXT NOT NULL,
+      data_source_id TEXT NOT NULL,
+      name TEXT NOT NULL,
+      lat REAL NOT NULL,
+      lon REAL NOT NULL,
+      street TEXT,
+      city TEXT,
+      state TEXT,
+      postcode TEXT,
+      phone TEXT,
+      email TEXT,
+      website TEXT,
+      social TEXT,
+      opening_hours TEXT,
+      is_persistent INTEGER DEFAULT 1,
+      last_verified TEXT,
+      rating REAL,
+      review_count INTEGER,
+      created_at TEXT DEFAULT (datetime('now')),
+      updated_at TEXT DEFAULT (datetime('now')),
+      UNIQUE(data_source, data_source_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS services (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      location_id INTEGER NOT NULL REFERENCES locations(id) ON DELETE CASCADE,
+      activity TEXT NOT NULL,
+      item_category TEXT NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
       email TEXT UNIQUE NOT NULL,

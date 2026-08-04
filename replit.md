@@ -1,29 +1,31 @@
 # Boston Circular Economy
 
-A web app for discovering circular economy locations in Boston — things like repair shops, reuse stores, composting sites, etc.
+A City of Boston web tool for discovering circular economy locations — repair shops, donation centers, thrift stores, tool libraries, and community resources across Greater Boston.
 
 ## Stack
 
 | Layer | Tech |
 |---|---|
-| Client | React 19 + Vite + TanStack Router (TypeScript) |
+| Client | React 19 + Vite + TanStack Router (TypeScript), Leaflet maps |
 | Server | Express 5 + SQLite via `better-sqlite3` (TypeScript) |
-| ETL | Python data pipeline (`uv`) — fetches & normalises location data |
+| ETL | Python data pipeline (`uv`) — fetches & normalises location data from Google Places and OpenStreetMap |
 
 ## Running on Replit
 
 Two workflows run automatically:
 
-- **Start application** — Vite dev server for the client on port 5000 (webview)
-- **Backend** — Express API server on port 3000 (console)
+- **Start application** — Vite dev server for the client on **port 5000** (webview)
+- **Backend** — Express API server on **port 3000** (console)
 
-The client dev server is configured at `client/vite.config.ts`. In dev mode the base path is `/`; production builds use `/boston-circular-economy/` (for GitHub Pages).
+The client proxies `/api/*` requests to the backend via Vite's `server.proxy` config.
 
 ## Key notes
 
+- **DATABASE_URL** in the Replit environment is a PostgreSQL connection string and must not be used for the SQLite server. The server uses `SQLITE_PATH` (falls back to `dev.db` at the workspace root).
+- The database is currently empty — the ETL pipeline needs to be run to populate location data.
 - `seroval` is pinned to `^1.6.2` via `overrides` in the root `package.json` (1.5.0 has a CVE blocked by Replit's security policy).
-- The server uses a local SQLite file (`dev.db`) — no external database needed for development.
-- The ETL pipeline lives in `etl/` and uses `uv` for Python dependency management.
+- The app was merged from the `feature/visual-mapping-guides-and-adrs` branch of the upstream GitHub repo.
+- Production build: `npm run replit:build` (Vite build) / `npm run replit:start` (Express serves static client).
 
 ## User preferences
 

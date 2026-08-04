@@ -1,7 +1,13 @@
 import Database from 'better-sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { runMigrations } from './migrations.ts';
 
-const db = new Database(process.env['DATABASE_URL'] ?? 'dev.db');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Use SQLITE_PATH if set; otherwise place dev.db at the workspace root.
+// DATABASE_URL is reserved for PostgreSQL in this environment and must not be used here.
+const dbPath = process.env['SQLITE_PATH'] ?? path.resolve(__dirname, '../../../dev.db');
+const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
 
 // Haversine distance function for nearby queries
