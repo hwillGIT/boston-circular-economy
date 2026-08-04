@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-client:
+    name: Lint • Client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -w client run lint
+      - run: pnpm -w client run lint:css
+      - run: pnpm run format:check
+
+  lint-server:
+    name: Lint • Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -w server run lint
+
+  lint-etl:
+    name: Lint • ETL (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: astral-sh/ruff-action@v3
+      - run: pip install mypy pydantic
+      - run: ruff check etl/src/ etl/pipelines/ etl/tests/
+      - run: ruff format --check etl/src/ etl/pipelines/ etl/tests/
+      - run: cd etl && mypy src/etl/merge/ --ignore-missing-imports
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    needs: [lint-client, lint-server]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -w client run build
+      - run: pnpm -w server run build
+
+  test-etl:
+    name: Test • ETL
+    runs-on: ubuntu-latest
+    needs: [lint-etl]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: cd etl && pip install -e ".[dev]" && pytest tests/ -v
+
+  docs:
+    name: Docs • Generate
+    runs-on: ubuntu-latest
+    needs: [typecheck]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - name: Audit — check for undocumented exports
+        run: pnpm docs:audit
+      - name: Generate API documentation
+        run: pnpm docs:generate
+      - name: Upload docs artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-docs
+          path: docs/api/
+          retention-days: 30
+
+  docs-python:
+    name: Docs • Python
+    runs-on: ubuntu-latest
+    needs: [test-etl]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install pydocstyle
+      - name: Audit Python docstrings
+        run: pydocstyle --convention=google etl/src/ etl/pipelines/ || true
+      - name: Report coverage
+        run: |
+          echo "## Python Docstring Coverage" >> $GITHUB_STEP_SUMMARY
+          pydocstyle --convention=google --count etl/src/ etl/pipelines/ 2>&1 | tail -1 >> $GITHUB_STEP_SUMMARY || true
+
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [typecheck, test-etl, docs]
+    steps:
+      - run: echo 'All checks passed'

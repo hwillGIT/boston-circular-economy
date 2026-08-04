@@ -6,6 +6,10 @@ channel = "stable-25_05"
 [agent]
 expertMode = true
 
+[deployment]
+build = ["sh", "-c", "npm run replit:build"]
+run = ["sh", "-c", "npm run replit:start"]
+
 [workflows]
 runButton = "Project"
 

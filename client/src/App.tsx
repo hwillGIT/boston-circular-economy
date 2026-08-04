@@ -3,7 +3,7 @@ function App() {
     <>
       <h1>Boston Circular Economy Project</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

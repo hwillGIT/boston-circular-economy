@@ -1,0 +1,42 @@
+.replacement-cost-bar {
+  align-items: center;
+  background: var(--warning-bg, #fef7e0);
+  border: 1px solid #fbbc04; /* Amber border */
+  border-radius: var(--radius-sm);
+  color: var(--warning-text, #b06000);
+  display: flex;
+  font-family: var(--font-family);
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+}
+
+.replacement-icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.replacement-text {
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.4;
+}
+
+.replacement-dot {
+  margin: 0 var(--space-2, 8px);
+  opacity: 0.5;
+}
+
+@media (width <= 600px) {
+  .replacement-cost-bar {
+    align-items: flex-start;
+  }
+
+  .replacement-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .replacement-dot {
+    display: none;
+  }
+}

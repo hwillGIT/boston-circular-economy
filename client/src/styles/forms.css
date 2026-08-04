@@ -1,0 +1,121 @@
+/**
+ * @module forms.css
+ * @description Shared CSS patterns for forms, inputs, buttons, and overlays.
+ */
+
+/* ── Form inputs ── */
+.form-input {
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: var(--text-base, 16px);
+  outline: none;
+  transition: all var(--transition-fast, 0.2s);
+  width: 100%;
+}
+
+.form-input:focus,
+.form-input:focus-visible {
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px rgb(5 150 105 / 10%);
+  outline: none;
+}
+
+.form-input.error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 10%);
+}
+
+/* ── Primary buttons ── */
+.btn-primary {
+  align-items: center;
+  background: var(--color-green);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-family);
+  font-weight: 700;
+  justify-content: center;
+  transition: all var(--transition-fast, 0.2s);
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-primary:focus-visible:not(:disabled) {
+  background: var(--color-green-dark);
+  box-shadow: 0 4px 12px rgb(5 150 105 / 30%);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+/* ── Error banners ── */
+.form-error {
+  align-items: center;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--color-error);
+  display: flex;
+}
+
+/* ── Modal overlays ── */
+.modal-overlay {
+  align-items: center;
+  backdrop-filter: blur(4px);
+  background: rgb(9 31 47 / 60%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 10000;
+}
+
+/* ── Tab/chip groups ── */
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip-toggle {
+  align-items: center;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-family);
+  font-weight: 600;
+  transition: all var(--transition-fast, 0.2s);
+}
+
+.chip-toggle:hover:not(.active),
+.chip-toggle:focus-visible:not(.active) {
+  color: var(--text-primary);
+}
+
+.chip-toggle.active {
+  background: var(--color-green);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+}
+
+/* ── Shared Animations ── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

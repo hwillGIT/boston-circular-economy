@@ -1,0 +1,140 @@
+/* ============================================================
+   DESIGN SYSTEM — Boston Circular Economy
+   Extracted from Figma + Vercel prototype + research
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #091f2f; /* Charles Blue — header, dark surfaces */
+  --color-primary-light: #1a2332;
+  --color-accent: #f44336; /* Freedom Trail Red — accent bar */
+  --color-accent-hover: #d32f2f;
+  --color-cta: #f97316; /* Orange — primary buttons */
+  --color-cta-hover: #ea580c;
+  --color-link: #1871bd; /* Optimistic Blue — links */
+
+  /* ── Sustainability Palette ── */
+  --color-green: #059669; /* Primary eco green */
+  --color-green-light: #d1fae5; /* Mint badge bg */
+  --color-green-dark: #047857;
+  --color-teal: #0d9488; /* Brand accent */
+  --color-blue: #3b82f6; /* Paid/Pro markers */
+  --color-purple: #7c3aed; /* BCYF markers, clothing */
+  --color-purple-light: #c4b5fd;
+
+  /* ── MBTA Transit Lines ── */
+  --mbta-red: #da291c;
+  --mbta-green: #00843d;
+  --mbta-orange: #ed8b00;
+  --mbta-blue: #003da5;
+  --mbta-silver: #7c878e;
+  --mbta-commuter: #80276c;
+  --mbta-bus: #ffc72c;
+
+  /* ── Surfaces ── */
+  --bg-primary: #fff;
+  --bg-secondary: #f8fafb;
+  --bg-warm: #fff8f0;
+  --bg-card: #fff;
+  --bg-hover: #f1f5f9;
+
+  /* ── Text ── */
+  --text-primary: #1a1a2e;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --text-inverse: #fff;
+
+  /* ── Borders & Dividers ── */
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  /* ── Semantic Aliases (used by components) ── */
+  --color-surface: #fff;
+  --color-surface-hover: #f1f5f9;
+  --color-background: #f8fafb;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --color-error: #ef4444;
+  --color-primary-dark: #059669;
+
+  /* ── Warnings ── */
+  --warning-bg: #fff7ed;
+  --warning-text: #9a3412;
+  --warning-border: #fdba74;
+
+  /* ── SDG Badges ── */
+  --sdg-11: #f99d26;
+  --sdg-12: #bf8b2e;
+  --sdg-13: #3f7e44;
+
+  /* ── Typography ── */
+  --font-family: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  /* ── Font Sizes ── */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 0.95rem; /* 15.2px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 2rem; /* 32px */
+  --text-hero: 2.8rem; /* 44.8px */
+
+  /* ── Spacing ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 6%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 8%);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 12%);
+  --shadow-glass: 0 8px 32px rgb(0 97 95 / 8%);
+  --shadow-hover: 0 12px 24px -4px rgb(0 97 95 / 15%);
+
+  /* ── Layout ── */
+  --header-height: 64px;
+  --sidebar-width: 420px;
+  --content-max-width: 1200px;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 9999px;
+
+  /* ── Transitions ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+  --transition-slow: 400ms var(--ease-out);
+}
+
+/* ── Dark mode support ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --bg-warm: #1a1a2e;
+    --bg-hover: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --border-light: #1e293b;
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 30%);
+    --shadow-md: 0 4px 12px rgb(0 0 0 / 40%);
+  }
+}

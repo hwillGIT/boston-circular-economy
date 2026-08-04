@@ -1,0 +1,68 @@
+.map-view-wrapper {
+  background-color: var(--color-surface, #fff);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 5%));
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.map-view-container {
+  height: 100%;
+  width: 100%;
+  z-index: 1; /* Keep map below popovers */
+}
+
+.map-view-shimmer {
+  align-items: center;
+  animation: map-shimmer 1.5s infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-background) 0%,
+    var(--color-surface-hover) 50%,
+    var(--color-background) 100%
+  );
+  background-size: 200% 100%;
+  color: var(--color-text-secondary, #64748b);
+  display: flex;
+  font-family: var(--font-family);
+  font-weight: 500;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 2;
+}
+
+.map-view-error {
+  align-items: center;
+  background-color: var(--color-surface);
+  color: var(--color-error, #ef4444);
+  display: flex;
+  font-family: var(--font-family);
+  inset: 0;
+  justify-content: center;
+  padding: var(--space-4, 1rem);
+  position: absolute;
+  text-align: center;
+  z-index: 2;
+}
+
+@keyframes map-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Leaflet specific overrides */
+.leaflet-container {
+  font-family: var(--font-family) !important;
+}
+
+/* Marker highlight is now done in-place via setRadius/setStyle — 
+   no separate overlay layer needed. */

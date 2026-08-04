@@ -101,4 +101,4 @@ export const ITEMS = [
   'sewing machine',
   'knitting needles',
   'fabric',
-]
+];

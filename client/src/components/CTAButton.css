@@ -1,0 +1,137 @@
+.cta-button {
+  align-items: center;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-family);
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.5px;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-button:focus-visible {
+  outline: 2px solid var(--color-primary, #091f2f);
+  outline-offset: 2px;
+}
+
+/* Sizes */
+.cta-button--sm {
+  font-size: 12px;
+  height: 36px;
+  padding: 0 16px;
+}
+
+.cta-button--md {
+  font-size: 14px;
+  height: 48px;
+  padding: 0 24px;
+}
+
+.cta-button--lg {
+  font-size: 16px;
+  height: 56px;
+  padding: 0 32px;
+}
+
+/* Variants */
+.cta-button--primary {
+  background-color: var(--color-cta, #ff7b00);
+  box-shadow: 0 2px 4px rgb(255 123 0 / 20%);
+  color: var(--text-inverse);
+}
+
+.cta-button--primary:hover:not(.cta-button--disabled, .cta-button--loading) {
+  background-color: var(--color-cta-hover, #e66a00);
+  box-shadow: 0 4px 8px rgb(255 123 0 / 30%);
+  transform: translateY(-2px);
+}
+
+.cta-button--primary:active:not(.cta-button--disabled, .cta-button--loading) {
+  box-shadow: 0 2px 4px rgb(255 123 0 / 20%);
+  transform: translateY(0);
+}
+
+.cta-button--secondary {
+  background-color: var(--color-primary, #091f2f);
+  color: var(--text-inverse);
+}
+
+.cta-button--secondary:hover:not(.cta-button--disabled, .cta-button--loading) {
+  background-color: var(--color-primary-light, #153247);
+  box-shadow: 0 4px 8px rgb(9 31 47 / 20%);
+  transform: translateY(-2px);
+}
+
+.cta-button--outline {
+  background-color: transparent;
+  border: 2px solid var(--color-border, #e0e0e0);
+  color: var(--text-primary, #333);
+}
+
+.cta-button--outline:hover:not(.cta-button--disabled, .cta-button--loading) {
+  border-color: var(--color-primary, #091f2f);
+  color: var(--color-primary, #091f2f);
+  transform: translateY(-2px);
+}
+
+/* Icon (built-in CSS arrow for primary) */
+.cta-button--with-icon .cta-button-label {
+  align-items: center;
+  display: inline-flex;
+}
+
+.cta-button--with-icon .cta-button-label::after {
+  content: '→';
+  font-size: 1.2em;
+  line-height: 1;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.cta-button--with-icon:hover:not(.cta-button--disabled, .cta-button--loading)
+  .cta-button-label::after {
+  transform: translateX(4px);
+}
+
+/* States */
+.cta-button--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cta-button--loading {
+  cursor: wait;
+}
+
+.cta-button-label {
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Spinner */
+.cta-button-spinner {
+  animation: spin 1s linear infinite;
+  border: 2px solid rgb(255 255 255 / 30%);
+  border-radius: 50%;
+  border-top-color: currentcolor;
+  height: 20px;
+  width: 20px;
+}
+
+.cta-button--outline .cta-button-spinner {
+  border: 2px solid rgb(0 0 0 / 10%);
+  border-top-color: currentcolor;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,44 +1,44 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
-import { ITEMS } from './-mock-data/items'
-import styles from './fuzzy-search.module.css'
+import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
+import { ITEMS } from './-mock-data/items';
+import styles from './fuzzy-search.module.css';
 
 export const Route = createFileRoute('/dev/fuzzy-search/')({
   component: FuzzySearch,
-})
+});
 
 function fuzzyMatchIndices(query: string, item: string): number[] | null {
-  const q = query.toLowerCase()
-  const s = item.toLowerCase()
-  const indices: number[] = []
-  let qi = 0
+  const q = query.toLowerCase();
+  const s = item.toLowerCase();
+  const indices: number[] = [];
+  let qi = 0;
   for (let i = 0; i < s.length && qi < q.length; i++) {
     if (s[i] === q[qi]) {
-      indices.push(i)
-      qi++
+      indices.push(i);
+      qi++;
     }
   }
-  return qi === q.length ? indices : null
+  return qi === q.length ? indices : null;
 }
 
 function HighlightedItem({ item, matchIndices }: { item: string; matchIndices: number[] }) {
-  const matched = new Set(matchIndices)
+  const matched = new Set(matchIndices);
   return (
     <>
-      {item.split('').map((char, i) =>
-        matched.has(i) ? <b key={i}>{char}</b> : <span key={i}>{char}</span>
-      )}
+      {item
+        .split('')
+        .map((char, i) => (matched.has(i) ? <b key={i}>{char}</b> : <span key={i}>{char}</span>))}
     </>
-  )
+  );
 }
 
 function FuzzySearch() {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('');
 
   const results = ITEMS.flatMap((item) => {
-    const matchIndices = fuzzyMatchIndices(query, item)
-    return matchIndices ? [{ item, matchIndices }] : []
-  })
+    const matchIndices = fuzzyMatchIndices(query, item);
+    return matchIndices ? [{ item, matchIndices }] : [];
+  });
 
   return (
     <main>
@@ -65,5 +65,5 @@ function FuzzySearch() {
         </div>
       )}
     </main>
-  )
+  );
 }

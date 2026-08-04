@@ -1,0 +1,322 @@
+/* ── Ultra-low Friction Activity Log Form ── */
+
+.alf-overlay {
+  animation: fade-in 0.2s ease-out;
+  padding: 16px;
+}
+
+.alf-modal {
+  animation: alf-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 20%);
+  max-width: 480px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.alf-close {
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  font-size: 20px;
+  height: 32px;
+  justify-content: center;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  transition: background 0.2s;
+  width: 32px;
+  z-index: 10;
+}
+
+.alf-close:hover,
+.alf-close:focus-visible {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.alf-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 24px 24px;
+}
+
+.alf-step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.alf-step.hidden {
+  gap: 0;
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
+.alf-step label {
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Action Chips */
+.alf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.alf-chip {
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  gap: 6px;
+  padding: 10px 16px;
+}
+
+.alf-chip-check {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Inputs */
+.alf-step input[type='text'] {
+  background: var(--bg-secondary);
+  padding: 14px 16px;
+}
+
+.alf-step input[type='text']:focus,
+.alf-step input[type='text']:focus-visible {
+  background: var(--bg-primary);
+}
+
+/* Preview Panel */
+.alf-preview-panel {
+  animation: alf-slide-down 0.3s ease-out;
+  background: var(--color-green-light);
+  border: 1px solid var(--color-green-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.alf-preview-item {
+  align-items: center;
+  color: var(--text-primary);
+  display: flex;
+  font-family: var(--font-family);
+  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.alf-preview-item:last-child {
+  margin-bottom: 0;
+}
+
+.alf-preview-item span {
+  color: var(--text-secondary);
+}
+
+.alf-preview-subtext {
+  color: var(--color-green);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  margin-top: -6px;
+}
+
+/* Optional Fields */
+.alf-optional-section {
+  border-top: 1px solid var(--bg-hover);
+  padding-top: 16px;
+}
+
+.alf-optional-toggle {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: space-between;
+  padding: 0;
+  width: 100%;
+}
+
+.alf-optional-toggle:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.alf-optional-fields {
+  animation: alf-slide-down 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.alf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alf-field label {
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.alf-field input,
+.alf-field textarea {
+  font-size: 15px;
+  padding: 10px 14px;
+}
+
+.alf-field textarea {
+  resize: vertical;
+}
+
+/* Submit Button */
+.alf-submit-btn {
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+.alf-spinner {
+  animation: alf-spin 1s ease-in-out infinite;
+  border: 3px solid rgb(255 255 255 / 30%);
+  border-radius: 50%;
+  border-top-color: var(--bg-primary);
+  height: 20px;
+  width: 20px;
+}
+
+/* Error */
+.alf-error {
+  font-size: 14px;
+  padding: 12px;
+}
+
+/* Success State */
+.alf-success {
+  align-items: center;
+  animation: fade-in 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 250px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.alf-success-icon {
+  animation: alf-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.alf-success h3 {
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.alf-success p {
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.alf-success strong {
+  color: var(--color-green);
+}
+
+@keyframes alf-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes alf-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes alf-bounce {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes alf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile */
+@media (width <= 520px) {
+  .alf-modal {
+    align-self: flex-end;
+    border-radius: 16px 16px 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .alf-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+}

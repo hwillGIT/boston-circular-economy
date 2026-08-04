@@ -3,18 +3,23 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec 'node --import @swc-node/register/esm-register src/index.ts' --watch src --ext ts",
+    "dev": "nodemon --exec \"node --import @swc-node/register/esm-register src/index.ts\" --watch src --ext ts",
     "start": "node dist/index.js",
     "build": "tsc",
     "lint": "eslint ."
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "better-sqlite3": "^11.10.0",
+    "cors": "^2.8.6",
+    "express": "^5.1.0",
+    "zod": "^3.25.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@swc-node/register": "^1.10.9",
     "@swc/core": "^1.11.13",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.1",
     "@types/node": "^24.10.1",
     "eslint": "^9.39.1",

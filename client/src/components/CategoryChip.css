@@ -1,0 +1,68 @@
+.category-chip {
+  align-items: center;
+  background-color: var(--color-surface, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: var(--radius-pill, 9999px);
+  color: var(--text-primary, #1a1a2e);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: var(--text-sm, 14px);
+  font-weight: 500;
+  gap: var(--space-2, 8px);
+  height: 36px;
+  outline: none;
+  padding: 0 16px;
+  transition: all 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  white-space: nowrap;
+}
+
+.category-chip:hover {
+  background-color: var(--bg-hover, #f1f5f9);
+  border-color: var(--border-color, #ccc);
+  transform: translateY(-1px);
+}
+
+.category-chip:active {
+  transform: translateY(0);
+}
+
+.category-chip.active {
+  background-color: var(--color-primary, #091f2f);
+  border-color: var(--color-primary, #091f2f);
+  color: #fff;
+}
+
+.category-chip.active:hover {
+  background-color: var(--color-primary-light, #1a2332);
+  border-color: var(--color-primary-light, #1a2332);
+}
+
+.category-chip-emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.category-chip-label {
+  line-height: 1;
+}
+
+.category-chip-count {
+  align-items: center;
+  background-color: var(--bg-secondary, #f0f0f0);
+  border-radius: var(--radius-pill, 10px);
+  color: var(--text-secondary, #666);
+  display: inline-flex;
+  font-size: var(--text-xs, 11px);
+  font-weight: 700;
+  height: 20px;
+  justify-content: center;
+  min-width: 20px;
+  padding: 0 6px;
+  transition: all 0.2s var(--ease-out);
+}
+
+.category-chip.active .category-chip-count {
+  background-color: rgb(255 255 255 / 20%);
+  color: #fff;
+}

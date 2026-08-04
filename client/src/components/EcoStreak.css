@@ -1,0 +1,78 @@
+.eco-streak-container {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-6);
+  padding: var(--space-3) var(--space-5);
+}
+
+.eco-streak-header {
+  align-items: center;
+  display: flex;
+  gap: var(--space-4);
+}
+
+.eco-streak-flame {
+  filter: grayscale(1);
+  font-size: 2.5rem;
+  opacity: 0.5;
+  transition: all var(--transition-base);
+}
+
+.eco-streak-flame.active {
+  animation: flame-bounce 2s infinite ease-in-out;
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@keyframes flame-bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.eco-streak-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.eco-streak-title {
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.eco-streak-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+.eco-streak-calendar {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: 0;
+}
+
+.eco-streak-day {
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  height: 24px;
+  width: 24px;
+}
+
+.eco-streak-day.active {
+  background: var(--color-green);
+  border-color: var(--color-green-dark);
+}

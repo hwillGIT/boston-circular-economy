@@ -1,15 +1,15 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dev/')({
   component: DevIndex,
-})
+});
 
-const folderModules = import.meta.glob('./*/index.tsx')
+const folderModules = import.meta.glob('./*/index.tsx');
 
 function DevIndex() {
   const prototypes = Object.keys(folderModules)
     .map((path) => path.replace(/^\.\//, '').replace(/\/index\.tsx$/, ''))
-    .sort()
+    .sort();
 
   return (
     <main>
@@ -24,5 +24,5 @@ function DevIndex() {
         </ul>
       </div>
     </main>
-  )
+  );
 }

@@ -12,13 +12,21 @@ from dtos import (
 
 
 class ExampleNormalizer(BaseNormalizer):
+    """
+    Convert example RawLocation payloads into the shared NormalizedLocation schema.
+
+    Each real data source can use different field names and nesting.
+    A normalizer is the place where that source-specific shape becomes predictable.
+    """
 
     def normalize(self, raw_locations: list[RawLocation]) -> list[NormalizedLocation]:
+        """Map every raw example record into the DTO shape used by ingesters."""
         normalized_locations = []
         for raw in raw_locations:
             payload = raw.payload
             services = []
             for raw_service in payload["services"]:
+                # Convert source strings into enums so invalid activities or categories fail early.
                 services.append(Service(
                     activity=Activity(raw_service["activity"]),
                     item_category=ItemCategory(raw_service["item_category"]),
@@ -29,6 +37,7 @@ class ExampleNormalizer(BaseNormalizer):
                 name=payload["name"],
                 lat=payload["lat"],
                 lon=payload["lon"],
+                # Address, Contact, Service, and Availability keep related fields grouped.
                 address=Address(
                     street=payload["address"]["street"],
                     city=payload["address"]["city"],
