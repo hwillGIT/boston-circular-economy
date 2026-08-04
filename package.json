@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "npm run dev -w client & npm run dev -w server",
     "lint": "npm run lint -w client && npm run lint -w server",
-    "replit:build": "cd client && npm install && npx vite build",
-    "replit:start": "cd server && npm install && NODE_ENV=production node --import @swc-node/register/esm-register src/index.ts",
+    "replit:build": "npm install && cd client && npx vite build && cd ../server && npx esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --packages=external",
+    "replit:start": "cd server && NODE_ENV=production PORT=5000 SQLITE_PATH=../dev.db node dist/index.js",
     "prepare": "node -e \"try{require('husky').install()}catch(e){if(e.code!='MODULE_NOT_FOUND')throw e}\""
   },
   "devDependencies": {
