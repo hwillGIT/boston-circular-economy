@@ -1,0 +1,1 @@
+- [Auth wiring intentionally deferred](auth-wiring-deferred.md) — login UI is mock-only by user choice; don't re-propose real auth wiring or treat it as a bug.
