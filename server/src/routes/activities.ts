@@ -1,8 +1,12 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import db from '../db/index.ts';
+import { authenticate, requireAuth } from '../middleware/auth.ts';
 
 const router = Router();
+
+// All activity data is private to the signed-in user
+router.use(authenticate, requireAuth);
 
 /* ── CO2 impact estimates by action type (kg) ── */
 const CO2_ESTIMATES: Record<string, number> = {
@@ -39,9 +43,9 @@ router.get('/', (req, res, next) => {
     const { page, limit } = listActivitiesSchema.parse(req.query);
     const offset = (page - 1) * limit;
 
-    const totalRow = db.prepare('SELECT COUNT(*) as total FROM activities').get() as {
-      total: number;
-    };
+    const totalRow = db
+      .prepare('SELECT COUNT(*) as total FROM activities WHERE user_id = ?')
+      .get(req.user.id) as { total: number };
 
     const activities = db
       .prepare(
@@ -49,11 +53,12 @@ router.get('/', (req, res, next) => {
       SELECT a.*, l.name as location_name
       FROM activities a
       LEFT JOIN locations l ON a.location_id = l.id
+      WHERE a.user_id = ?
       ORDER BY a.date DESC
       LIMIT ? OFFSET ?
     `,
       )
-      .all(limit, offset);
+      .all(req.user.id, limit, offset);
 
     res.json({ data: activities, meta: { page, limit, total: totalRow.total } });
   } catch (err) {
@@ -95,11 +100,12 @@ router.post('/', (req, res, next) => {
     const result = db
       .prepare(
         `
-      INSERT INTO activities (date, action, item, location_id, location_name, co2_saved, savings, credits, notes)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO activities (user_id, date, action, item, location_id, location_name, co2_saved, savings, credits, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
       )
       .run(
+        req.user.id,
         input.date || new Date().toISOString(),
         input.action,
         input.item,
@@ -122,7 +128,7 @@ router.post('/', (req, res, next) => {
 });
 
 /* ── Get aggregated impact stats ── */
-router.get('/stats', (_req, res, next) => {
+router.get('/stats', (req, res, next) => {
   try {
     const stats = db
       .prepare(
@@ -133,9 +139,10 @@ router.get('/stats', (_req, res, next) => {
         COALESCE(SUM(savings), 0) as money_saved,
         COALESCE(SUM(credits), 0) as credits_earned
       FROM activities
+      WHERE user_id = ?
     `,
       )
-      .get();
+      .get(req.user.id);
 
     res.json({ data: stats });
   } catch (err) {
@@ -151,7 +158,9 @@ router.delete('/:id', (req, res, next) => {
       return res.status(400).json({ error: 'Invalid activity ID' });
     }
 
-    const result = db.prepare('DELETE FROM activities WHERE id = ?').run(id);
+    const result = db
+      .prepare('DELETE FROM activities WHERE id = ? AND user_id = ?')
+      .run(id, req.user.id);
     if (result.changes === 0) {
       return res.status(404).json({ error: 'Activity not found' });
     }

@@ -15,9 +15,14 @@ export interface PaginatedResponse<T> {
 }
 
 export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<T> {
+  const token = localStorage.getItem('bce_token');
   const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
     ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options?.headers,
+    },
   });
   if (!res.ok) {
     const body = await res.text().catch(() => '');
