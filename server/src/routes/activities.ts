@@ -29,8 +29,20 @@ const CREDIT_TIERS: Record<string, number> = {
 };
 
 /* ── List activities ── */
-router.get('/', (_req, res, next) => {
+const listActivitiesSchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(100),
+});
+
+router.get('/', (req, res, next) => {
   try {
+    const { page, limit } = listActivitiesSchema.parse(req.query);
+    const offset = (page - 1) * limit;
+
+    const totalRow = db.prepare('SELECT COUNT(*) as total FROM activities').get() as {
+      total: number;
+    };
+
     const activities = db
       .prepare(
         `
@@ -38,12 +50,12 @@ router.get('/', (_req, res, next) => {
       FROM activities a
       LEFT JOIN locations l ON a.location_id = l.id
       ORDER BY a.date DESC
-      LIMIT 100
+      LIMIT ? OFFSET ?
     `,
       )
-      .all();
+      .all(limit, offset);
 
-    res.json({ data: activities });
+    res.json({ data: activities, meta: { page, limit, total: totalRow.total } });
   } catch (err) {
     next(err);
   }
@@ -144,7 +156,7 @@ router.delete('/:id', (req, res, next) => {
       return res.status(404).json({ error: 'Activity not found' });
     }
 
-    res.json({ message: 'Activity deleted' });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

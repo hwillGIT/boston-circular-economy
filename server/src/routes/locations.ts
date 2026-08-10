@@ -62,20 +62,22 @@ const nearbyQuerySchema = z.object({
   lat: z.coerce.number(),
   lng: z.coerce.number(),
   radius_m: z.coerce.number().positive(),
+  limit: z.coerce.number().int().min(1).max(200).default(50),
 });
 
 router.get('/nearby', (req, res, next) => {
   try {
-    const { lat, lng, radius_m } = nearbyQuerySchema.parse(req.query);
+    const { lat, lng, radius_m, limit } = nearbyQuerySchema.parse(req.query);
 
     const query = `
       SELECT *, haversine(?, ?, lat, lon) as distance
       FROM locations
       WHERE distance <= ?
       ORDER BY distance ASC
+      LIMIT ?
     `;
-    const locations = db.prepare(query).all(lat, lng, radius_m);
-    res.json({ data: locations });
+    const locations = db.prepare(query).all(lat, lng, radius_m, limit);
+    res.json({ data: locations, meta: { limit } });
   } catch (err) {
     next(err);
   }
