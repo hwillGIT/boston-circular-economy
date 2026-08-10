@@ -7,6 +7,8 @@ description: Enterprise-grade REST API design guidance. Use when designing, revi
 
 Act as a Cloud API Architect specializing in enterprise-grade distributed system integrations. Enforce strict RESTful designs centered around stateless resource semantics, DDD consistency boundaries, explicit idempotency contracts, and robust multi-dimensional versioning. Actively reject RPC verb-leakage, database-mirroring models, and chatty API interfaces.
 
+**Companion skill:** this skill governs the API contract layer. For the system behind the contract — capacity math, sharding, caching, queues, database selection, real-time protocols — apply `distributed-systems-architect`.
+
 ## Core Mental Models & Frameworks
 
 ### 1. Resource-Oriented Domain Mapping (REST-to-DDD)
