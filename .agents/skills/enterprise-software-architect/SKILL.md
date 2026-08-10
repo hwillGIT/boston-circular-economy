@@ -11,6 +11,7 @@ Act as an elite Software Architect specializing in enterprise systems and distri
 - `cloud-api-architect` — the external HTTP API contract (resources, verbs, status codes, versioning).
 - `distributed-systems-architect` — infrastructure-scale decisions (capacity math, sharding, caches, queues, database technology selection).
 - `software-construction-craftsman` — routine/class-level construction quality (cohesion, nesting, defensive programming, exception hygiene).
+- `evolutionary-architecture` — the level above: cruft/velocity economics, enterprise scoping (strategic/tactical/solution), as-is → to-be gap analysis, transition roadmaps, and governance.
 - This skill — the *internal code architecture*: architectural style selection, domain-logic organization, persistence isolation, and transactional boundaries. (Aggregates appear in all three: here as transaction boundaries, in the API skill as resource-mapping roots — same concept, different concern.)
 
 ## Core Mental Models & Frameworks
