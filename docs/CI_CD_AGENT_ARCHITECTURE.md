@@ -85,6 +85,18 @@ It writes the `Submission record` status to that head.
 It does not execute the proposed code with a write token.
 The first integration needs a follow-up pull request to demonstrate trusted-base enforcement.
 
+The trusted script is `check_submission_workflow.py`.
+It reads the proposed record from the contributor's source repository at the expected commit.
+GitHub's [content API](https://docs.github.com/en/rest/repos/contents#get-repository-content)
+supports reading a file at a specified revision.
+The script uses GitHub's [status API](https://docs.github.com/en/rest/commits/statuses#create-a-commit-status)
+to attach the result to that commit.
+
+Tests simulate API responses without creating live statuses.
+They cover a changed head, missing records, invalid content, failed writes, and records from another fork.
+Commands inside Markdown remain data.
+The tests do not establish that repository permissions or merge rules are active.
+
 Submission validation checks structure and meaningful content.
 It cannot establish that a stated check ran or that a contributor understands the work.
 The human reviewer verifies both.

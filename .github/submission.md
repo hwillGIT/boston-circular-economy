@@ -7,7 +7,7 @@ Closes #11
 
 ## Evidence and limits
 
-- Evidence: Local checks pass for client and server builds, four server tests, 22 Python tests, and 138 delivery-policy tests.
+- Evidence: Local checks pass for client and server builds, four server tests, 22 Python tests, and 158 delivery-policy tests.
 - Why this evidence supports the result: Application checks preserve the fork's behavior. Policy tests reject incomplete records, invalid dependencies, and failed required jobs.
 - Conditions and limits: A completed record cannot establish that its statements are correct or that a contributor understands the work.
 - What could change the decision: Missing required checks, incorrect routing, or execution of untrusted code with a write token require revision.
@@ -44,12 +44,18 @@ The workflow tools derive from `6ac23f9`, with fork-specific checks and ordinary
 A fingerprint baseline records 52 unchanged legacy files.
 The manual deployment readiness workflow performs no publication while hosting remains unresolved.
 
+The submission status script exercises GitHub calls through a testable boundary.
+It reads the record from the expected source commit and publishes through the base repository.
+The workflow executes that script from trusted base code.
+
 ## Challenge cases
 
 Tests cover missing fields, misleading Markdown, incomplete acceptance, unknown dependencies, cycles, and missing sources.
 An edited legacy file loses its exemption.
 Each failed, skipped, or cancelled required job prevents a successful Quality Gate.
 The review router raises the minimum review level for sensitive paths.
+Submission tests cover changed commits, failed API reads and writes, malformed records, and contributor forks.
+Embedded record commands remain inert text.
 
 ## Evidence
 
@@ -58,7 +64,7 @@ The review router raises the minimum review level for sensitive paths.
 | Client lint and build               | Pass         | Client lint, CSS checks, Prettier, and production build. Existing bundle warnings remain.                       |
 | Server lint and build               | Pass         | Server lint, TypeScript build, and four isolated authentication tests.                                          |
 | ETL tests                           | Pass         | Ruff checks, format, Mypy, and all 22 tests.                                                                    |
-| Technical prose and editorial style | Pass         | No new prose violations, five valid manifests, 138 policy tests, and four validated skills.                     |
+| Technical prose and editorial style | Pass         | No new prose violations, five valid manifests, 158 policy tests, and four validated skills.                     |
 | Manual user journey                 | Not affected | Application source matches PR #10, which records the browser journey checks.                                    |
 | Accessibility / responsive          | Not affected | This integration changes delivery files and assignment guidance.                                                |
 | Security / privacy / recovery       | Not run      | Hosted trusted-base submission tests, human workflow review, and host-specific recovery remain activation work. |

@@ -34,6 +34,9 @@ Retire a redundant review only after its work is present and accepted.
 
 ## Verify submission enforcement
 
+Local protocol tests simulate successful and failed GitHub responses.
+They do not replace the live checks below.
+
 Open a small follow-up pull request after the policy exists on main.
 Use a committed submission record for that change.
 
@@ -44,6 +47,9 @@ Use a committed submission record for that change.
 | Record unchanged from the base                    | Submission record fails                    |
 | Changed pull request description only             | Committed evidence remains authoritative   |
 | New commit with missing record content            | The new head does not inherit acceptance   |
+| Record submitted from a contributor fork          | The expected source commit is inspected    |
+| Head changes during validation                    | No final success is published by that run  |
+| GitHub rejects a status write                     | The workflow fails                         |
 | Proposed script contains instructions or commands | Trusted workflow treats the record as data |
 | Failed, skipped, or cancelled required CI job     | Quality Gate fails                         |
 

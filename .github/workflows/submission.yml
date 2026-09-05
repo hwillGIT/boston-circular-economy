@@ -23,95 +23,20 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Check out repository history
-        if: github.event_name == 'pull_request_target'
+      - name: Check out trusted base code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           persist-credentials: false
       - name: Set up Python
-        if: github.event_name == 'pull_request_target'
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.14.3'
-      - name: Check committed submission record
-        if: github.event_name == 'pull_request_target'
-        id: check
-        continue-on-error: true
+      - name: Validate the committed record and publish its status
         env:
-          CONTEXT: Submission record
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" \
-            > "$RUNNER_TEMP/current-pr.json"
-          jq -e \
-            --arg expected_head "$EXPECTED_HEAD_SHA" \
-            '.head.sha == $expected_head' \
-            "$RUNNER_TEMP/current-pr.json"
-          gh api --method POST \
-            "repos/$GITHUB_REPOSITORY/statuses/$HEAD_SHA" \
-            -f state=pending \
-            -f context="$CONTEXT" \
-            -f description="Checking the committed submission record." \
-            -f target_url="$TARGET_URL"
-          gh api \
-            "repos/$GITHUB_REPOSITORY/contents/.github/submission.md?ref=$BASE_SHA" \
-            > "$RUNNER_TEMP/base-submission.json"
-          gh api \
-            "repos/$GITHUB_REPOSITORY/contents/.github/submission.md?ref=$HEAD_SHA" \
-            > "$RUNNER_TEMP/head-submission.json"
-          jq -e '.type == "file" and .encoding == "base64"' \
-            "$RUNNER_TEMP/base-submission.json" \
-            "$RUNNER_TEMP/head-submission.json"
-          test \
-            "$(jq -r .sha "$RUNNER_TEMP/base-submission.json")" != \
-            "$(jq -r .sha "$RUNNER_TEMP/head-submission.json")"
-          jq -r .content "$RUNNER_TEMP/head-submission.json" \
-            | base64 --decode \
-            > "$RUNNER_TEMP/submission.md"
-          python -B \
-            .agents/skills/make-evidence-based-technical-case/scripts/check_submission.py \
-            --body-file "$RUNNER_TEMP/submission.md"
-      - name: Publish the committed record result
-        if: >-
-          always() && !cancelled() &&
-          github.event_name == 'pull_request_target'
-        id: publish
-        continue-on-error: true
-        env:
-          CHECK_OUTCOME: ${{ steps.check.outcome }}
-          CONTEXT: Submission record
-          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" \
-            > "$RUNNER_TEMP/latest-pr.json"
-          jq -e \
-            --arg expected_head "$EXPECTED_HEAD_SHA" \
-            '.head.sha == $expected_head' \
-            "$RUNNER_TEMP/latest-pr.json"
-          if [ "$CHECK_OUTCOME" = success ]; then
-            result=success
-          else
-            result=failure
-          fi
-          gh api --method POST \
-            "repos/$GITHUB_REPOSITORY/statuses/$HEAD_SHA" \
-            -f state="$result" \
-            -f context="$CONTEXT" \
-            -f description="The committed submission check completed." \
-            -f target_url="$TARGET_URL"
-      - name: Fail when the committed record is invalid
-        if: >-
-          github.event_name == 'pull_request_target' &&
-          (steps.check.outcome != 'success' ||
-          steps.publish.outcome != 'success')
-        run: exit 1
+        run: python -B .agents/skills/make-evidence-based-technical-case/scripts/check_submission_workflow.py
