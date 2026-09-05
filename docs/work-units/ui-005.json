@@ -87,7 +87,7 @@
     },
     {
       "step": "Challenge",
-      "prompt": "Review the proposed call for ambiguous filters, date/time units, distance origin, pagination, empty results, nullable fields, partial matches, stale responses, cancellation, timeout, and failure recovery. Do not infer machine availability or accessibility from missing data. Return at most five decisions that block implementation."
+      "prompt": "Review the filter meanings, date and time units, distance origin, and pagination. Check empty results, missing values, partial matches, outdated responses, and cancellation. Check timeouts and recovery after a failed request. Do not infer machine availability or accessibility from missing data. Return at most five decisions that block implementation."
     },
     {
       "step": "Produce",
