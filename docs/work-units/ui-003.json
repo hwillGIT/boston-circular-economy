@@ -1,0 +1,123 @@
+{
+  "manifest_version": 1,
+  "journey": "MVP M2: senior resident finds a textile repair clinic",
+  "owner_role": "Frontend work lead (Hubert)",
+  "github_issue": "https://github.com/hwillGIT/boston-circular-economy/issues/5",
+  "inputs": [
+    {
+      "reference": "https://docs.google.com/document/d/1eI7OL8zppM01br13fuhXvWKAKnKWhRBOJ45NMYenpHU/edit",
+      "purpose": "Prototype requirements M2.1 and M2.2, screens 5 and 6"
+    },
+    {
+      "reference": "https://patterns.boston.gov/",
+      "purpose": "Official Boston component and visual guidance"
+    },
+    {
+      "reference": "client/README.md",
+      "purpose": "Existing React, TypeScript, Vite, and TanStack Router boundaries"
+    },
+    {
+      "reference": "docs/work-units/DEVELOPER_AI_GUIDE.md",
+      "purpose": "Prompts for clear code, plain explanations, and a contributor demonstration"
+    }
+  ],
+  "constraints": [
+    "Create issues and pull requests in hwillGIT/boston-circular-economy. Upstream issues are reference material.",
+    "Use the current textile MVP, a 390-pixel mobile viewport, and Fleet conventions.",
+    "Treat the older television persona and technical prototypes as historical context.",
+    "Use two synthetic clinics. Do not infer that the backend supports the mock fields.",
+    "Separate source facts, AI suggestions, and unresolved decisions.",
+    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack.",
+    "Use the developer guide for clear code and plain explanations. Reserve the last 15 minutes for explaining and defending the result."
+  ],
+  "completion_record": {
+    "artifact_links": [],
+    "reviewed_by": null,
+    "review_date": null,
+    "accepted_revision": null,
+    "contributor_explanation": null,
+    "reviewer_observation": null
+  },
+  "id": "UI-003",
+  "title": "Generate and compare two clinic wireframes",
+  "kind": "wireframe",
+  "status": "waiting_for_reviewed_input",
+  "risk": "Yellow",
+  "timebox_minutes": 90,
+  "reviewer_roles": [
+    "Frontend work lead",
+    "Design owner"
+  ],
+  "related_issues": [
+    "https://github.com/codeforboston/boston-circular-economy/issues/38"
+  ],
+  "depends_on": [
+    "UI-002"
+  ],
+  "objective": "Make two layout alternatives concrete enough to compare before visual styling.",
+  "in_scope": [
+    "Two low-fidelity alternatives for results and filters",
+    "One selected clickable flow",
+    "A short design comparison"
+  ],
+  "out_of_scope": [
+    "Final colors and branding",
+    "Backend integration",
+    "Additional screens or redesigning the Boston entry frame"
+  ],
+  "ai_steps": [
+    {
+      "step": "Brainstorm",
+      "prompt": "Read the accepted UI-002 specification. Suggest two distinct information hierarchies for the same 390-pixel results/filter flow. Keep the content and requirements identical. Explain a trade-off for each in at most 200 words. Do not choose the winner for the design owner."
+    },
+    {
+      "step": "Generate",
+      "prompt": "Generate editable grayscale wireframes for both alternatives in Figma or self-contained HTML. Use no more than six frames total. Show two clinic cards, filter controls, a partial match, and an empty result. Connect open filters, apply machines available, clear, and return. Use synthetic clinics and no live backend."
+    },
+    {
+      "step": "Challenge and handoff",
+      "prompt": "Compare the wireframes against the acceptance cases and keyboard/focus expectations. Report only visible or reproducible gaps. Export previews and write at most 300 words comparing the alternatives. Ask me to explain my recommendation before the design owner selects one."
+    },
+    {
+      "step": "Explain and defend",
+      "prompt": "Ask me to demonstrate the chosen wireframe without reading an AI-written explanation. Ask why I selected it over the alternative. Ask which evidence supports that decision. Change one filter condition and ask me to predict the screen state. If the prototype contains code, ask me to locate its input, decision owner, and screen update. Ask where I would change one rule. Check the answer against the actual artifact and demonstration. Wait for my answers."
+    }
+  ],
+  "deliverables": [
+    {
+      "name": "wireframes",
+      "format": "Editable Figma link or self-contained HTML",
+      "contents": "Two alternatives and one linked flow, at most six frames total."
+    },
+    {
+      "name": "wireframe-previews",
+      "format": "PNG exports",
+      "contents": "390-pixel previews identifying the alternative and state."
+    },
+    {
+      "name": "wireframe-decision.md",
+      "format": "Markdown or linked Google Doc",
+      "contents": "At most 300 words with trade-offs, observed checks, and the human selection."
+    },
+    {
+      "name": "contributor-explanation",
+      "format": "150-word note or three-minute recording",
+      "contents": "Own explanation of the example, decision, alternative, evidence, failure behavior, and place to make a likely change."
+    }
+  ],
+  "acceptance": [
+    "Both alternatives implement the same accepted UI-002 behavior.",
+    "A reviewer can follow filter application and clearing without a spoken explanation.",
+    "The chosen flow shows two clinics becoming one when machines are required.",
+    "Focus order and announced state changes are annotated or demonstrated.",
+    "The design owner records the selected alternative and unresolved concerns.",
+    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
+    "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
+    "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."
+  ],
+  "learning_check": "Explain why the selected layout helps this resident and where the other alternative would be better. Explain the choice in your own words. Support it with inspected evidence and answer one changed-case question.",
+  "handoff": "UI-004 uses only the selected wireframe revision.",
+  "repository": "hwillGIT/boston-circular-economy",
+  "developer_guide": "docs/work-units/DEVELOPER_AI_GUIDE.md"
+}
