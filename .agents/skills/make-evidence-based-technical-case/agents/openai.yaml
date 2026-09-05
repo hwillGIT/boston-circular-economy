@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Explain a Technical Decision'
+  short_description: 'Explain decisions with evidence and clear limits'
+  default_prompt: 'Use $make-evidence-based-technical-case to explain this decision with evidence, limits, and a fair alternative in plain English.'
