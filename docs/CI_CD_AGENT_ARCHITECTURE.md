@@ -19,6 +19,12 @@ The reviewer selects one changed case that the contributor has not rehearsed.
 The contributor explains the controlling code, specification, or design.
 The [developer guide](work-units/DEVELOPER_AI_GUIDE.md) provides practice prompts.
 
+Keep a pull request in draft while its scoped implementation or checks remain incomplete.
+Mark it ready for review when that work is complete.
+Human approval remains a separate requirement.
+GitHub's [review-stage guidance](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/changing-the-stage-of-a-pull-request)
+describes that transition.
+
 ## What each check establishes
 
 | Check               | What it checks                                                     |

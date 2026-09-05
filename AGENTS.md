@@ -60,7 +60,9 @@ Unknown paths and workflow changes select all local application checks.
 Copy the pull request template into `.github/submission.md`.
 Replace inherited evidence with the current work and check results.
 Commit the record with the change. Copy it into the pull request description for reviewers.
-Use a draft pull request when human review or an external decision remains.
+Use a draft pull request while implementation or required checks remain incomplete.
+Mark it ready for review when its scoped work and checks are complete.
+Pending human approval is part of review and does not require draft status.
 
 ## Code Review Rules
 

@@ -103,7 +103,9 @@ CI must retain the fork's CSS, formatting, build, Python, test, and documentatio
 Complete the versioned `.github/submission.md` record.
 Link the work unit and the artifacts.
 Record actual check results and the exact evidence used.
-Open a draft PR while review questions remain.
+Open a draft PR while the scoped implementation or required checks remain incomplete.
+Mark it ready when the reviewer has a complete change and its evidence.
+Record unresolved approval and follow-up decisions in the submission.
 
 The submission checker validates record structure.
 The prose checker catches selected wording and format problems.
