@@ -21,11 +21,11 @@ or backend capability exists.
 
 | Assignment | Timebox | Deliverable | Start condition |
 |---|---|---|---|
-| [UI-001: Research](ui-001.json) | 60 minutes | Evidence note and pattern references | Available for research after checking existing claims |
-| [UI-002: UI specification](ui-002.json) | 90 minutes | Screen manifest and state/action table | Reviewed UI-001 |
-| [UI-003: Wireframes](ui-003.json) | 90 minutes | Two editable alternatives and a selected flow | Accepted UI-002 |
-| [UI-004: Visual design](ui-004.json) | 90 minutes | One polished mobile screen and visual manifest | Selected UI-003 |
-| [UI-005: Backend call](ui-005.json) | 90 minutes | Call manifest and three JSON examples | Accepted UI-002 |
+| [UI-001: Research](https://github.com/hwillGIT/boston-circular-economy/issues/3) / [manifest](ui-001.json) | 60 minutes | Evidence note and pattern references | Available for research after checking existing claims |
+| [UI-002: UI specification](https://github.com/hwillGIT/boston-circular-economy/issues/4) / [manifest](ui-002.json) | 90 minutes | Screen manifest and state/action table | Reviewed UI-001 |
+| [UI-003: Wireframes](https://github.com/hwillGIT/boston-circular-economy/issues/5) / [manifest](ui-003.json) | 90 minutes | Two editable alternatives and a selected flow | Accepted UI-002 |
+| [UI-004: Visual design](https://github.com/hwillGIT/boston-circular-economy/issues/6) / [manifest](ui-004.json) | 90 minutes | One polished mobile screen and visual manifest | Selected UI-003 |
+| [UI-005: Backend call](https://github.com/hwillGIT/boston-circular-economy/issues/7) / [manifest](ui-005.json) | 90 minutes | Call manifest and three JSON examples | Accepted UI-002 |
 
 UI-003 and UI-005 can proceed independently after the screen specification is accepted.
 UI-004 follows the selected wireframe. Each timebox covers one focused session,
@@ -51,11 +51,18 @@ links and accepted revisions in the issue and completion record.
 
 1. Claim one issue and name your next check-in.
 2. Read its manifest, source links, and prerequisite decisions.
+   Use the opening brief in the [developer guide](DEVELOPER_AI_GUIDE.md).
 3. Run the first AI prompt and check the sources yourself.
 4. Compare the suggestions before asking the AI to generate an artifact.
 5. Use the challenge prompt to find missing evidence or ambiguous behavior.
 6. Inspect the deliverables and demonstrate them to the named reviewer.
 7. Record one AI suggestion you changed or rejected and why.
+8. Explain the result in your own words and answer one changed-case question.
+
+Reserve the last 15 minutes for the explanation. Include a short note or recording
+with the artifact. Trace the behavior, explain the decision, and cite its evidence.
+If the artifact contains code, locate the controlling rule and the place to make a
+likely change. The reviewer records what the contributor could explain.
 
 An agent's output is a proposal until a person checks it. Do not fabricate user
 research, service availability, approved design choices, or measurements.
@@ -66,6 +73,8 @@ If a source or tool is unavailable, report the exact gap and preserve completed 
 Every assignment needs the named artifacts, checked acceptance criteria, contributor
 explanation, and human decision. Record the artifact revision that received review.
 A screenshot alone cannot establish keyboard behavior or accessibility.
+An AI summary cannot establish contributor understanding. The accepted completion
+record requires the contributor's explanation and the reviewer's observation.
 
 Return one of these decisions:
 
@@ -94,4 +103,3 @@ Code presence alone does not prove deployed behavior or available clinic data.
 
 Upstream issue links provide product and API context. Create assignment issues,
 engineering decisions, and implementation follow-ups in this fork.
-

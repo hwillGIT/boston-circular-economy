@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "journey": "MVP M2: senior resident finds a textile repair clinic",
   "owner_role": "Frontend work lead (Hubert)",
-  "github_issue": null,
+  "github_issue": "https://github.com/hwillGIT/boston-circular-economy/issues/7",
   "inputs": [
     {
       "reference": "https://docs.google.com/document/d/1eI7OL8zppM01br13fuhXvWKAKnKWhRBOJ45NMYenpHU/edit",
@@ -27,6 +27,10 @@
     {
       "reference": "etl/src/etl/dtos.py",
       "purpose": "Available source fields and normalization boundaries"
+    },
+    {
+      "reference": "docs/work-units/DEVELOPER_AI_GUIDE.md",
+      "purpose": "Prompts for clear code, plain explanations, and a contributor demonstration"
     }
   ],
   "constraints": [
@@ -35,13 +39,16 @@
     "Treat the older television persona and technical prototypes as historical context.",
     "Use two synthetic clinics. Do not infer that the backend supports the mock fields.",
     "Separate source facts, AI suggestions, and unresolved decisions.",
-    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack."
+    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack.",
+    "Use the developer guide for clear code and plain explanations. Reserve the last 15 minutes for explaining and defending the result."
   ],
   "completion_record": {
     "artifact_links": [],
     "reviewed_by": null,
     "review_date": null,
-    "accepted_revision": null
+    "accepted_revision": null,
+    "contributor_explanation": null,
+    "reviewer_observation": null
   },
   "id": "UI-005",
   "title": "Specify the clinic-search backend call",
@@ -85,6 +92,10 @@
     {
       "step": "Produce",
       "prompt": "Draft api-call-manifest.yaml plus success.json, empty.json, and error.json using synthetic clinics. Include proposed method/path, typed parameters, response fields, example statuses, action triggers, local-versus-server state, cancellation and retry rules, and field provenance. Mark the contract proposed. Ask me and the backend lead to accept the same revision before any implementation."
+    },
+    {
+      "step": "Explain and defend",
+      "prompt": "Ask me to explain one request from the screen action through the backend response to the visible result. Wait for my answer. Ask which steps already exist and which steps are proposed. Ask why I selected this operation over its closest alternative. Compare missing machine data, a successful empty response, and a failed request. Ask me to predict each UI result. Ask where the controlling rule belongs. Check my answers against the code, examples, and proposed contract. Do not invent implementation evidence."
     }
   ],
   "deliverables": [
@@ -107,6 +118,11 @@
       "name": "error.json",
       "format": "JSON",
       "contents": "The agreed error shape and retry guidance, separate from an empty result."
+    },
+    {
+      "name": "contributor-explanation",
+      "format": "150-word note or three-minute recording",
+      "contents": "Own explanation of the example, decision, alternative, evidence, failure behavior, and place to make a likely change."
     }
   ],
   "acceptance": [
@@ -114,10 +130,14 @@
     "The manifest defines parameter encoding, defaults, date/time units, pagination, and result ordering.",
     "The examples conform to the same proposed contract and contain no personal data.",
     "The frontend behavior for empty, failure, cancellation, and stale responses is explicit.",
-    "Hubert and the backend lead accept the same revision, or the unit ends with a clear decision request."
+    "Hubert and the backend lead accept the same revision, or the unit ends with a clear decision request.",
+    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
+    "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
+    "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."
   ],
-  "learning_check": "Explain why a successful empty response differs from a failed request and how the UI handles each.",
+  "learning_check": "Explain why a successful empty response differs from a failed request and how the UI handles each. Explain the choice in your own words. Support it with inspected evidence and answer one changed-case question.",
   "handoff": "Record the accepted contract in this fork's issue and relate it to the linked upstream API backlog. Create separate frontend and backend implementation units in this fork after acceptance.",
-  "repository": "hwillGIT/boston-circular-economy"
+  "repository": "hwillGIT/boston-circular-economy",
+  "developer_guide": "docs/work-units/DEVELOPER_AI_GUIDE.md"
 }
-

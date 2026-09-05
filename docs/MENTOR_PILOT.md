@@ -34,7 +34,19 @@ For a wireframe, have the contributor trace the resident's actions. For a specif
 trace action, state, visible result, and data need. For a backend call, separate the
 proposed contract from capabilities demonstrated by the code.
 
-At review, ask for a five-minute demonstration and one remaining uncertainty.
+Use the [developer prompts](work-units/DEVELOPER_AI_GUIDE.md) to practice tracing,
+comparing alternatives, predicting changed cases, and explaining failures.
+
+At review, ask for a three-minute explanation and one remaining uncertainty.
+Choose one changed case that the contributor has not rehearsed.
+Ask them to locate the controlling code, specification, or design frame.
+Ask why the chosen design fits the evidence and when another choice would be better.
+Record the contributor's explanation and the reviewer's observation.
+
+For code, inspect names, types, state ownership, and failure behavior.
+Request a smaller boundary or clearer name when the behavior is hard to trace.
+More comments cannot compensate for hidden state or duplicated rules.
+The AI can identify gaps. A human reviewer accepts the explanation.
 Product/design approve their interpretation and visual choices. Hubert accepts the
 frontend handoff. The backend lead confirms the shared call contract.
 
@@ -58,4 +70,3 @@ needed. A maintainer handles stale claims using the team's two-week convention.
 Review the pilot after three completed assignments. Check time to first artifact,
 review effort, acceptance clarity, and contributor confidence. Record one confusing
 step and one useful lesson per assignment.
-

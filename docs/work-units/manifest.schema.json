@@ -26,7 +26,8 @@
     "acceptance",
     "learning_check",
     "handoff",
-    "completion_record"
+    "completion_record",
+    "developer_guide"
   ],
   "properties": {
     "manifest_version": {
@@ -200,7 +201,9 @@
         "artifact_links",
         "reviewed_by",
         "review_date",
-        "accepted_revision"
+        "accepted_revision",
+        "contributor_explanation",
+        "reviewer_observation"
       ],
       "properties": {
         "artifact_links": {
@@ -226,12 +229,27 @@
             "string",
             "null"
           ]
+        },
+        "contributor_explanation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewer_observation": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "additionalProperties": false
     },
     "repository": {
       "const": "hwillGIT/boston-circular-economy"
+    },
+    "developer_guide": {
+      "const": "docs/work-units/DEVELOPER_AI_GUIDE.md"
     }
   },
   "$defs": {
@@ -244,6 +262,50 @@
       }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completion_record": {
+            "properties": {
+              "artifact_links": {
+                "minItems": 1
+              },
+              "reviewed_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "review_date": {
+                "type": "string",
+                "minLength": 1
+              },
+              "accepted_revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contributor_explanation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewer_observation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
-

@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "journey": "MVP M2: senior resident finds a textile repair clinic",
   "owner_role": "Frontend work lead (Hubert)",
-  "github_issue": null,
+  "github_issue": "https://github.com/hwillGIT/boston-circular-economy/issues/5",
   "inputs": [
     {
       "reference": "https://docs.google.com/document/d/1eI7OL8zppM01br13fuhXvWKAKnKWhRBOJ45NMYenpHU/edit",
@@ -15,6 +15,10 @@
     {
       "reference": "client/README.md",
       "purpose": "Existing React, TypeScript, Vite, and TanStack Router boundaries"
+    },
+    {
+      "reference": "docs/work-units/DEVELOPER_AI_GUIDE.md",
+      "purpose": "Prompts for clear code, plain explanations, and a contributor demonstration"
     }
   ],
   "constraints": [
@@ -23,13 +27,16 @@
     "Treat the older television persona and technical prototypes as historical context.",
     "Use two synthetic clinics. Do not infer that the backend supports the mock fields.",
     "Separate source facts, AI suggestions, and unresolved decisions.",
-    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack."
+    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack.",
+    "Use the developer guide for clear code and plain explanations. Reserve the last 15 minutes for explaining and defending the result."
   ],
   "completion_record": {
     "artifact_links": [],
     "reviewed_by": null,
     "review_date": null,
-    "accepted_revision": null
+    "accepted_revision": null,
+    "contributor_explanation": null,
+    "reviewer_observation": null
   },
   "id": "UI-003",
   "title": "Generate and compare two clinic wireframes",
@@ -70,6 +77,10 @@
     {
       "step": "Challenge and handoff",
       "prompt": "Compare the wireframes against the acceptance cases and keyboard/focus expectations. Report only visible or reproducible gaps. Export previews and write at most 300 words comparing the alternatives. Ask me to explain my recommendation before the design owner selects one."
+    },
+    {
+      "step": "Explain and defend",
+      "prompt": "Ask me to demonstrate the chosen wireframe without reading an AI-written explanation. Ask why I selected it over the alternative. Ask which evidence supports that decision. Change one filter condition and ask me to predict the screen state. If the prototype contains code, ask me to locate its input, decision owner, and screen update. Ask where I would change one rule. Check the answer against the actual artifact and demonstration. Wait for my answers."
     }
   ],
   "deliverables": [
@@ -87,6 +98,11 @@
       "name": "wireframe-decision.md",
       "format": "Markdown or linked Google Doc",
       "contents": "At most 300 words with trade-offs, observed checks, and the human selection."
+    },
+    {
+      "name": "contributor-explanation",
+      "format": "150-word note or three-minute recording",
+      "contents": "Own explanation of the example, decision, alternative, evidence, failure behavior, and place to make a likely change."
     }
   ],
   "acceptance": [
@@ -94,10 +110,14 @@
     "A reviewer can follow filter application and clearing without a spoken explanation.",
     "The chosen flow shows two clinics becoming one when machines are required.",
     "Focus order and announced state changes are annotated or demonstrated.",
-    "The design owner records the selected alternative and unresolved concerns."
+    "The design owner records the selected alternative and unresolved concerns.",
+    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
+    "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
+    "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."
   ],
-  "learning_check": "Explain why the selected layout helps this resident and where the other alternative would be better.",
+  "learning_check": "Explain why the selected layout helps this resident and where the other alternative would be better. Explain the choice in your own words. Support it with inspected evidence and answer one changed-case question.",
   "handoff": "UI-004 uses only the selected wireframe revision.",
-  "repository": "hwillGIT/boston-circular-economy"
+  "repository": "hwillGIT/boston-circular-economy",
+  "developer_guide": "docs/work-units/DEVELOPER_AI_GUIDE.md"
 }
-
