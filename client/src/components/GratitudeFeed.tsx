@@ -26,20 +26,17 @@ const MOCK_MESSAGES: GratitudeMessage[] = [
 ];
 
 export default function GratitudeFeed() {
-  const [messages, setMessages] = useState<GratitudeMessage[]>([]);
+  const [messages, setMessages] = useState<GratitudeMessage[]>(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : MOCK_MESSAGES;
+  });
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [locationName, setLocationName] = useState('');
   const [activity, setActivity] = useState('');
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      setMessages(JSON.parse(stored));
-    } else {
-      setMessages(MOCK_MESSAGES);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(MOCK_MESSAGES));
-    }
-  }, []);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +51,6 @@ export default function GratitudeFeed() {
 
     const updated = [newMessage, ...messages].slice(0, 10);
     setMessages(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setIsFormOpen(false);
     setLocationName('');
     setActivity('');

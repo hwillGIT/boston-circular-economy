@@ -1,13 +1,12 @@
-from datetime import datetime, timezone
-from pathlib import Path
 import json
+from datetime import UTC, datetime
+from pathlib import Path
 
 from dtos import Activity, ItemCategory, RawLocation
 from pipelines.google_places.normalizer import (
     GooglePlacesDonationNormalizer,
     GooglePlacesRepairNormalizer,
 )
-
 
 SAMPLES = Path(__file__).resolve().parents[3] / "data-explorations" / "google-places" / "samples"
 
@@ -17,7 +16,7 @@ def _load_places(name: str):
 
 
 def _raw_locations(data_source: str, prefix: str, filename: str):
-    fetched_at = datetime.now(timezone.utc)
+    fetched_at = datetime.now(UTC)
     return [
         RawLocation(
             data_source=data_source,
@@ -31,14 +30,14 @@ def _raw_locations(data_source: str, prefix: str, filename: str):
 
 def test_repair_normalizer_maps_google_places_sample():
     """Tests the normalization of a sample shoe repair Google Places payload.
-    
+
     Loads a JSON sample of shoe repair locations from the filesystem and asserts
     that the GooglePlacesRepairNormalizer correctly maps the data source, activity,
     item category, name, and address.
-    
+
     Raises:
         AssertionError: If any of the assertions fail.
-        
+
     Examples:
         >>> test_repair_normalizer_maps_google_places_sample()  # Tests pass if no exception
     """
@@ -56,14 +55,14 @@ def test_repair_normalizer_maps_google_places_sample():
 
 def test_donation_normalizer_maps_google_places_sample():
     """Tests the normalization of a sample donation center Google Places payload.
-    
+
     Loads a JSON sample of donation center locations from the filesystem and
     asserts that the GooglePlacesDonationNormalizer correctly maps the data
     source, activity, item category, and name.
-    
+
     Raises:
         AssertionError: If any of the assertions fail.
-        
+
     Examples:
         >>> test_donation_normalizer_maps_google_places_sample()  # Tests pass if no exception
     """

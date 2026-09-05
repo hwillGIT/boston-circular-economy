@@ -1,7 +1,8 @@
 # The Novice Developer's Visual Guide to Geographic Mapping APIs
+
 > **From First Principles to Building Circular Economy Applications**
 
-Welcome! If you are a developer who has never built a mapping application before, geographic APIs like Google Maps, OpenStreetMap, or Mapbox can feel overwhelming with technical jargon like *Mercator projections, vector tiles, bounding boxes, and Overpass QL*.
+Welcome! If you are a developer who has never built a mapping application before, geographic APIs like Google Maps, OpenStreetMap, or Mapbox can feel overwhelming with technical jargon like _Mercator projections, vector tiles, bounding boxes, and Overpass QL_.
 
 This visual guide breaks everything down into **plain English, step-by-step visual diagrams, and intuitive analogies**.
 
@@ -50,7 +51,9 @@ flowchart LR
 ---
 
 ### 1. Latitude and Longitude: Earth's GPS Address
+
 Imagine planet Earth wrapped in a grid of invisible lines:
+
 - **Latitude (Lat)**: Measures **North / South** distance from the Equator ($0^\circ$).
   - Range: $-90^\circ$ (South Pole) to $+90^\circ$ (North Pole).
   - Boston, MA is at **$+42.3601^\circ$ North**.
@@ -61,6 +64,7 @@ Imagine planet Earth wrapped in a grid of invisible lines:
 ---
 
 ### 2. The Web Map Tile Grid (`/{z}/{x}/{y}.png`)
+
 How does a browser render a map of the entire planet without crashing? **Slippy Map Tiles!**
 
 Instead of loading one giant 50-Gigabyte image of Earth, web maps break the planet into thousands of small **256x256 pixel square image tiles**.
@@ -68,6 +72,7 @@ Instead of loading one giant 50-Gigabyte image of Earth, web maps break the plan
 ![Web Map Tile Grid System & Zoom Levels](images/tile_grid_system.jpg)
 
 #### How Zoom Levels Work:
+
 - **Zoom Level 0**: The entire planet fits inside **1 single tile** (`0/0/0.png`).
 - **Zoom Level 1**: Earth is split into **4 tiles** ($2 \times 2$ grid).
 - **Zoom Level 2**: Earth is split into **16 tiles** ($4 \times 4$ grid).

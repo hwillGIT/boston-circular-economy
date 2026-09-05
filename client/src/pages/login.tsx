@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useAuth } from '../lib/auth';
+import { useAuth } from '../lib/authContext';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { AuthHeroPanel } from '../components/AuthHeroPanel';
 import '../styles/forms.css';

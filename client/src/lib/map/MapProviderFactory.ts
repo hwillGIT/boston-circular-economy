@@ -8,7 +8,7 @@ const PROVIDERS: Record<string, () => MapProvider> = {
   // mapbox: () => new MapboxProvider(), // Future
 };
 
-export function createProvider(name = 'leaflet', _options?: Record<string, unknown>): MapProvider {
+export function createProvider(name = 'leaflet'): MapProvider {
   let providerName = name.toLowerCase();
   if (providerName === 'google' && !import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
     providerName = 'leaflet';
@@ -22,7 +22,7 @@ export function createProvider(name = 'leaflet', _options?: Record<string, unkno
 
   const provider = factory();
   // Basic validation that provider implements interface
-  const requiredMethods = [
+  const requiredMethods: (keyof MapProvider)[] = [
     'init',
     'destroy',
     'addMarkers',
@@ -37,7 +37,7 @@ export function createProvider(name = 'leaflet', _options?: Record<string, unkno
   ];
 
   for (const method of requiredMethods) {
-    if (typeof (provider as any)[method] !== 'function') {
+    if (typeof provider[method] !== 'function') {
       throw new Error(`Provider '${name}' is missing required method '${method}'`);
     }
   }

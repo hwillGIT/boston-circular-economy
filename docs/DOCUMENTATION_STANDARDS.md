@@ -9,7 +9,7 @@ These standards are enforced by CI and must be followed for all code changes.
 Use JSDoc with `@param`, `@returns`, `@throws`, `@example` tags.
 Preserve existing TSDoc comments. Add `@see` cross-references where relevant.
 
-```typescript
+````typescript
 /**
  * Hashes a plaintext password using scrypt with a random 16-byte salt.
  * The output format is `salt:hash` where both are hex-encoded.
@@ -30,7 +30,7 @@ Preserve existing TSDoc comments. Add `@see` cross-references where relevant.
  * @see {@link generateToken} for session token creation
  */
 export function hashPassword(password: string): string { ... }
-```
+````
 
 ### Python (Google-style, PEP 257)
 
@@ -84,8 +84,13 @@ def merge_locations(
 
 ### CI Enforcement
 
-The `docs` job in CI will:
-1. Run `typedoc` — fails if any entry point has parse errors
-2. Check that all exported functions have JSDoc (via eslint `jsdoc/require-jsdoc`)
-3. Generate navigable markdown docs in `docs/api/`
-4. Upload as build artifact on `main` branch pushes
+The `docs` job runs these checks:
+
+1. `npm run docs:audit` validates the public functions and methods reached from `typedoc.json` entry points.
+2. Missing documentation and invalid local links fail the audit.
+3. `npm run docs:generate` writes the API reference to `docs/api/`.
+4. CI uploads the reference as an artifact for the reviewed revision.
+
+The audit uses TypeDoc. The repository does not configure an ESLint JSDoc plugin.
+The Python docstring audit remains advisory. Its result appears in the CI summary.
+Read [CI checks](./CI_CHECKS.md) for the setup commands and check limits.

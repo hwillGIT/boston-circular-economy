@@ -1,4 +1,5 @@
 # UI Design Inspiration & CSS Pattern Library
+
 > Compiled from civic tech benchmarks, sustainability platforms, and world-class map UIs
 
 ---
@@ -7,7 +8,7 @@
 
 ### Color Palettes Worth Stealing
 
-````carousel
+```carousel
 ### 🏛️ Boston.gov (Fleet System)
 | Token | Hex | Usage |
 |---|---|---|
@@ -47,27 +48,28 @@
 | Fog Light | `#F2F2F8` | Surfaces |
 
 *Why it works:* Transit-color naming connects design to civic identity.
-````
+```
 
 ---
 
 ## 🚇 MBTA Official Line Colors
 
-| Line | Hex | CSS Variable |
-|---|---|---|
-| Red Line | `#DA291C` | `--mbta-red` |
-| Green Line | `#00843D` | `--mbta-green` |
-| Orange Line | `#ED8B00` | `--mbta-orange` |
-| Blue Line | `#003DA5` | `--mbta-blue` |
-| Silver Line | `#7C878E` | `--mbta-silver` |
+| Line          | Hex       | CSS Variable      |
+| ------------- | --------- | ----------------- |
+| Red Line      | `#DA291C` | `--mbta-red`      |
+| Green Line    | `#00843D` | `--mbta-green`    |
+| Orange Line   | `#ED8B00` | `--mbta-orange`   |
+| Blue Line     | `#003DA5` | `--mbta-blue`     |
+| Silver Line   | `#7C878E` | `--mbta-silver`   |
 | Commuter Rail | `#80276C` | `--mbta-commuter` |
-| Key Bus | `#FFC72C` | `--mbta-bus` |
+| Key Bus       | `#FFC72C` | `--mbta-bus`      |
 
 ---
 
 ## Premium CSS Patterns (Copy-Paste Ready)
 
 ### 🔮 Glassmorphism Card
+
 ```css
 .glass-card {
   background: rgba(255, 255, 255, 0.65);
@@ -75,29 +77,34 @@
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 1.25rem;
-  box-shadow: 
+  box-shadow:
     0 20px 40px -15px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
   padding: 1.75rem;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
 }
 
 @supports not (backdrop-filter: blur(1px)) {
-  .glass-card { background: #f8fafc; }
+  .glass-card {
+    background: #f8fafc;
+  }
 }
 ```
 
 ### 📊 Pure CSS Animated Counter (No JavaScript!)
+
 ```css
 @property --num {
-  syntax: "<integer>";
+  syntax: '<integer>';
   initial-value: 0;
   inherits: false;
 }
@@ -115,10 +122,13 @@
 }
 
 /* Trigger on scroll into view */
-.animated-stat.in-view { --num: 4850; }
+.animated-stat.in-view {
+  --num: 4850;
+}
 ```
 
 ### ✨ Staggered Entrance Animation
+
 ```css
 .stagger-item {
   opacity: 0;
@@ -127,34 +137,48 @@
 }
 
 @keyframes stagger-in {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Usage: <div style="--i: 1">, <div style="--i: 2">, etc. */
 ```
 
 ### 💀 Skeleton Shimmer Loader
+
 ```css
 .skeleton {
-  background: linear-gradient(90deg,
-    #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite ease-in-out;
   border-radius: 0.375rem;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .skeleton { animation: none; background: #f0f0f0; }
+  .skeleton {
+    animation: none;
+    background: #f0f0f0;
+  }
 }
 ```
 
 ### 🎯 Active Step Pulse Ring
+
 ```css
 .step-active .step-icon {
   box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.2);
@@ -162,13 +186,20 @@
 }
 
 @keyframes pulse-ring {
-  0%  { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
 }
 ```
 
 ### 🌊 CSS Scroll-Driven Card Reveal (Zero JS)
+
 ```css
 .scroll-reveal {
   animation: fade-up linear both;
@@ -177,8 +208,14 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 
@@ -210,7 +247,9 @@
 }
 
 @media (max-width: 767px) {
-  .map-layout { flex-direction: column-reverse; }
+  .map-layout {
+    flex-direction: column-reverse;
+  }
   .map-sidebar {
     width: 100%;
     height: 45vh;
@@ -218,15 +257,20 @@
     border-top: 1px solid #e5e7eb;
     border-radius: 1.5rem 1.5rem 0 0;
   }
-  .map-viewport { height: 55vh; }
+  .map-viewport {
+    height: 55vh;
+  }
 }
 ```
 
 ### Floating Glassmorphic Filter Bar
+
 ```css
 .filter-bar {
   position: absolute;
-  top: 16px; left: 16px; right: 16px;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: 500;
   display: flex;
   align-items: center;
@@ -259,6 +303,7 @@
 ```
 
 ### Airbnb-Style Price Pill Markers
+
 ```css
 .map-marker-pill {
   background: #ffffff;
@@ -269,8 +314,9 @@
   border-radius: 28px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              background 0.15s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.15s ease;
 }
 
 .map-marker-pill:hover,
@@ -289,11 +335,14 @@
 ```
 
 ### Detail Drawer (Slide-Over)
+
 ```css
 .detail-drawer {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: #fff;
   z-index: 600;
   transform: translateX(-100%);
@@ -308,8 +357,10 @@
 /* Mobile: bottom sheet instead */
 @media (max-width: 767px) {
   .detail-drawer {
-    top: auto; bottom: 0;
-    width: 100%; height: auto;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: auto;
     max-height: 90vh;
     border-radius: 1.5rem 1.5rem 0 0;
     transform: translateY(100%);
@@ -321,6 +372,7 @@
 ```
 
 ### Hover Sync Architecture (Sidebar ↔ Map)
+
 ```
 [Hover Card #102]
       │
@@ -338,6 +390,7 @@
 ---
 
 ## Z-Index Elevation Ladder
+
 ```
 Modals / Global Popovers        z: 1000
 Drawers / Detail Panels          z: 600

@@ -13,9 +13,9 @@ export function useExploreLocations() {
   const [error, setError] = useState<string | null>(null);
 
   // Filters
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeActivity, setActiveActivity] = useState<string | null>(null);
-  const [activeMBTA, setActiveMBTA] = useState('all');
+  const [searchQuery, updateSearchQuery] = useState('');
+  const [activeActivity, updateActiveActivity] = useState<string | null>(null);
+  const [activeMBTA, updateActiveMBTA] = useState('all');
 
   // Selection
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -39,7 +39,6 @@ export function useExploreLocations() {
 
   // Fetch locations and enrich with MBTA proximity
   useEffect(() => {
-    setLoading(true);
     getAllLocations()
       .then((locs) => {
         // Enrich each location with nearest MBTA station
@@ -149,11 +148,38 @@ export function useExploreLocations() {
     }
   }, [mapBounds]);
 
-  // Reset bounds filter when other filters change
-  useEffect(() => {
+  // A changed filter starts a search across all locations.
+  const resetSearchArea = useCallback(() => {
     setBoundsFilter(null);
     setMapMoved(false);
-  }, [searchQuery, activeActivity, activeMBTA]);
+  }, []);
+
+  const setSearchQuery = useCallback(
+    (query: string) => {
+      if (query === searchQuery) return;
+      updateSearchQuery(query);
+      resetSearchArea();
+    },
+    [searchQuery, resetSearchArea],
+  );
+
+  const setActiveActivity = useCallback(
+    (activity: string | null) => {
+      if (activity === activeActivity) return;
+      updateActiveActivity(activity);
+      resetSearchArea();
+    },
+    [activeActivity, resetSearchArea],
+  );
+
+  const setActiveMBTA = useCallback(
+    (line: string) => {
+      if (line === activeMBTA) return;
+      updateActiveMBTA(line);
+      resetSearchArea();
+    },
+    [activeMBTA, resetSearchArea],
+  );
 
   return {
     locations,

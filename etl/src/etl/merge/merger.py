@@ -10,7 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class Merger(Protocol):
-    def merge(self, groups: list[MatchGroup], fields_filled: dict[str, int]) -> list[NormalizedLocation]:
+    def merge(
+        self, groups: list[MatchGroup], fields_filled: dict[str, int]
+    ) -> list[NormalizedLocation]:
         """Merges properties of location groups into single normalized locations.
 
         Args:
@@ -35,16 +37,20 @@ class PriorityFillMerger:
     def __init__(self, config: MergeConfig):
         self.config = config
 
-    def merge(self, groups: list[MatchGroup], fields_filled: dict[str, int]) -> list[NormalizedLocation]:
+    def merge(
+        self, groups: list[MatchGroup], fields_filled: dict[str, int]
+    ) -> list[NormalizedLocation]:
         merged: list[NormalizedLocation] = []
 
         for group in groups:
             # Sort sources by priority
             ordered_sources = sorted(
                 group.keys(),
-                key=lambda s: self.config.source_priority.index(s)
-                if s in self.config.source_priority
-                else len(self.config.source_priority),
+                key=lambda s: (
+                    self.config.source_priority.index(s)
+                    if s in self.config.source_priority
+                    else len(self.config.source_priority)
+                ),
             )
 
             # Start with the highest-priority record as the base
@@ -63,7 +69,7 @@ class PriorityFillMerger:
                     base.address.street = other.address.street
                     logger.debug("Filled 'address.street' from %s for '%s'", source, base.name)
                     fields_filled["address.street"] = fields_filled.get("address.street", 0) + 1
-                    
+
                 if not base.address.city and other.address.city:
                     base.address.city = other.address.city
                 if not base.address.state and other.address.state:
@@ -76,7 +82,7 @@ class PriorityFillMerger:
                     base.contact.phone = other.contact.phone
                     logger.debug("Filled 'phone' from %s for '%s'", source, base.name)
                     fields_filled["contact.phone"] = fields_filled.get("contact.phone", 0) + 1
-                    
+
                 if not base.contact.website and other.contact.website:
                     base.contact.website = other.contact.website
                 if not base.contact.email and other.contact.email:
@@ -86,7 +92,9 @@ class PriorityFillMerger:
                 if not base.availability.opening_hours and other.availability.opening_hours:
                     base.availability.opening_hours = other.availability.opening_hours
                     logger.debug("Filled 'hours' from %s for '%s'", source, base.name)
-                    fields_filled["availability.opening_hours"] = fields_filled.get("availability.opening_hours", 0) + 1
+                    fields_filled["availability.opening_hours"] = (
+                        fields_filled.get("availability.opening_hours", 0) + 1
+                    )
 
                 # Services: union of unique activities
                 existing_activities = {(s.activity, s.item_category) for s in base.services}
@@ -96,10 +104,11 @@ class PriorityFillMerger:
                         existing_activities.add((svc.activity, svc.item_category))
 
                 # Rating: prefer the one with more reviews
-                if other.rating is not None:
-                    if base.rating is None or (other.review_count or 0) > (base.review_count or 0):
-                        base.rating = other.rating
-                        base.review_count = other.review_count
+                if other.rating is not None and (
+                    base.rating is None or (other.review_count or 0) > (base.review_count or 0)
+                ):
+                    base.rating = other.rating
+                    base.review_count = other.review_count
 
                 # Coordinates: prefer non-zero
                 if (base.lat == 0.0 or base.lon == 0.0) and other.lat != 0.0:

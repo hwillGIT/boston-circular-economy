@@ -1,13 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { validateSession } from '../services/authService.ts';
+import type { SessionUser } from '../db/userTypes.ts';
 
 // Augment Express Request type
-declare global {
-  namespace Express {
-    interface Request {
-      user?: any;
-      token?: string;
-    }
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: SessionUser;
+    token?: string;
   }
 }
 
@@ -18,7 +17,7 @@ declare global {
  *
  * @category Auth
  * @param {Request} req The Express request object.
- * @param {Response} res The Express response object.
+ * @param {Response} _res The Express response object.
  * @param {NextFunction} next The next middleware function.
  * @example
  * ```ts
@@ -26,7 +25,7 @@ declare global {
  * ```
  * @see {@link requireAuth}
  */
-export function authenticate(req: Request, res: Response, next: NextFunction): void {
+export function authenticate(req: Request, _res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith('Bearer ')) {
     return next();
