@@ -4,11 +4,11 @@ A City of Boston web tool for discovering circular economy locations — repair 
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Client | React 19 + Vite + TanStack Router (TypeScript), Leaflet maps |
-| Server | Express 5 + SQLite via `better-sqlite3` (TypeScript) |
-| ETL | Python data pipeline (`uv`) — fetches & normalises location data from Google Places and OpenStreetMap |
+| Layer  | Tech                                                                                                  |
+| ------ | ----------------------------------------------------------------------------------------------------- |
+| Client | React 19 + Vite + TanStack Router (TypeScript), Leaflet maps                                          |
+| Server | Express 5 + SQLite via `better-sqlite3` (TypeScript)                                                  |
+| ETL    | Python data pipeline (`uv`) — fetches & normalises location data from Google Places and OpenStreetMap |
 
 ## Running on Replit
 

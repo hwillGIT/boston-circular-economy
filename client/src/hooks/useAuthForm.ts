@@ -3,7 +3,7 @@
  */
 import { useState, useMemo } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useAuth } from '../lib/auth';
+import { useAuth } from '../lib/authContext';
 
 /* ── Password Strength Calculator ── */
 export function getPasswordStrength(pw: string): { level: number; label: string; key: string } {

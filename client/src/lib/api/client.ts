@@ -14,6 +14,18 @@ export interface PaginatedResponse<T> {
   };
 }
 
+/**
+ * Request JSON and attach the stored bearer token when one exists.
+ * The caller supplies the expected type. This function does not validate the response shape.
+ * @category Client
+ * @param url - The request URL.
+ * @param options - Additional fetch settings. Supplied headers override the default headers.
+ * @returns The parsed response body.
+ * @throws When the network request fails, the HTTP status is unsuccessful, or the response is invalid JSON.
+ * @example
+ * const result = await fetchJSON<{ message: string }>('/ping');
+ * @see {@link API_BASE}
+ */
 export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem('bce_token');
   const res = await fetch(url, {

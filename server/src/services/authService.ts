@@ -1,5 +1,16 @@
 import crypto from 'crypto';
 import db from '../db/index.ts';
+import type { SessionUser, UserRow } from '../db/userTypes.ts';
+
+interface SessionLookupRow extends Pick<
+  UserRow,
+  'email' | 'display_name' | 'avatar_url' | 'role' | 'neighborhood' | 'verified' | 'status'
+> {
+  id: string;
+  uid: string;
+  expires_at: string;
+  u_created_at: string | null;
+}
 
 /**
  * Hashes a plaintext password using scrypt with a randomly generated salt.
@@ -106,7 +117,7 @@ export function createSession(
  *
  * @category Auth
  * @param {string} token The raw session token to validate.
- * @returns {any | null} The associated user object if valid, or null if invalid or expired.
+ * @returns The associated user object if valid, or null if invalid or expired.
  * @example
  * ```ts
  * const user = validateSession(rawToken);
@@ -114,11 +125,11 @@ export function createSession(
  * ```
  * @see {@link revokeSession}
  */
-export function validateSession(token: string): any | null {
+export function validateSession(token: string): SessionUser | null {
   const tokenHash = hashToken(token);
 
   const session = db
-    .prepare(
+    .prepare<[string], SessionLookupRow>(
       `
     SELECT sessions.*, users.id as uid, users.email, users.display_name, users.avatar_url, users.role, users.neighborhood, users.verified, users.status, users.created_at as u_created_at
     FROM sessions
@@ -126,7 +137,7 @@ export function validateSession(token: string): any | null {
     WHERE sessions.token_hash = ?
   `,
     )
-    .get(tokenHash) as any;
+    .get(tokenHash);
 
   if (!session) return null;
 

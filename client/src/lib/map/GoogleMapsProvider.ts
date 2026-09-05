@@ -279,6 +279,7 @@ export class GoogleMapsProvider implements MapProvider {
         travelMode: google.maps.TravelMode.WALKING,
       });
       this.directionsRenderer.setDirections(result);
+      this.directionsRenderer.setMap(this.map);
     } catch (e) {
       console.error('Directions request failed due to ' + e);
     }
@@ -291,7 +292,7 @@ export class GoogleMapsProvider implements MapProvider {
     }
 
     if (this.directionsRenderer) {
-      this.directionsRenderer.setDirections({ routes: [] });
+      this.directionsRenderer.setMap(null);
     }
   }
 

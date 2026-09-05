@@ -43,15 +43,21 @@ const id = crypto.randomUUID();
 // Clear and insert admin
 db.prepare('DELETE FROM users WHERE email = ?').run('admin@localhost');
 
-db.prepare(`
+db.prepare(
+  `
   INSERT INTO users (id, email, password_hash, display_name, role, neighborhood, verified, status)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-`).run(id, 'admin@localhost', pwHash, 'Admin', 'admin', 'Back Bay', 1, 'active');
+`,
+).run(id, 'admin@localhost', pwHash, 'Admin', 'admin', 'Back Bay', 1, 'active');
 
 // Verify
 const users = db.prepare('SELECT id, email, display_name, role, status FROM users').all();
 console.log('=== Users in DB ===');
-users.forEach(u => console.log('  ' + u.display_name + ' (' + u.email + ') role: ' + u.role + ' status: ' + u.status));
+users.forEach((u) =>
+  console.log(
+    '  ' + u.display_name + ' (' + u.email + ') role: ' + u.role + ' status: ' + u.status,
+  ),
+);
 console.log('\nAdmin credentials: admin@localhost / admin');
 
 db.close();

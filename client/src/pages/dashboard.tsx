@@ -24,7 +24,6 @@ function DashboardPage() {
     money_saved: 0,
     credits_earned: 0,
   });
-  const [_loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState('all');
 
   useEffect(() => {
@@ -32,11 +31,9 @@ function DashboardPage() {
       .then((data) => {
         setActivities(data);
         setStats(computeImpactStats(data));
-        setLoading(false);
       })
       .catch(() => {
         // API may not have activities yet — show empty state
-        setLoading(false);
       });
   }, []);
 

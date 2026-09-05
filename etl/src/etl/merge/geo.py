@@ -44,12 +44,12 @@ class HasCoordinates(Protocol):
 
 def haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """Distance in meters between two lat/lon points."""
-    R = 6_371_000
+    earth_radius_m = 6_371_000
     lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
     dlat = lat2 - lat1
     dlon = lon2 - lon1
     a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    return 2 * R * math.asin(math.sqrt(a))
+    return 2 * earth_radius_m * math.asin(math.sqrt(a))
 
 
 def is_within_radius(loc_a: HasCoordinates, loc_b: HasCoordinates, radius_m: float) -> bool:

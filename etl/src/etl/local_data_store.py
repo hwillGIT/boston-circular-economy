@@ -4,7 +4,6 @@ from etl.dtos import NormalizedLocation
 
 # Reads and writes normalized locations to a local file.
 class LocalDataStore(BaseDataStore):
-
     def write_source_snapshot(
         self,
         source: str,
@@ -15,10 +14,10 @@ class LocalDataStore(BaseDataStore):
         Args:
             source: The name of the data source.
             normalized_locations: A list of normalized locations to write.
-            
+
         Returns:
             None.
-            
+
         Examples:
             >>> store = LocalDataStore()
             >>> store.write_source_snapshot("test", [])

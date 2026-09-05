@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getStreakData, getCurrentWeek } from '../lib/streaks';
-import type { StreakData } from '../lib/streaks';
 import './EcoStreak.css';
 
 export default function EcoStreak() {
-  const [streakData, setStreakData] = useState<StreakData | null>(null);
-
-  useEffect(() => {
-    setStreakData(getStreakData());
-  }, []);
-
-  if (!streakData) return null;
+  const [streakData] = useState(getStreakData);
 
   const currentWeek = getCurrentWeek();
   const weeks = Array.from({ length: 8 }, (_, i) => {

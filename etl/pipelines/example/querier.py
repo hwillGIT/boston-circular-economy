@@ -1,8 +1,7 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from base.querier import BaseQuerier
 from dtos import RawLocation
-
 
 MOCK_DATA = [
     {
@@ -64,15 +63,17 @@ class ExampleQuerier(BaseQuerier):
 
     def fetch(self) -> list[RawLocation]:
         """Wrap each mock record in RawLocation so the normalizer has one input shape."""
-        fetched_at = datetime.now(timezone.utc)
+        fetched_at = datetime.now(UTC)
         raw_locations = []
         for item in MOCK_DATA:
             # RawLocation preserves the original source payload.
             # The normalizer decides how to map that payload into our shared schema.
-            raw_locations.append(RawLocation(
-                data_source="example",
-                data_source_id=item["id"],
-                fetched_at=fetched_at,
-                payload=item,
-            ))
+            raw_locations.append(
+                RawLocation(
+                    data_source="example",
+                    data_source_id=item["id"],
+                    fetched_at=fetched_at,
+                    payload=item,
+                )
+            )
         return raw_locations

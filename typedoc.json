@@ -25,6 +25,11 @@
   "excludePrivate": true,
   "excludeProtected": false,
   "excludeInternal": false,
+  "validation": {
+    "notDocumented": true
+  },
+  "requiredToBeDocumented": ["Function", "Method"],
+  "packagesRequiringDocumentation": ["client", "server"],
   "includeVersion": true,
   "categorizeByGroup": true,
   "categoryOrder": ["Auth", "Database", "Routes", "Services", "Middleware", "Client", "Types", "*"],

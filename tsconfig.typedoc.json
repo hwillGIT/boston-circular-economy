@@ -11,11 +11,7 @@
     "esModuleInterop": true,
     "strict": false
   },
-  "include": [
-    "client/src/env.d.ts",
-    "client/src/lib/**/*",
-    "server/src/**/*"
-  ],
+  "include": ["client/src/env.d.ts", "client/src/lib/**/*", "server/src/**/*"],
   "exclude": [
     "**/*.test.*",
     "**/*.spec.*",

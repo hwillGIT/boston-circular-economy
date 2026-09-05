@@ -33,6 +33,7 @@ To bring BCYF's 36 community locations into the platform, we employ a **2-Tiered
 ---
 
 ### Phase A: Initial Dataset Import (Day 1 Setup)
+
 1. **Source 1: City of Boston Open Data Portal (`data.boston.gov`)**
    - The City of Boston publishes official BCYF Community Center facility coordinates via ArcGIS REST / CKAN API endpoints.
    - We run a Python script (`etl/bcyf_ingest.py`) to query the API or parse the official CSV dataset.
@@ -44,7 +45,7 @@ To bring BCYF's 36 community locations into the platform, we employ a **2-Tiered
 
 ## 2. Ongoing Maintenance & Updates: How Content Stays Fresh
 
-Facility addresses change rarely, but **community events (Fix-It Clinics, Mending Circles, Tool Library hours)** change frequently. 
+Facility addresses change rarely, but **community events (Fix-It Clinics, Mending Circles, Tool Library hours)** change frequently.
 
 Here is how we maintain data freshness over time:
 
@@ -76,6 +77,7 @@ BCYF site directors or volunteer Fix-It Cafe hosts submit upcoming events via a 
 ### Strategy 2: Automated Calendar Feed Sync (iCal / RSS / Google Calendar)
 
 If BCYF hosts post events on Boston.gov or Google Calendar:
+
 - An automated cron task runs every 24 hours (`etl/calendar_sync.py`).
 - Parses `.ics` / iCal feeds and updates event dates automatically without human intervention.
 
@@ -84,6 +86,7 @@ If BCYF hosts post events on Boston.gov or Google Calendar:
 ### Strategy 3: Semi-Annual Data Audit Script (`etl/audit_bcyf.py`)
 
 Every 6 months, a python audit script runs to:
+
 1. Re-query `data.boston.gov` to check for new BCYF center openings or address changes.
 2. Flag inactive locations that haven't hosted a circular economy event in > 90 days.
 
@@ -129,8 +132,8 @@ To support BCYF facilities in our master GeoJSON format:
 
 ## 4. Operational Comparison Matrix
 
-| Integration Method | Setup Effort | Maintenance Effort | Data Freshness | Best Used For |
-| :--- | :---: | :---: | :---: | :--- |
-| **Initial Open Data API Import** | Low (1 Day) | Low (Automated) | High | 36 BCYF Building Locations & Addresses |
-| **Partner Web Portal (`/partner`)** | Medium (3 Days) | Low (1 min/event) | Real-Time | Fix-It Clinic Dates & Clothing Swaps |
-| **iCal / Google Calendar Sync** | Medium (2 Days) | Zero (Fully Auto) | Real-Time | Boston.gov Official Events Calendar |
+| Integration Method                  |  Setup Effort   | Maintenance Effort | Data Freshness | Best Used For                          |
+| :---------------------------------- | :-------------: | :----------------: | :------------: | :------------------------------------- |
+| **Initial Open Data API Import**    |   Low (1 Day)   |  Low (Automated)   |      High      | 36 BCYF Building Locations & Addresses |
+| **Partner Web Portal (`/partner`)** | Medium (3 Days) | Low (1 min/event)  |   Real-Time    | Fix-It Clinic Dates & Clothing Swaps   |
+| **iCal / Google Calendar Sync**     | Medium (2 Days) | Zero (Fully Auto)  |   Real-Time    | Boston.gov Official Events Calendar    |
