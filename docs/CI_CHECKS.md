@@ -1,6 +1,6 @@
 # Run and Explain the CI Checks
 
-Continuous integration (CI) checks each proposed change before a human reviews it.
+Continuous integration (CI) checks each proposed change before the review team reviews it.
 A passing check supports a specific claim. It does not prove that the whole product works.
 
 ## Install the same tools as CI
@@ -56,7 +56,7 @@ uv run --locked pydocstyle --convention=google src/ pipelines/
 The last command reports Python docstring gaps. These gaps do not block CI.
 Other failed checks block the final `Quality Gate` job.
 A cancelled or skipped required job also blocks that gate.
-Human approval remains separate from these checks.
+Team approval remains separate from these checks.
 
 | Check                    | What the result supports                                                 | What it does not establish                   |
 | ------------------------ | ------------------------------------------------------------------------ | -------------------------------------------- |
@@ -67,6 +67,7 @@ Human approval remains separate from these checks.
 | Python tests             | The tested examples and merge rules produce the expected results.        | Live source queries work.                    |
 | Mypy                     | The merge package passes its configured type checks.                     | All Python modules have been checked.        |
 | Documentation audit      | Public callables reached from the configured entries have documentation. | Every comment is accurate or understandable. |
+| Architecture diagrams    | Checked diagram sources render to the committed HTML files.              | A diagram proves every runtime fact.         |
 
 Server tests use an in-memory database. They do not open the repository's development database.
 Python tests use local examples. The source queriers still contain unimplemented methods.
@@ -103,12 +104,14 @@ Each local `UP042` exception explains why conversion to `StrEnum` would change t
 These exceptions do not disable other lint rules or exclude a file.
 
 For review, record the revision, observed result, closest alternative, and remaining uncertainty.
-Ask a human reviewer to select one changed case that you have not rehearsed.
+Ask the review team to select one changed case that you have not rehearsed.
 
 ## Output and review
 
 CI uploads generated TypeScript documentation as the `api-docs` artifact.
-Its contents belong to the revision shown in that CI run.
+It also uploads the checked Archify diagrams.
+On a pull request, it creates an architecture delta when both revisions contain its source.
+These artifacts belong to the revision shown in that CI run.
 Deployment has a separate workflow. Passing this workflow does not establish deployment readiness.
 
 The [React guidance](https://react.dev/learn/you-might-not-need-an-effect)

@@ -130,7 +130,8 @@ class LocalCheckRunnerTests(unittest.TestCase):
             main(["--all", "--head", "HEAD"])
 
         self.assertEqual(2, require_clean.call_count)
-        self.assertEqual(7, run_check.call_count)
+        self.assertEqual(8, run_check.call_count)
+        run_check.assert_any_call(["node", ".agents/scripts/check_archify_diagrams.mjs"])
         resolve_commit.assert_has_calls([mock.call("HEAD"), mock.call("HEAD")])
         load_policy.assert_called_once_with()
 

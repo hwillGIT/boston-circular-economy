@@ -81,11 +81,11 @@ Editing the PR description does not change its result.
 The record must differ from the base revision.
 This prevents an inherited record from satisfying a new change.
 A complete record establishes only that the required information is present.
-It does not establish accuracy, understanding, or human approval.
+It does not establish accuracy, understanding, or team approval.
 
 Use the fields to explain the outcome, evidence, decision, code, scope, checks, and remaining questions.
 If AI prepared the record, identify its assistance.
-Do not invent a completed teaching conversation or a human review.
+Do not invent a completed teaching conversation or a team review.
 
 ## Choose the review attention
 

@@ -91,7 +91,7 @@
     {
       "name": "visual-review.md",
       "format": "Markdown or linked Google Doc",
-      "contents": "At most 300 words with checks, trade-offs, and human review."
+      "contents": "At most 300 words with checks, trade-offs, and team review."
     },
     {
       "name": "contributor-explanation",

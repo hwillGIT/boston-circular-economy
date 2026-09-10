@@ -1,18 +1,13 @@
-dist/
-node_modules/
-*.min.js
-*.min.css
-coverage/
-.playwright-cli/
-output/playwright/
-etl/
-
-# Generated output is checked by its generator.
-docs/api/
+# Generated and imported content is checked by its source tool.
 client/src/routeTree.gen.ts
-
-# Preserve imported source samples and inactive package-manager lockfiles.
 data-explorations/**/samples/
 pnpm-lock.yaml
 client/pnpm-lock.yaml
 server/pnpm-lock.yaml
+
+# Vendored Archify source retains the upstream formatting and lockfile.
+.agents/skills/archify/
+
+# Archify renders these HTML files from checked JSON sources.
+docs/diagrams/*.html
+docs/diagrams/*.visual-check.*

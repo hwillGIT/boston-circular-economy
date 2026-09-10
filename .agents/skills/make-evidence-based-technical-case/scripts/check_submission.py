@@ -50,7 +50,7 @@ REQUIRED_SECTION_LABELS = {
 }
 ACCOUNTABILITY = (
     "This record does not establish contributor understanding. "
-    "Human review must check the explanation against the submitted work."
+    "The review team must check the explanation against the submitted work."
 )
 ACCOUNTABILITY_PARAGRAPH = re.compile(
     rf"(?m)^[ \t]*{re.escape(ACCOUNTABILITY)}[ \t]*$"
@@ -102,8 +102,8 @@ TEMPLATE_GUIDANCE = (
     "Describe how you tried to prove the change wrong. Include normal, boundary, "
     "failure, and regression cases that apply.",
     "For UI changes, add before-and-after screenshots or a recording.",
-    "What should the human reviewer examine most closely? Which choice needs "
-    "human judgment? What is not yet proven?",
+    "What should the review team examine most closely? Which choice needs "
+    "team judgment? What is not yet proven?",
     "Follow the [`Code Change Standard`](https://github.com/hwillGIT/"
     "boston-circular-economy/blob/main/docs/CODE_CHANGE_STANDARD.md) for the "
     "submission and explanation rules.",
@@ -465,7 +465,7 @@ def check_submission(body: str) -> list[SubmissionFinding]:
         findings.extend(evidence_findings(sections[evidence_key]))
     if ACCOUNTABILITY_PARAGRAPH.search(record) is None:
         findings.append(
-            SubmissionFinding("accountability", "include the human review requirement")
+            SubmissionFinding("accountability", "include the review team requirement")
         )
     return findings
 

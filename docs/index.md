@@ -38,5 +38,6 @@ The CI workflow also uploads the reference as the `api-docs` artifact.
 
 - [Layout decisions](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/ux-decisions/UXDR-001-layout-architecture.md)
 - [Activity flow decisions](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/ux-decisions/UXDR-002-activity-logging-flow.md)
+- [Checked delivery diagrams](diagrams/README.md)
 - [Customer journey and team design](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/customer_journey_and_agentic_team_design.md)
 - [Architecture decisions](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/boston_team_adrs_and_architecture.md)

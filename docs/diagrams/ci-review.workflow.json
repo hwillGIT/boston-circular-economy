@@ -1,0 +1,201 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "CI, Review, and Documentation Workflow",
+    "locale": "en",
+    "output": "docs/diagrams/ci-review.workflow.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "authoring",
+        "label": "Authoring",
+        "focus": ["select_unit", "ai_assistant", "author_change", "open_pr"],
+        "note": "The developer uses AI for bounded help and explains the submitted work."
+      },
+      {
+        "id": "checks",
+        "label": "Checks and docs",
+        "focus": ["open_pr", "ci_checks", "archify_render", "review_artifacts"],
+        "note": "GitHub checks committed evidence, code, prose, and diagrams."
+      },
+      {
+        "id": "decision",
+        "label": "Review decision",
+        "focus": ["review_artifacts", "team_review"],
+        "note": "The review team approves the result or asks for a revision."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "delivery", "label": "Guided delivery" },
+    { "id": "artifacts", "label": "Checked documentation" }
+  ],
+  "phases": [
+    { "id": "select", "label": "Select", "fromCol": 0, "toCol": 0 },
+    { "id": "author", "label": "Author", "fromCol": 1, "toCol": 2, "variant": "emphasis" },
+    { "id": "check", "label": "Check", "fromCol": 3, "toCol": 4, "variant": "dashed" },
+    { "id": "review", "label": "Review", "fromCol": 5, "toCol": 5, "variant": "security" }
+  ],
+  "groups": [
+    {
+      "id": "ai-practice",
+      "label": "Draft and explain",
+      "lane": "delivery",
+      "fromCol": 1,
+      "toCol": 2,
+      "variant": "emphasis"
+    },
+    {
+      "id": "required-checks",
+      "label": "Required checks",
+      "lane": "delivery",
+      "fromCol": 3,
+      "toCol": 4,
+      "variant": "security"
+    },
+    {
+      "id": "checked-docs",
+      "label": "Checked output",
+      "lane": "artifacts",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "select_unit",
+    "ai_assistant",
+    "author_change",
+    "open_pr",
+    "ci_checks",
+    "archify_render",
+    "review_artifacts",
+    "team_review"
+  ],
+  "nodes": [
+    {
+      "id": "select_unit",
+      "lane": "delivery",
+      "col": 0,
+      "type": "external",
+      "label": "Select unit",
+      "sublabel": "scope and inputs",
+      "width": 132
+    },
+    {
+      "id": "ai_assistant",
+      "lane": "delivery",
+      "col": 1,
+      "type": "external",
+      "label": "AI assistant",
+      "sublabel": "research and practice",
+      "width": 132
+    },
+    {
+      "id": "author_change",
+      "lane": "delivery",
+      "col": 2,
+      "type": "frontend",
+      "label": "Author change",
+      "sublabel": "code, specs, evidence",
+      "width": 132
+    },
+    {
+      "id": "open_pr",
+      "lane": "delivery",
+      "col": 3,
+      "type": "security",
+      "label": "Open draft PR",
+      "sublabel": "commit the record",
+      "width": 132
+    },
+    {
+      "id": "ci_checks",
+      "lane": "delivery",
+      "col": 4,
+      "type": "cloud",
+      "label": "CI checks",
+      "sublabel": "record, code, prose",
+      "width": 132
+    },
+    {
+      "id": "team_review",
+      "lane": "delivery",
+      "col": 5,
+      "type": "external",
+      "label": "Team review",
+      "sublabel": "two approvals",
+      "width": 132
+    },
+    {
+      "id": "archify_render",
+      "lane": "artifacts",
+      "col": 4,
+      "type": "backend",
+      "label": "Archify render",
+      "sublabel": "validate and generate",
+      "width": 132
+    },
+    {
+      "id": "review_artifacts",
+      "lane": "artifacts",
+      "col": 5,
+      "type": "database",
+      "label": "Review artifacts",
+      "sublabel": "API docs and diagrams",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "id": "choose-work",
+      "from": "select_unit",
+      "to": "ai_assistant",
+      "label": "brief",
+      "variant": "emphasis"
+    },
+    {
+      "id": "draft-with-ai",
+      "from": "ai_assistant",
+      "to": "author_change",
+      "label": "draft and practice",
+      "variant": "dashed"
+    },
+    {
+      "id": "commit-pr",
+      "from": "author_change",
+      "to": "open_pr",
+      "label": "commit",
+      "labelDy": -28
+    },
+    {
+      "id": "start-ci",
+      "from": "open_pr",
+      "to": "ci_checks",
+      "label": "submit",
+      "variant": "security",
+      "labelDy": -28
+    },
+    {
+      "id": "render-docs",
+      "from": "ci_checks",
+      "to": "archify_render",
+      "label": "render diagrams",
+      "variant": "dashed"
+    },
+    {
+      "id": "publish-artifacts",
+      "from": "archify_render",
+      "to": "review_artifacts",
+      "label": "publish",
+      "variant": "dashed"
+    },
+    {
+      "id": "review-evidence",
+      "from": "review_artifacts",
+      "to": "team_review",
+      "label": "inspect"
+    }
+  ]
+}

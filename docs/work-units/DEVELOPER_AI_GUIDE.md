@@ -140,7 +140,7 @@ Ask which claim remains unproven.
 Check my answers against the same artifact revision.
 Point out incorrect or unsupported statements.
 Give me a small hint, then ask me to try again.
-End with the gaps that still need a human decision or another check.
+End with the gaps that still need a team decision or another check.
 Do not certify that I understand the work.
 ```
 
@@ -167,7 +167,7 @@ Return no finding when the code supports a clear trace.
 ```
 
 A summary from an AI does not prove that the code is clear.
-The reviewer must be able to follow the code and challenge the contributor's explanation.
+The review team must be able to follow the code and challenge the contributor's explanation.
 
 ## Record the review
 
@@ -201,7 +201,7 @@ Carnegie Mellon describes examples with correct and incorrect steps in its
 Asking learners to recall an explanation and receive feedback supports learning.
 Carnegie Mellon describes these practices in its
 [teaching guidance](https://www.cmu.edu/teaching/resources/instructionalstrategies/activelearningstrategies/retrievalpractice/index.html).
-The prompts above adapt these practices to a code review. Human review remains necessary.
+The prompts above adapt these practices to a code review. Team review remains necessary.
 
 Compare alternatives against stated criteria and record important uncertainty.
 [NASA's engineering guidance](https://www.nasa.gov/reference/6-8-decision-analysis/)

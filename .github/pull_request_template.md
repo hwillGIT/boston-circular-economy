@@ -72,11 +72,11 @@ For UI changes, add before-and-after screenshots or a recording.
 - [ ] AI assisted with implementation or tests
 - [ ] AI assisted with review or challenge
 
-This record does not establish contributor understanding. Human review must check the explanation against the submitted work.
+This record does not establish contributor understanding. The review team must check the explanation against the submitted work.
 
 ## Review focus and uncertainty
 
-What should the human reviewer examine most closely? Which choice needs human judgment?
+What should the review team examine most closely? Which choice needs team judgment?
 What is not yet proven?
 
 -

@@ -29,7 +29,7 @@ or backend capability exists.
 
 UI-003 and UI-005 can proceed independently after the screen specification is accepted.
 UI-004 follows the selected wireframe. Each timebox covers one focused session,
-excluding the wait for human review. Stop with a decision request when the work does
+excluding the wait for team review. Stop with a decision request when the work does
 not fit.
 
 ## What the manifest means
@@ -55,14 +55,14 @@ links and accepted revisions in the issue and completion record.
 3. Run the first AI prompt and check the sources yourself.
 4. Compare the suggestions before asking the AI to generate an artifact.
 5. Use the challenge prompt to find missing evidence or ambiguous behavior.
-6. Inspect the deliverables and demonstrate them to the named reviewer.
+6. Inspect the deliverables and demonstrate them to the named review team.
 7. Record one AI suggestion you changed or rejected and why.
 8. Explain the result in your own words and answer one changed-case question.
 
 Reserve the last 15 minutes for the explanation. Include a short note or recording
 with the artifact. Trace the behavior, explain the decision, and cite its evidence.
 If the artifact contains code, locate the controlling rule and the place to make a
-likely change. The reviewer records what the contributor could explain.
+likely change. The review team records what the contributor could explain.
 
 An agent's output is a proposal until a person checks it. Do not fabricate user
 research, service availability, approved design choices, or measurements.
@@ -71,10 +71,10 @@ If a source or tool is unavailable, report the exact gap and preserve completed 
 ## Definition of done
 
 Every assignment needs the named artifacts, checked acceptance criteria, contributor
-explanation, and human decision. Record the artifact revision that received review.
+explanation, and team decision. Record the artifact revision that received review.
 A screenshot alone cannot establish keyboard behavior or accessibility.
 An AI summary cannot establish contributor understanding. The accepted completion
-record requires the contributor's explanation and the reviewer's observation.
+record requires the contributor's explanation and the review team's observation.
 
 Return one of these decisions:
 

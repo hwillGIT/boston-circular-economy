@@ -24,7 +24,7 @@ REFACTOR_BOUNDARY = (
 )
 ACCOUNTABILITY = (
     "This record does not establish contributor understanding. "
-    "Human review must check the explanation against the submitted work."
+    "The review team must check the explanation against the submitted work."
 )
 
 VALID_BODY = f"""## Outcome
@@ -155,8 +155,8 @@ class CheckSubmissionTests(unittest.TestCase):
             "boundary, failure, and regression cases that apply."
         )
         review_guidance = (
-            "What should the human reviewer examine most closely? Which choice "
-            "needs human judgment? What is not yet proven?"
+            "What should the review team examine most closely? Which choice "
+            "needs team judgment? What is not yet proven?"
         )
         cases = (
             (

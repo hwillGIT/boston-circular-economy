@@ -12,6 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 PROSE_SCRIPTS = ROOT / ".agents/skills/make-evidence-based-technical-case/scripts"
+VENDORED_PROSE_DIRECTORIES = (Path(".agents/skills/archify"),)
 sys.path.insert(0, str(PROSE_SCRIPTS))
 import check_prose  # noqa: E402
 
@@ -20,6 +21,17 @@ def content_digest(path: Path) -> str:
     """Ignore platform line endings when identifying unchanged legacy text."""
     text = path.read_text(encoding="utf-8")
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def is_vendored_prose(path: Path, root: Path) -> bool:
+    """Keep a pinned external skill outside the project prose policy."""
+    relative = path.resolve().relative_to(root.resolve())
+    return any(relative.is_relative_to(directory) for directory in VENDORED_PROSE_DIRECTORIES)
+
+
+def project_prose_paths(paths: list[Path], root: Path) -> list[Path]:
+    """Keep authored project text while preserving vendored source unchanged."""
+    return [path for path in paths if not is_vendored_prose(path, root)]
 
 
 def find_prose_violations(
@@ -49,15 +61,20 @@ def check_repository_prose() -> int:
         check=True,
         capture_output=True,
     )
-    paths = [
+    all_paths = [
         ROOT / name.decode("utf-8")
         for name in completed.stdout.split(b"\0")
         if name
     ]
+    paths = project_prose_paths(all_paths, ROOT)
+    vendored = len(all_paths) - len(paths)
     findings, skipped = find_prose_violations(paths, baseline, ROOT)
     for finding in findings:
         print(finding.format())
-    print(f"Prose: {len(findings)} violations; {skipped} unchanged legacy files.")
+    print(
+        f"Prose: {len(findings)} violations; {skipped} unchanged legacy files; "
+        f"{vendored} vendored skill files."
+    )
     return int(bool(findings))
 
 

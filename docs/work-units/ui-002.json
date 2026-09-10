@@ -69,7 +69,7 @@
     },
     {
       "step": "Produce",
-      "prompt": "Fill screen-manifest.yaml and write screen-spec.md in at most 800 words. Give stable IDs to components, actions, states, and acceptance cases. Reference the accepted inputs and actual design frames. Keep unknown decisions explicit and mark the manifest proposed until the human reviewers accept it."
+      "prompt": "Fill screen-manifest.yaml and write screen-spec.md in at most 800 words. Give stable IDs to components, actions, states, and acceptance cases. Reference the accepted inputs and actual design frames. Keep unknown decisions explicit and mark the manifest proposed until the review team accepts it."
     },
     {
       "step": "Explain and defend",

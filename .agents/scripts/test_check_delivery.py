@@ -13,7 +13,13 @@ import unittest
 from jsonschema import ValidationError
 import yaml
 
-from check_delivery import ROOT, content_digest, find_prose_violations, validate_units
+from check_delivery import (
+    ROOT,
+    content_digest,
+    find_prose_violations,
+    project_prose_paths,
+    validate_units,
+)
 
 
 class ProseBaselineTests(unittest.TestCase):
@@ -50,6 +56,17 @@ class ProseBaselineTests(unittest.TestCase):
             digest = content_digest(path)
             path.write_bytes(b"One line.\r\nAnother line.\r\n")
             self.assertEqual(digest, content_digest(path))
+
+    def test_vendored_archify_text_stays_outside_project_prose_checks(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            vendored = root / ".agents/skills/archify/SKILL.md"
+            authored = root / "docs/guide.md"
+            vendored.parent.mkdir(parents=True)
+            authored.parent.mkdir(parents=True)
+            vendored.write_text("We cannot proceed; the input is absent.\n", encoding="utf-8")
+            authored.write_text("One clear sentence.\n", encoding="utf-8")
+            self.assertEqual([authored], project_prose_paths([authored, vendored], root))
 
 
 class ManifestTests(unittest.TestCase):
@@ -105,6 +122,7 @@ class QualityGateTests(unittest.TestCase):
         required = {
             "lint-client", "lint-server", "lint-etl", "typecheck",
             "test-etl", "docs", "docs-python", "delivery-policy",
+            "architecture-diagrams",
         }
         self.assertEqual(required, set(gate["needs"]))
         self.assertEqual("always()", gate["if"])

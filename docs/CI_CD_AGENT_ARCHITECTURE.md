@@ -7,46 +7,57 @@ This workflow supports small frontend assignments in
 ## From assignment to accepted work
 
 1. Select a ready [work unit](work-units/README.md).
-2. Confirm its inputs, timebox, deliverable, and reviewer.
+2. Confirm its inputs, timebox, deliverable, and review team.
 3. Use its AI prompts to explore, challenge, and produce the artifact.
 4. Inspect the result and run the relevant checks.
 5. Commit the evidence in `.github/submission.md`.
 6. Open a pull request in the fork.
-7. Ask the human reviewer to inspect the work and contributor explanation.
+7. Ask the review team to inspect the work and contributor explanation.
 8. Record acceptance against the exact artifact revision.
 
-The reviewer selects one changed case that the contributor has not rehearsed.
+The review team selects one changed case that the contributor has not rehearsed.
 The contributor explains the controlling code, specification, or design.
 The [developer guide](work-units/DEVELOPER_AI_GUIDE.md) provides practice prompts.
 
 Keep a pull request in draft while its scoped implementation or checks remain incomplete.
 Mark it ready for review when that work is complete.
-Human approval remains a separate requirement.
+Team approval remains a separate requirement.
 GitHub's [review-stage guidance](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/changing-the-stage-of-a-pull-request)
 describes that transition.
 
 ## What each check establishes
 
-| Check               | What it checks                                                     |
-| ------------------- | ------------------------------------------------------------------ |
-| Lint • Client       | Client lint, CSS rules, and repository formatting                  |
-| Lint • Server       | Server lint                                                        |
-| Lint • ETL (Python) | Python lint, formatting, and merge-module types                    |
-| Typecheck           | Client build, server build, and server authentication tests        |
-| Test • ETL          | Python tests                                                       |
-| Docs • Generate     | Public function documentation and generated API reference          |
-| Docs • Python       | Advisory Python docstring audit                                    |
-| Delivery policy     | Prose, work-unit manifests, submission structure, and policy tests |
-| Quality Gate        | All listed jobs completed successfully                             |
+| Check                 | What it checks                                                     |
+| --------------------- | ------------------------------------------------------------------ |
+| Lint • Client         | Client lint, CSS rules, and repository formatting                  |
+| Lint • Server         | Server lint                                                        |
+| Lint • ETL (Python)   | Python lint, formatting, and merge-module types                    |
+| Typecheck             | Client build, server build, and server authentication tests        |
+| Test • ETL            | Python tests                                                       |
+| Docs • Generate       | Public function documentation and generated API reference          |
+| Docs • Python         | Advisory Python docstring audit                                    |
+| Architecture diagrams | Checked Archify sources and rendered review documents              |
+| Delivery policy       | Prose, work-unit manifests, submission structure, and policy tests |
+| Quality Gate          | All listed jobs completed successfully                             |
 
 The Python docstring audit remains advisory.
 Read its step output for missing documentation, even when its job succeeds.
 The other listed failures prevent a successful Quality Gate.
 
+Architecture diagrams use JSON sources and checked HTML outputs.
+CI rebuilds the HTML and fails when a committed output is stale.
+Pull requests also receive a comparison artifact when both revisions include the architecture source.
+The artifact guides review. The review team decides whether the diagram supports the change.
+
 CI runs on pull requests to any branch, main pushes, feature pushes, and merge-group checks.
 This allows a review branch to depend on another review branch.
 CI uses read-only repository permissions and pinned action revisions.
 It runs all application checks, including documentation-only changes.
+
+`main` requires a current `Quality Gate` and `Submission record` before merge.
+It also requires two review-team approvals and dismisses stale approvals.
+The rule applies to administrators.
+Read the [activation record](DELIVERY_ACTIVATION.md) before changing that rule.
 
 ## Local checks
 
@@ -56,6 +67,13 @@ Before pushing, the local runner requires a clean worktree and the checked-out c
 
 ```bash
 python3 -B .agents/skills/route-agent-work/scripts/run_local_checks.py --base origin/main
+```
+
+To check only the diagrams, install their nested dependencies and run this command.
+
+```bash
+npm ci --prefix .agents/skills/archify --no-audit --no-fund
+node .agents/scripts/check_archify_diagrams.mjs
 ```
 
 Use `--all` for every application check.
@@ -105,9 +123,9 @@ The tests do not establish that repository permissions or merge rules are active
 
 Submission validation checks structure and meaningful content.
 It cannot establish that a stated check ran or that a contributor understands the work.
-The human reviewer verifies both.
+The review team verifies both.
 
-## AI review and human decisions
+## AI review and team decisions
 
 Use the review skill for a requested review.
 The local runner can show its route without starting an AI session:
@@ -118,12 +136,12 @@ python3 -B .agents/skills/review-code-change/scripts/run_local_review.py --risk 
 
 The route applies a minimum review level from affected paths.
 A contributor cannot lower that level through a declaration.
-The runner refuses specialist decisions and requires the responsible human.
+The runner refuses specialist decisions and requires the responsible team member.
 Available model names and user preferences must be checked before running a review.
 
 Repository routing does not configure a hosted AI service.
 Enable hosted review only after verifying its account permissions and operation.
-AI findings remain advice. Human review and merge authority remain with maintainers.
+AI findings remain advice. Team review and merge authority remain with maintainers.
 
 ## Deployment
 

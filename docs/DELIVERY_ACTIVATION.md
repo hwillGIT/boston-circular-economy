@@ -1,34 +1,33 @@
 # Activate the Fork Delivery Pilot
 
-Status: prepared for review. Do not treat repository files as proof of active enforcement.
+Status: main-branch review and status requirements are active. The Archify integration awaits team review in PR #14. Deployment and hosted AI review remain unconfigured.
 
 ## Evidence and current limits
 
-| Item                      | Evidence                                                                                                            | Remaining action                                 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| Fork                      | [hwillGIT/boston-circular-economy](https://github.com/hwillGIT/boston-circular-economy)                             | Keep new work here                               |
-| Assignments               | [PR #8](https://github.com/hwillGIT/boston-circular-economy/pull/8), issues #3 through #7                           | Review and select a contributor                  |
-| Application checks        | [PR #10](https://github.com/hwillGIT/boston-circular-economy/pull/10)                                               | Human review and merge                           |
-| Tested CI revision        | [Run 33939520216](https://github.com/hwillGIT/boston-circular-economy/actions/runs/33939520216), revision `4a25a6f` | Verify integration CI separately                 |
-| Workflow integration      | [Issue #11](https://github.com/hwillGIT/boston-circular-economy/issues/11)                                          | Review the integration and its exact CI revision |
-| Main review rule          | One approval and stale-review dismissal observed on September 5, 2026                                               | Retain human review                              |
-| Required status checks    | None configured at that observation                                                                                 | Configure after representative checks exist      |
-| Pages                     | Not configured at that observation                                                                                  | Select hosting and backend destination           |
-| Contributor understanding | No completed pilot demonstration                                                                                    | Observe a contributor explaining their own work  |
+| Item                      | Evidence                                                                                                                                             | Remaining action                                  |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Fork                      | [hwillGIT/boston-circular-economy](https://github.com/hwillGIT/boston-circular-economy)                                                              | Keep new work here                                |
+| Assignments               | The catalog is present on `main`; [PR #8](https://github.com/hwillGIT/boston-circular-economy/pull/8) remains draft                                  | Select a contributor and do not merge a duplicate |
+| Application checks        | [PR #10](https://github.com/hwillGIT/boston-circular-economy/pull/10) merged on September 10, 2026                                                   | Keep the checks active                            |
+| Tested CI revision        | The current CI run on [PR #14](https://github.com/hwillGIT/boston-circular-economy/pull/14)                                                          | Review the integration and merge it               |
+| Workflow integration      | [PR #14](https://github.com/hwillGIT/boston-circular-economy/pull/14) and [issue #11](https://github.com/hwillGIT/boston-circular-economy/issues/11) | Team review and merge                             |
+| Main review rule          | Two approvals, stale-review dismissal, and administrator enforcement set on September 10, 2026                                                       | Retain team review                                |
+| Required status checks    | `Quality Gate` and `Submission record`; branches must be current with `main`                                                                         | Read settings after material workflow changes     |
+| Pages                     | No Pages site exists on September 10, 2026                                                                                                           | Select hosting and backend destination            |
+| Contributor understanding | No completed pilot demonstration                                                                                                                     | Observe a contributor explaining their own work   |
 
-The listed CI run covers the application-check repair.
-It does not certify this integration or activate a hosted AI reviewer.
+The current PR run covers the Archify integration and its application checks.
+The live branch rule does not activate a hosted AI reviewer or a deployment.
 
 ## Review and merge
 
-1. Review PR #10 against the fork application.
-2. Merge it after the required human approval.
-3. Review the workflow integration against the resulting main revision.
-4. Check the assignment files against PR #8.
-5. Merge accepted integration work after human review.
-6. Verify successful CI on the merged main commit.
+1. Review PR #14 against the fork application and its checked diagram artifacts.
+2. Keep it in draft until the review team has a complete change and explanation.
+3. Confirm that PR #8 adds work missing from `main` before merging it.
+4. Merge accepted integration work after the two required team approvals.
+5. Verify successful CI on the merged `main` commit.
 
-The integration includes the assignment catalog from PR #8.
+The assignment catalog is already present on `main`.
 Do not merge a second copy without checking the resulting diff.
 Retire a redundant review only after its work is present and accepted.
 
@@ -56,18 +55,16 @@ Use a committed submission record for that change.
 Use synthetic content for negative checks.
 Do not expose credentials or contact contributors during a workflow test.
 
-## Configure the merge rule
+## Main merge rule
 
-An authorized maintainer must require `Quality Gate` and `Submission record` on main.
-Select the GitHub Actions source where the settings support that restriction.
-Keep the existing one-review requirement and stale-review dismissal.
-Require branches to be up to date with main before merging.
+`main` now requires `Quality Gate` and `Submission record` from GitHub Actions.
+It requires two approvals, dismisses stale reviews, and requires a branch current with `main`.
+The rule applies to administrators.
 Base-policy changes need a branch update and fresh checks.
-Do not bypass those rules as an administrator.
 
-Read the settings back after the change.
+Read the settings back after each material workflow change.
 Verify a failing submission cannot merge.
-Verify a successful record and CI result still require human approval.
+Verify a successful record and CI result still require two team approvals.
 The submission workflow does not cover merge queues.
 Keep merge queues disabled until that event path has its own tested submission policy.
 
@@ -84,8 +81,8 @@ A model name in repository policy does not establish that a service is enabled.
 Select UI-001 after confirming ownership in its issue.
 Use its sources, prompts, one-hour timebox, and stated deliverable.
 Reserve 15 minutes for the contributor's explanation.
-Record the artifact revision, contributor explanation, and reviewer's observation.
-Leave acceptance fields empty until the responsible reviewer accepts the work.
+Record the artifact revision, contributor explanation, and review team's observation.
+Leave acceptance fields empty until the responsible review team accepts the work.
 
 ## Select and verify hosting
 
