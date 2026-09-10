@@ -84,6 +84,30 @@ Reserve 15 minutes for the contributor's explanation.
 Record the artifact revision, contributor explanation, and review team's observation.
 Leave acceptance fields empty until the responsible review team accepts the work.
 
+## Replit release readiness
+
+The existing Replit VM path can build the current `main` revision.
+On September 10, 2026, `npm run replit:build` passed with Node.js 22.23.2.
+It created the client bundle and `server/dist/index.js`.
+
+The local production smoke check remains inconclusive.
+This Windows workspace blocked the `better-sqlite3` native install script.
+The resulting process could not load the SQLite module.
+That result does not show a Replit runtime failure.
+Run `/ping` in the selected Replit deployment before public release.
+
+`.replit` selects `nodejs-20`, while `.node-version` and CI select Node.js 22.23.2.
+Align the Replit Node.js version before the first deployment.
+
+The service uses `SQLITE_PATH` and otherwise creates `dev.db` in the project workspace.
+Replit warns against relying on a published application's filesystem for durable data.
+Select permanent storage, a migration plan, and a backup procedure before public data or accounts use this service.
+See [Replit Publishing](https://docs.replit.com/learn/projects-and-artifacts/replit-deployments).
+
+A Replit VM is a candidate because the fork already runs an Express service.
+A static client and separate backend is a candidate when the team needs independent hosting.
+Both choices need a public API origin, a data plan, and a tested recovery procedure.
+
 ## Select and verify hosting
 
 Confirm whether the fork should use Replit or a static frontend with a separate backend.

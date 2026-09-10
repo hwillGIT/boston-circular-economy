@@ -42,7 +42,9 @@ The `architecture-diagrams` job installs the pinned renderer, validates both pai
 It builds a comparison artifact when the pull request base and head both include the architecture source.
 Main now requires the `Quality Gate` and `Submission record` from GitHub Actions.
 It also requires two team approvals and dismisses stale approvals.
+Workflow guidance uses the same two-approval team review rule.
 The artifact uploader uses the pinned Node 24 release.
+The activation record states the tested Replit build, local SQLite limit, and required data decision.
 
 The local runner calls the same diagram check before a push.
 The server test command uses Node test discovery. It runs on Windows shells that do not expand file patterns.
@@ -63,6 +65,8 @@ The delta step skips the first integration because its base revision has no arch
 | Server lint and build               | Pass         | Server lint, TypeScript build, and four authentication tests pass.             |
 | ETL tests                           | Pass         | Python 3.14.3 runs Ruff, Mypy, and all 22 ETL tests.                           |
 | Technical prose and editorial style | Pass         | Prose check reports zero violations. Delivery-policy and routing tests pass.   |
+| Replit production build             | Pass         | `npm run replit:build` passes on main with Node.js 22.23.2.                    |
+| Replit production smoke check       | Not run      | The Windows workspace blocks the native SQLite install script.                 |
 | Manual user journey                 | Not affected | This change adds CI and documentation. It does not change a product journey.   |
 | Accessibility / responsive          | Not affected | This change adds CI and documentation. It does not change rendered product UI. |
 | Security / privacy / recovery       | Not run      | Hosted workflow permissions and artifact retention need GitHub CI evidence.    |

@@ -28,7 +28,7 @@ Require every application job and Delivery policy in that gate.
 A skipped, cancelled, or failed dependency must prevent a successful gate.
 Do not add path filters that leave a required context missing.
 
-### Evidence and human review
+### Evidence and team review
 
 Keep submission evidence in the same commit as the work.
 Check the live pull request head before publishing a commit status.
@@ -38,4 +38,4 @@ It cannot prove a test was run or a contributor understands the work.
 Changing the prose baseline changes enforcement.
 Require evidence that an entry refers to unchanged legacy text.
 Do not use the baseline to exempt new policy, new prose, or a failing new change.
-Keep the one-review requirement. Do not use an administrator bypass.
+Keep the required two team approvals. Do not use an administrator bypass.
