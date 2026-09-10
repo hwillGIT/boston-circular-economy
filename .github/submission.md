@@ -79,8 +79,8 @@ It shows the main branch label and active status rules.
 - [x] AI assisted with review or challenge
 
 This record does not establish contributor understanding. The review team must check the explanation against the submitted work.
-The trusted-base checker still needs the following legacy statement for this policy change.
-Human review must check the explanation against the submitted work.
+The trusted-base checker still needs this legacy statement while it is updated by this pull request.
+This record does not establish contributor understanding. Human review must check the explanation against the submitted work.
 
 ## Review focus and uncertainty
 
