@@ -18,6 +18,7 @@ This workflow supports small frontend assignments in
 The review team selects one changed case that the contributor has not rehearsed.
 The contributor explains the controlling code, specification, or design.
 The [developer guide](work-units/DEVELOPER_AI_GUIDE.md) provides practice prompts.
+Use the [team review record](MENTOR_PILOT.md#split-the-team-review) to divide the two checks and record the decision.
 
 Keep a pull request in draft while its scoped implementation or checks remain incomplete.
 Mark it ready for review when that work is complete.

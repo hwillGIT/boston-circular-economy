@@ -137,6 +137,7 @@ If a gap remains, name one specific revision or learning task.
 
 Two review-team approvals remain required for merging.
 AI review supports that decision and does not replace it.
+Use the [team review record](MENTOR_PILOT.md#split-the-team-review) for the two observations and the changed case.
 
 ## Activate the workflow
 

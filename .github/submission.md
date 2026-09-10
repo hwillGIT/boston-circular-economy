@@ -53,6 +53,7 @@ It does not require a separate invalid test request.
 The local runner calls the same diagram check before a push.
 Work-unit manifests name review-team roles and record two team members before acceptance.
 The schema test rejects an accepted work unit with only one recorded team member.
+The mentoring guide gives each review-team member a separate check and shared record.
 The UI-005 packet includes a proposed API call template and a checked schema.
 The template separates inspected routes from a proposed clinic-search operation.
 It requires success, empty, and failure cases before a contributor starts implementation.

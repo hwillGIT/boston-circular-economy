@@ -43,6 +43,29 @@ Ask them to locate the controlling code, specification, or design frame.
 Ask why the chosen design fits the evidence and when another choice would be better.
 Record the contributor's explanation and the review team's observation.
 
+## Split the team review
+
+Use two people for every accepted assignment. One person checks the user outcome,
+evidence, and artifact. Another person checks the changed case, failure behavior, and
+contract or code boundary. For research and design work, the second person checks the
+source interpretation and the proposed state or call behavior.
+
+Each person records an observation from the same artifact revision. A repeated pass by
+one person does not satisfy the two-person acceptance record. AI findings can guide the
+discussion. They do not replace either observation.
+
+Use this short record in the issue, pull request, or completion record:
+
+```text
+Artifact and exact revision:
+Outcome and evidence reviewer:
+Changed-case and boundary reviewer:
+Changed case selected by the team:
+Contributor response and evidence checked:
+Team decision: accept, revise, or stop:
+Remaining uncertainty or next action:
+```
+
 For code, inspect names, types, state ownership, and failure behavior.
 Request a smaller boundary or clearer name when the behavior is hard to trace.
 More comments cannot compensate for hidden state or duplicated rules.
