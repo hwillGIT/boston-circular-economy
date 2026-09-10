@@ -46,11 +46,31 @@ deliverable. It tells you what to do without guessing.
 
 1. Open the [assignment catalog](work-units/README.md).
 2. Start with UI-001 when it is available.
-3. Otherwise, choose the first assignment with all start conditions met.
-4. Open its manifest and every source link it names.
-5. Stop and record a question when a required decision is missing.
+3. Check the issue assignee and its recent comments.
+4. Claim an available assignment and state your next check-in.
+5. Open its manifest and every source link it names.
+6. Stop and record a question when a required decision is missing.
 
 Do not fill gaps with guesses. A small, honest question is useful work.
+
+## Claim the assignment
+
+Read the issue before you make an artifact. A current claim names a contributor, an
+accepted input revision, an intended artifact, and a next check-in. If another person
+has a current claim, choose another ready assignment or ask for a decision.
+
+Use this comment when you claim work:
+
+```text
+I am claiming [assignment].
+I checked [accepted input or source].
+I plan to deliver [artifact] within [timebox].
+My next check-in is [date and time].
+My current question or risk is [question or none].
+```
+
+When the timebox ends, link the artifact and state the next decision. Keep the record
+in the issue so a mentor and the next contributor can resume the work.
 
 ## Start an AI session
 

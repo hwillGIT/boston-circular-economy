@@ -24,6 +24,23 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: work_lane
+    attributes:
+      label: Work lane
+      description: Select the kind of artifact that this unit produces.
+      options:
+        - Research
+        - UI specification
+        - Interaction design or wireframe
+        - Visual design
+        - Backend-call handoff
+        - Frontend implementation
+        - Documentation or maintenance
+        - Other
+    validations:
+      required: true
+
   - type: textarea
     id: acceptance
     attributes:
@@ -55,8 +72,8 @@ body:
   - type: textarea
     id: dependencies
     attributes:
-      label: Dependencies and decisions
-      description: Link blocking issues or state "None." Record unresolved product or architecture choices.
+      label: Start condition, dependencies, and decisions
+      description: Name the accepted input. Link blockers or state "None." Name an unresolved product or architecture decision.
     validations:
       required: true
 
@@ -64,12 +81,12 @@ body:
     id: size
     attributes:
       label: Expected size
-      description: If the work is larger than four focused sessions, split it before implementation.
+      description: Use these sizes during triage. Split work that is larger or uncertain before a developer claims it.
       options:
-        - Less than one focused session
-        - One to two focused sessions
-        - Three to four focused sessions
-        - Larger or unknown — needs splitting
+        - XS — 15 to 45 minutes
+        - S — 45 to 120 minutes
+        - M — two to four focused sessions
+        - L or unknown — split before assignment
     validations:
       required: true
 
@@ -126,6 +143,17 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: handoff
+    attributes:
+      label: Claim and handoff
+      description: State the contributor claim, expected artifact, next decision owner, and next unit or question.
+      placeholder: |
+        Claim: UI-001 research after checking the current requirements.
+        Handoff: Product or design owner accepts the note or names the missing decision.
+    validations:
+      required: true
+
   - type: checkboxes
     id: ready
     attributes:
@@ -134,6 +162,8 @@ body:
         - label: The outcome and acceptance criteria are testable.
           required: true
         - label: The unit can be completed without an unstated product or architecture decision.
+          required: true
+        - label: The start condition and next decision owner are named.
           required: true
         - label: The issue contains no secret, credential, or personally identifiable information.
           required: true

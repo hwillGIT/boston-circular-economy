@@ -16,6 +16,7 @@ You can begin with research or design. You do not need to write production code 
 | Complete a guided first task        | [Your first frontend assignment](docs/GET_STARTED.md)       | 20 minutes    |
 | Use AI and explain your own work    | [Developer AI guide](docs/work-units/DEVELOPER_AI_GUIDE.md) | 10 minutes    |
 | Change code and open a pull request | [Contributing](CONTRIBUTING.md)                             | 10 minutes    |
+| Present the delegation pilot        | [Sponsor review brief](docs/DELEGATION_REVIEW_BRIEF.md)     | 10 minutes    |
 | Find all checks and their limits    | [CI checks](docs/CI_CHECKS.md)                              | Reference     |
 
 ## Frontend quick start

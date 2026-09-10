@@ -15,12 +15,14 @@ It gives you one small task, a copyable AI prompt, and the team review steps.
 ## Make your first change
 
 1. Pick one ready assignment or issue.
-2. Read its inputs, deliverable, and acceptance criteria.
-3. Create a branch with a short purpose.
-4. Keep the change within the stated scope.
-5. Run the checks that support the changed behavior.
-6. Explain one example and one remaining uncertainty.
-7. Open a pull request with the committed submission record.
+2. Check the assignee and recent issue comments.
+3. Claim an available issue and state your next check-in.
+4. Read its inputs, deliverable, and acceptance criteria.
+5. Create a branch with a short purpose.
+6. Keep the change within the stated scope.
+7. Run the checks that support the changed behavior.
+8. Explain one example and one remaining uncertainty.
+9. Open a pull request with the committed submission record.
 
 For a frontend branch, use a name such as `ui/clinic-filter-copy`.
 

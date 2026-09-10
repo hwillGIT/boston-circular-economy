@@ -1,18 +1,18 @@
 ## Outcome
 
-New developers can find one small frontend assignment.
+New developers can find, claim, and complete one small frontend assignment.
 They can see its place in the work sequence, start it with a clear AI prompt, and
-prepare for team review.
-The repository now gives them a short starting path before the detailed guides.
+prepare for team review. A sponsor can present the pilot in ten minutes and lead a
+twenty-minute review discussion.
 
 Issue exception: This onboarding documentation change has no dedicated issue.
 
 ## Evidence and limits
 
-- Evidence: The new guide links from the repository root, the contribution guide, and the assignment catalog. Prettier, the prose check, and all local delivery-policy hooks pass.
+- Evidence: The new guide links from the repository root, the contribution guide, and the assignment catalog. The issue form has a valid YAML structure. Prettier, the prose check, and all local delivery-policy hooks pass.
 - Why this evidence supports the result: Each entry point now directs a new developer to the same bounded first action and the same detailed references.
-- Conditions and limits: The guide does not prove that a developer completed an assignment or understood the result. Team review still checks the submitted work.
-- What could change the decision: Confusing feedback from a first contributor, a changed startup command, or a new assignment flow requires a revision.
+- Conditions and limits: The guide does not prove that a developer completed an assignment or understood the result. It does not prove that GitHub renders the form as intended. Team review still checks the submitted work.
+- What could change the decision: Confusing feedback or an unclear claim requires a revision. A changed startup command or assignment flow also requires a revision.
 
 ## Decision explanation
 
@@ -32,7 +32,7 @@ Issue exception: This onboarding documentation change has no dedicated issue.
 ## Risk and scope
 
 - Review level: Green
-- In scope: Developer onboarding, documentation links, a first-task prompt, local setup instructions, and team-review instructions.
+- In scope: Developer onboarding, task claiming, issue intake, a sponsor brief, documentation links, a first-task prompt, local setup instructions, and team-review instructions.
 - Out of scope: Application behavior, API contracts, live deployment, secrets, and Slack messages.
 - Rules that must remain true: The guide must not promise an unverified result. Required checks and team approvals remain separate from AI assistance.
 
@@ -45,11 +45,18 @@ lists guides by goal and time to start.
 ask an AI for a plan, make the artifact, and prepare for the review team.
 It also divides research, UI specification, interaction design, visual design, and
 backend handoff by their deliverable and start condition.
+It now gives a copyable issue-claim record and tells contributors how to avoid
+duplicating a current claim.
 
 The contribution guide now gives a short first-change sequence, direct frontend startup
 commands, submission steps, and the two-approval rule.
+It now asks the contributor to check and claim the issue before creating a branch.
 
 The frontend assignment catalog now links back to the first-task guide.
+
+The work-unit issue form now records a work lane, start condition, standard task size,
+and expected handoff. The sponsor brief gives a ten-minute presentation and a
+twenty-minute team review agenda.
 
 ## Challenge cases
 
@@ -57,6 +64,7 @@ The guide directs research and design contributors to a bounded artifact before 
 It directs code contributors to the relevant checks and the code standard.
 It tells a contributor to stop and record a question when a decision is missing.
 It separates an AI plan, a passing check, and a completed form from demonstrated understanding.
+It tells a contributor to choose another ready task when a current claim exists.
 
 ## Evidence
 
@@ -83,9 +91,10 @@ This record does not establish contributor understanding. Human review must chec
 
 ## Review focus and uncertainty
 
-Review the first 20-minute sequence, work-lane map, copyable AI prompt, and setup
-commands. Confirm that the guide directs a developer to a small task without hiding
-the detailed rules. Confirm that work does not start before its input is accepted.
+Review the first 20-minute sequence, work-lane map, issue-claim record, sponsor brief,
+copyable AI prompt, and setup commands. Confirm that the guide directs a developer to
+a small task without hiding the detailed rules. Confirm that work does not start before
+its input is accepted. Confirm that the issue form requests a usable handoff.
 The guide has not yet been used by a new contributor.
 
 ## Documentation and learning
