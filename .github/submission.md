@@ -1,7 +1,8 @@
 ## Outcome
 
-New developers can find one small frontend assignment, start it with a clear AI prompt,
-and prepare for team review.
+New developers can find one small frontend assignment.
+They can see its place in the work sequence, start it with a clear AI prompt, and
+prepare for team review.
 The repository now gives them a short starting path before the detailed guides.
 
 Issue exception: This onboarding documentation change has no dedicated issue.
@@ -42,6 +43,8 @@ lists guides by goal and time to start.
 
 `docs/GET_STARTED.md` explains how to select a ready assignment, inspect its sources,
 ask an AI for a plan, make the artifact, and prepare for the review team.
+It also divides research, UI specification, interaction design, visual design, and
+backend handoff by their deliverable and start condition.
 
 The contribution guide now gives a short first-change sequence, direct frontend startup
 commands, submission steps, and the two-approval rule.
@@ -80,8 +83,9 @@ This record does not establish contributor understanding. Human review must chec
 
 ## Review focus and uncertainty
 
-Review the first 20-minute sequence, the copyable AI prompt, and the setup commands.
-Confirm that the guide directs a developer to a small task without hiding the detailed rules.
+Review the first 20-minute sequence, work-lane map, copyable AI prompt, and setup
+commands. Confirm that the guide directs a developer to a small task without hiding
+the detailed rules. Confirm that work does not start before its input is accepted.
 The guide has not yet been used by a new contributor.
 
 ## Documentation and learning
