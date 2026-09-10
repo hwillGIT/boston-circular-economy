@@ -15,6 +15,30 @@ Your goal is simple: finish one small artifact and explain one decision to the r
 | Change code and open a pull request | [Contributing](../CONTRIBUTING.md)                     | 10 minutes    |
 | Understand checks and their limits  | [CI checks](CI_CHECKS.md)                              | Reference     |
 
+## How the work is divided
+
+Each contributor owns one assignment at a time. The sequence divides work by the
+artifact that the next person needs. A start condition is an accepted decision or
+artifact that supplies the required input.
+
+| Work lane          | Assignment | What the contributor completes              | Start condition           |
+| ------------------ | ---------- | ------------------------------------------- | ------------------------- |
+| Research           | UI-001     | Evidence note and source list               | Check the existing claims |
+| UI specification   | UI-002     | Screen, state, and action table             | Accepted UI-001           |
+| Interaction design | UI-003     | Two editable wireframes and a selected flow | Accepted UI-002           |
+| Visual design      | UI-004     | One polished mobile screen                  | Selected UI-003           |
+| Backend handoff    | UI-005     | API-call manifest and three JSON examples   | Accepted UI-002           |
+
+UI-003 and UI-005 can proceed at the same time after UI-002. UI-004 follows the
+selected wireframe. UI-001 is the first available assignment. The other assignments
+wait for their named input. Do not start a waiting assignment to fill a gap with
+assumptions.
+
+The contributor owns the artifact and its explanation. The product or design owner
+checks user intent and visual choices. The frontend work lead selects the next UI
+unit. The backend lead confirms a shared API call. The review team checks evidence
+and a changed case before it accepts an assignment.
+
 An assignment manifest is a small file that names the outcome, inputs, timebox, and
 deliverable. It tells you what to do without guessing.
 
