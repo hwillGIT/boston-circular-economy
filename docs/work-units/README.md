@@ -35,7 +35,7 @@ not fit.
 ## What the manifest means
 
 Each JSON file is an assignment packet. It names the outcome, inputs, constraints,
-AI prompts, deliverables, checks, reviewer, and handoff. The
+AI prompts, deliverables, checks, review team, and handoff. The
 [schema](manifest.schema.json) validates that structure. Schema validity does not
 prove that a design is correct or complete.
 

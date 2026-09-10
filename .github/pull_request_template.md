@@ -1,7 +1,7 @@
 <!--
 The required submission record is .github/submission.md. Replace that file with this
 template's completed content and commit it with every change. You may mirror the same
-record here for reviewer convenience. CI does not validate this pull request body.
+record here for review-team convenience. CI does not validate this pull request body.
 -->
 
 ## Outcome

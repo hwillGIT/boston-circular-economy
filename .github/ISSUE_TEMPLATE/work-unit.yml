@@ -113,7 +113,7 @@ body:
     id: explanation
     attributes:
       label: Explain the result
-      description: Name one example to trace, one alternative to compare, and the reviewer who will check the explanation.
+      description: Name one example to trace, one alternative to compare, and the review team that will check the explanation.
     validations:
       required: true
 

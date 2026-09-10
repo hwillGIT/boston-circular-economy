@@ -32,11 +32,11 @@
   ],
   "completion_record": {
     "artifact_links": [],
-    "reviewed_by": null,
+    "review_team_members": [],
     "review_date": null,
     "accepted_revision": null,
     "contributor_explanation": null,
-    "reviewer_observation": null
+    "review_team_observation": null
   },
   "id": "UI-002",
   "title": "Write the clinic results screen specification",
@@ -44,7 +44,7 @@
   "status": "waiting_for_reviewed_input",
   "risk": "Yellow",
   "timebox_minutes": 90,
-  "reviewer_roles": ["Frontend work lead", "Product and design owners"],
+  "review_team_roles": ["Frontend work lead", "Product and design owners"],
   "related_issues": ["https://github.com/codeforboston/boston-circular-economy/issues/38"],
   "depends_on": ["UI-001"],
   "objective": "Give a developer an explicit screen and interaction contract for results and filters.",
@@ -99,7 +99,7 @@
     "The partial-match label and missing-data treatment are defined without inventing service guarantees.",
     "Every action states its trigger, state change, navigation effect, and API need or local-only status.",
     "Product/design confirm the interpretation and Hubert accepts the engineering handoff.",
-    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "The contributor explains the result in their own words and answers one changed-case question from the review team.",
     "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
     "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
     "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."

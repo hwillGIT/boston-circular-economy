@@ -34,9 +34,9 @@ Use the review level and changed behavior to select the review route:
 The command requires a declared review level. It also reads the versioned path rules in
 `references/review-risk.json` and raises the effective level when changed paths have a
 higher minimum. Path inference is a conservative floor, not proof that the declared
-level is correct. A human must confirm the lane before consequential work or merge.
+level is correct. An accountable review-team member must confirm the lane before consequential work or merge.
 
-The managed GitHub reviewer selects its own model. Repository model routes apply to
+The managed GitHub AI review service selects its own model. Repository model routes apply to
 local and delegated reviews. They do not claim control over the managed service.
 
 Use the local runner when a contributor requests a model-routed review before the pull

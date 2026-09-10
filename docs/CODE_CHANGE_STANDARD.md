@@ -1,6 +1,6 @@
 # Explain and Check a Code Change
 
-A reviewer must be able to follow the behavior, assess the choice, and identify what remains uncertain.
+A review team must be able to follow the behavior, assess the choice, and identify what remains uncertain.
 A passing test or a polished AI summary does not establish contributor understanding.
 
 ## Start with the outcome
@@ -69,7 +69,7 @@ Record what ran, what happened, and the reason for any omitted check.
 Use a normal example and a relevant changed condition.
 Consider empty results, missing values, invalid inputs, or dependency failures.
 Check the external behavior rather than repeating private implementation steps.
-Keep fixtures small enough for a reviewer to understand.
+Keep fixtures small enough for the review team to understand.
 
 ## Keep the review record with the work
 
@@ -106,9 +106,9 @@ Ask one question at a time and wait for the contributor's answer.
 Keep the same artifact revision open during the discussion.
 
 The contributor must explain one example, defend the choice, and identify where a likely change belongs.
-The reviewer then selects one changed case that the contributor has not rehearsed.
+The review team then selects one changed case that the contributor has not rehearsed.
 The contributor predicts the result and checks the controlling rule.
 
-Accept the assignment only when the reviewer can support that assessment.
-Record the artifact, revision, reviewer, observation, and remaining question in the manifest.
+Accept the assignment only when the review team can support that assessment.
+Record the artifact, revision, review-team members, observation, and remaining question in the manifest.
 An AI can identify gaps and provide hints. It cannot certify that the contributor understands the work.

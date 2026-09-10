@@ -1,4 +1,4 @@
-"""Check contribution evidence without claiming human acceptance."""
+"""Check contribution evidence without claiming team acceptance."""
 
 from __future__ import annotations
 

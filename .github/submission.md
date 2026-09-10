@@ -49,6 +49,8 @@ The activation guide uses an ordinary pull request for the hosted submission che
 It does not require a separate invalid test request.
 
 The local runner calls the same diagram check before a push.
+Work-unit manifests name review-team roles and record two team members before acceptance.
+The schema test rejects an accepted work unit with only one recorded team member.
 The server test command uses Node test discovery. It runs on Windows shells that do not expand file patterns.
 The developer playbook includes a prompt that asks contributors to trace a changed connection and predict a changed result.
 The formatting rules exclude only generated, imported, and vendored files.

@@ -44,11 +44,11 @@
   ],
   "completion_record": {
     "artifact_links": [],
-    "reviewed_by": null,
+    "review_team_members": [],
     "review_date": null,
     "accepted_revision": null,
     "contributor_explanation": null,
-    "reviewer_observation": null
+    "review_team_observation": null
   },
   "id": "UI-005",
   "title": "Specify the clinic-search backend call",
@@ -56,7 +56,7 @@
   "status": "waiting_for_reviewed_input",
   "risk": "Yellow",
   "timebox_minutes": 90,
-  "reviewer_roles": ["Frontend work lead", "Backend/API lead"],
+  "review_team_roles": ["Frontend work lead", "Backend/API lead"],
   "related_issues": [
     "https://github.com/codeforboston/boston-circular-economy/issues/38",
     "https://github.com/codeforboston/boston-circular-economy/issues/46",
@@ -126,7 +126,7 @@
     "The examples conform to the same proposed contract and contain no personal data.",
     "The frontend behavior for empty, failure, cancellation, and stale responses is explicit.",
     "Hubert and the backend lead accept the same revision, or the unit ends with a clear decision request.",
-    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "The contributor explains the result in their own words and answers one changed-case question from the review team.",
     "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
     "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
     "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."

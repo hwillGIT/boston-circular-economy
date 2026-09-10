@@ -8,7 +8,7 @@ Read the assigned work unit before changing files.
 
 Start with [the assignment catalog](docs/work-units/README.md).
 Respect each manifest's accepted-input requirement and timebox.
-Do not invent a completed artifact, reviewer, acceptance, or contributor explanation.
+Do not invent a completed artifact, review-team record, acceptance, or contributor explanation.
 Use [the mentoring guide](docs/MENTOR_PILOT.md) for the team review checkpoint.
 
 Use these repository skills when the task needs them:

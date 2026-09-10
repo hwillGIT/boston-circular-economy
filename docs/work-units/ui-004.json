@@ -32,11 +32,11 @@
   ],
   "completion_record": {
     "artifact_links": [],
-    "reviewed_by": null,
+    "review_team_members": [],
     "review_date": null,
     "accepted_revision": null,
     "contributor_explanation": null,
-    "reviewer_observation": null
+    "review_team_observation": null
   },
   "id": "UI-004",
   "title": "Apply a modern Fleet visual treatment",
@@ -44,7 +44,7 @@
   "status": "waiting_for_reviewed_input",
   "risk": "Yellow",
   "timebox_minutes": 90,
-  "reviewer_roles": ["Frontend work lead", "Design owner"],
+  "review_team_roles": ["Frontend work lead", "Design owner"],
   "related_issues": ["https://github.com/codeforboston/boston-circular-economy/issues/38"],
   "depends_on": ["UI-003"],
   "objective": "Produce one polished clinic-results screen that preserves the approved interaction and Boston identity.",
@@ -105,7 +105,7 @@
     "Fonts, colors, and components trace to Fleet or an explicitly reviewed exception.",
     "The contributor records contrast measurements and keyboard/focus annotations without claiming a full audit.",
     "The design owner approves the visual revision before implementation tickets use it.",
-    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "The contributor explains the result in their own words and answers one changed-case question from the review team.",
     "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
     "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
     "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."

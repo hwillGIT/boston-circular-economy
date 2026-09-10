@@ -17,7 +17,7 @@ Status: main-branch review and status requirements are active. The Archify integ
 | Contributor understanding | No completed pilot demonstration                                                                                                                     | Observe a contributor explaining their own work   |
 
 The current PR run covers the Archify integration and its application checks.
-The live branch rule does not activate a hosted AI reviewer or a deployment.
+The live branch rule does not activate a hosted AI review service or a deployment.
 
 ## Review and merge
 
@@ -74,7 +74,7 @@ Keep merge queues disabled until that event path has its own tested submission p
 
 ## Enable AI review
 
-Confirm the available review service, account, permissions, and responsible reviewer.
+Confirm the available review service, account, permissions, and responsible review-team member.
 Use a representative change with a known observable behavior.
 Compare each finding against the actual diff and a reproducible check.
 Record false findings and missed defects.

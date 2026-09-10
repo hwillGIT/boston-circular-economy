@@ -18,7 +18,7 @@ passed all eight hosted jobs at revision `4a25a6f`.
 Those checks do not assess a contributor's understanding.
 
 The submission record travels with the code in a commit.
-This lets a reviewer inspect the evidence and implementation together.
+This lets the review team inspect the evidence and implementation together.
 The trusted-base checker reads the record as data before publishing its status.
 
 ## Alternatives

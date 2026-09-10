@@ -62,7 +62,7 @@ path and each plausible boundary, dependency failure, and regression introduced 
 change. Give tests behavioral names that identify the condition and result.
 
 Prefer one focused example that proves a rule over many assertions that mirror the
-implementation. Keep fixtures small enough for a reviewer to understand their role.
+implementation. Keep fixtures small enough for the review team to understand their role.
 
 ## Pass the comprehension gate
 
@@ -83,5 +83,5 @@ Record two concise fields in the pull request:
 - **Trace one example:** entry point, decision owner, and observable result.
 - **Where to make a likely change:** the function, component, or specification that controls the behavior.
 
-Do not claim that code is self-explanatory because an agent can summarize it. A human
-reviewer must confirm the trace, the stated boundary, and the important tradeoffs.
+Do not claim that code is self-explanatory because an agent can summarize it. The review
+team must confirm the trace, the stated boundary, and the important tradeoffs.

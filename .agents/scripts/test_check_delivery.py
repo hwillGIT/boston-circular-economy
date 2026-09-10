@@ -81,11 +81,25 @@ class ManifestTests(unittest.TestCase):
     def test_catalog_is_consistent(self) -> None:
         validate_units(self.units, self.schema, ROOT)
 
-    def test_acceptance_requires_human_evidence(self) -> None:
+    def test_acceptance_requires_two_review_team_members(self) -> None:
         unit = copy.deepcopy(self.units[0])
         unit["status"] = "accepted"
+        unit["completion_record"].update(
+            {
+                "artifact_links": ["https://example.test/artifact"],
+                "review_team_members": ["Frontend work lead"],
+                "review_date": "2026-09-10",
+                "accepted_revision": "example-revision",
+                "contributor_explanation": "The contributor traced the chosen behavior.",
+                "review_team_observation": "The team checked the explanation.",
+            }
+        )
         with self.assertRaises(ValidationError):
             validate_units([unit], self.schema, ROOT)
+        unit["completion_record"]["review_team_members"].append(
+            "Product or design owner"
+        )
+        validate_units([unit], self.schema, ROOT)
 
     def test_claiming_work_requires_accepted_input(self) -> None:
         self.units[1]["status"] = "claimed"
