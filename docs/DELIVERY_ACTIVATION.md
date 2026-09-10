@@ -1,6 +1,6 @@
 # Activate the Fork Delivery Pilot
 
-Status: main-branch review and status requirements are active. The Archify integration awaits team review in PR #14. Deployment and hosted AI review remain unconfigured.
+Status: main-branch review and status requirements are active. The Archify integration awaits team review in PR #14. [Issue #16](https://github.com/hwillGIT/boston-circular-economy/issues/16) owns the release-host decision. [Issue #17](https://github.com/hwillGIT/boston-circular-economy/issues/17) owns the hosted AI-review decision.
 
 ## Evidence and current limits
 
@@ -74,6 +74,7 @@ Keep merge queues disabled until that event path has its own tested submission p
 
 ## Enable AI review
 
+Complete [issue #17](https://github.com/hwillGIT/boston-circular-economy/issues/17) before connecting a hosted review service.
 Confirm the available review service, account, permissions, and responsible review-team member.
 Use a representative change with a known observable behavior.
 Compare each finding against the actual diff and a reproducible check.
@@ -114,6 +115,7 @@ Both choices need a public API origin, a data plan, and a tested recovery proced
 
 ## Select and verify hosting
 
+Complete [issue #16](https://github.com/hwillGIT/boston-circular-economy/issues/16) before enabling publication.
 Confirm whether the fork should use Replit or a static frontend with a separate backend.
 Specify the public API origin, authentication behavior, configuration, and required secrets.
 Use the selected host's documented release procedure.

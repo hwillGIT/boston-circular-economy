@@ -46,6 +46,7 @@ It also requires two team approvals and dismisses stale approvals.
 Workflow guidance uses the same two-approval team review rule.
 The artifact uploader uses the pinned Node 24 release.
 The activation record states the tested Replit build, local SQLite limit, and required data decision.
+The activation record links one bounded task for hosting and one for hosted AI review.
 The activation guide uses an ordinary pull request for the hosted submission check.
 It does not require a separate invalid test request.
 

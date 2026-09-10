@@ -147,6 +147,8 @@ Do not describe draft-PR CI as proof that deployment or team adoption is complet
 The fork's current setup points to Replit.
 The earlier pilot targets GitHub Pages.
 The deployment destination still needs the user's selection.
+Use [issue #16](https://github.com/hwillGIT/boston-circular-economy/issues/16) to record that selection and its release evidence.
+Use [issue #17](https://github.com/hwillGIT/boston-circular-economy/issues/17) to evaluate a hosted AI review service before connecting one.
 
 Do not send Slack announcements or messages to people without explicit authorization.
 Coordination instructions can be prepared without sending them.
