@@ -1,0 +1,370 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposed clinic-search API call manifest",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "status",
+    "source",
+    "operation",
+    "request",
+    "response_cases",
+    "client_behavior",
+    "examples",
+    "open_decisions",
+    "review"
+  ],
+  "properties": {
+    "manifest_version": {
+      "const": 1
+    },
+    "status": {
+      "enum": ["proposed", "accepted", "needs_revision"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["accepted_ui_spec_revision", "inspected_server_revision", "evidence"],
+      "properties": {
+        "accepted_ui_spec_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "inspected_server_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "required": [
+        "id",
+        "user_outcome",
+        "method",
+        "proposed_path",
+        "current_capabilities",
+        "unresolved_requirements"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "user_outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "const": "GET"
+        },
+        "proposed_path": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "current_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/capability"
+          }
+        },
+        "unresolved_requirements": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "required": ["trigger_action_id", "parameters", "cancellation_rule", "stale_response_rule"],
+      "properties": {
+        "trigger_action_id": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/parameter"
+          }
+        },
+        "cancellation_rule": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "stale_response_rule": {
+          "$ref": "#/$defs/nullableString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "response_cases": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/responseCase"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "success"
+              }
+            },
+            "required": ["id"]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "empty"
+              }
+            },
+            "required": ["id"]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "failure"
+              }
+            },
+            "required": ["id"]
+          }
+        }
+      ]
+    },
+    "client_behavior": {
+      "type": "object",
+      "required": ["loading", "empty", "failure", "missing_data"],
+      "properties": {
+        "loading": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "empty": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "failure": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "missing_data": {
+          "$ref": "#/$defs/nullableString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "examples": {
+      "type": "object",
+      "required": ["success", "empty", "error"],
+      "properties": {
+        "success": {
+          "const": "success.json"
+        },
+        "empty": {
+          "const": "empty.json"
+        },
+        "error": {
+          "const": "error.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "open_decisions": {
+      "$ref": "#/$defs/stringList"
+    },
+    "review": {
+      "type": "object",
+      "required": ["team_roles", "team_members", "accepted_revision", "team_observation"],
+      "properties": {
+        "team_roles": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "team_members": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "accepted_revision": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "team_observation": {
+          "$ref": "#/$defs/nullableString"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "nullableString": {
+      "type": ["string", "null"]
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["path", "observation", "limit"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "capability": {
+      "type": "object",
+      "required": ["path", "state", "evidence", "limit"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": ["implemented", "unconfirmed"]
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["name", "type", "required", "default", "source", "meaning"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "source": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "meaning": {
+          "$ref": "#/$defs/nullableString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "responseCase": {
+      "type": "object",
+      "required": ["id", "transport_status", "meaning", "client_behavior", "recovery_rule"],
+      "properties": {
+        "id": {
+          "enum": ["success", "empty", "failure"]
+        },
+        "transport_status": {
+          "type": ["integer", "null"],
+          "minimum": 100,
+          "maximum": 599
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "client_behavior": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "recovery_rule": {
+          "$ref": "#/$defs/nullableString"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "accepted_ui_spec_revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "inspected_server_revision": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "operation": {
+            "properties": {
+              "proposed_path": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "review": {
+            "properties": {
+              "team_members": {
+                "minItems": 2
+              },
+              "accepted_revision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "team_observation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

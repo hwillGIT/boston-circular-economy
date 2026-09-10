@@ -43,6 +43,16 @@ The [screen template](screen-manifest.template.yaml) describes the resulting UI
 contract: components, visible states, actions, data needs, and acceptance cases.
 It is a draft template. Empty fields require decisions before implementation.
 
+The [API call template](api-call-manifest.template.yaml) starts UI-005. It records
+current route evidence, proposed fields, response cases, client behavior, and team
+review. Its default values do not establish a backend contract.
+
+Use this command to check a copied API call manifest before review:
+
+```sh
+python -B .agents/scripts/check_delivery.py api-call --api-call-file api-call-manifest.yaml
+```
+
 Keep product research and design originals in the project Drive or approved Figma
 file. Keep assignment manifests and engineering decisions in GitHub. Record artifact
 links and accepted revisions in the issue and completion record.

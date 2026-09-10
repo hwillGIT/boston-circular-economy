@@ -113,8 +113,34 @@ def validate_units(units: list[dict], schema: dict, root: Path) -> None:
     }).static_order())
 
 
+def validate_api_call_template(template: dict, schema: dict) -> None:
+    """Reject an incomplete API handoff template before contributors use it."""
+
+    from jsonschema import Draft202012Validator
+
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(template)
+
+
+def check_api_call_manifest(path: Path) -> int:
+    """Validate one proposed API call manifest against the shared schema."""
+
+    import yaml
+
+    directory = ROOT / "docs/work-units"
+    manifest = yaml.safe_load(path.read_text(encoding="utf-8"))
+    schema = json.loads(
+        (directory / "api-call-manifest.schema.json").read_text(encoding="utf-8")
+    )
+    if not isinstance(manifest, dict):
+        raise ValueError("API call manifest must contain a mapping")
+    validate_api_call_template(manifest, schema)
+    print(f"Validated API call manifest: {path}")
+    return 0
+
+
 def check_manifests() -> int:
-    """Validate the catalog and parse the reusable screen template."""
+    """Validate work units and their reusable screen and API templates."""
     import yaml
 
     directory = ROOT / "docs/work-units"
@@ -131,19 +157,25 @@ def check_manifests() -> int:
     )
     if not isinstance(template, dict):
         raise ValueError("screen template must contain a mapping")
-    print(f"Validated {len(units)} work units and the screen template.")
+    check_api_call_manifest(directory / "api-call-manifest.template.yaml")
+    print(f"Validated {len(units)} work units and the screen and API templates.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("check", choices=["prose", "manifests", "all"])
+    parser.add_argument("check", choices=["prose", "manifests", "api-call", "all"])
+    parser.add_argument("--api-call-file", type=Path)
     arguments = parser.parse_args(argv)
     result = 0
     if arguments.check in {"prose", "all"}:
         result |= check_repository_prose()
     if arguments.check in {"manifests", "all"}:
         result |= check_manifests()
+    if arguments.check == "api-call":
+        if arguments.api_call_file is None:
+            parser.error("api-call requires --api-call-file")
+        result |= check_api_call_manifest(arguments.api_call_file)
     return result
 
 

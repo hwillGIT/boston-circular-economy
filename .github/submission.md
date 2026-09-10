@@ -1,21 +1,22 @@
 ## Outcome
 
-Archify now creates checked diagrams for delivery and review work.
+Archify creates checked diagrams for delivery and review work.
 The CI workflow validates their JSON sources and committed HTML results.
+The UI-005 packet provides a checked template for a proposed clinic-search call.
 The main branch requires a current `Quality Gate`, `Submission record`, and two team approvals.
 
-Issue exception: This Archify documentation integration has no dedicated issue.
+Issue exception: The Archify integration has no dedicated issue. The API template supports #7.
 
 ## Evidence and limits
 
-- Evidence: Two Archify diagrams validate with nine checks each. The staged repository snapshot passes the full Prettier check. Main protection requires the checked aggregate and submission status.
-- Why this evidence supports the result: The same renderer reads each committed source and confirms that each generated file is current.
+- Evidence: Two Archify diagrams validate with nine checks each. The API template validates with its checked schema. Main protection requires the checked aggregate and submission status.
+- Why this evidence supports the result: The renderer confirms that each source matches its generated file. The schema rejects an incomplete API handoff before review.
 - Conditions and limits: Local ETL tests use repository fixtures. GitHub CI remains the final runner and action environment.
 - What could change the decision: A failed hosted check, a stale render, or an unreviewed renderer update requires a revision.
 
 ## Decision explanation
 
-- Why this design: JSON sources make system diagrams reviewable and reproducible. Checked HTML gives reviewers an interactive artifact.
+- Why this design: JSON sources make system diagrams reviewable and reproducible. Checked HTML gives reviewers an interactive artifact. The API template separates route evidence from a proposal.
 - Closest alternative: A hand-drawn image could explain the same flow. It would not prove that the checked source still creates the image.
 - Trade-off accepted: The fork stores a pinned renderer and its lockfile. A renderer upgrade needs an explicit review.
 - Revisit when: A maintained organization-wide diagram tool replaces the pinned renderer.
@@ -31,7 +32,7 @@ Issue exception: This Archify documentation integration has no dedicated issue.
 ## Risk and scope
 
 - Review level: Yellow
-- In scope: Pinned Archify source, checked diagrams, local validation, CI artifacts, developer guidance, and main review enforcement.
+- In scope: Pinned Archify source, checked diagrams, local validation, CI artifacts, developer guidance, API handoff templates, and main review enforcement.
 - Out of scope: Hosted AI reviews, deployment, backend changes, and Slack messages.
 - Rules that must remain true: CI uses read-only repository permissions. It does not invoke an AI model or approve a merge.
 
@@ -51,6 +52,10 @@ It does not require a separate invalid test request.
 The local runner calls the same diagram check before a push.
 Work-unit manifests name review-team roles and record two team members before acceptance.
 The schema test rejects an accepted work unit with only one recorded team member.
+The UI-005 packet includes a proposed API call template and a checked schema.
+The template separates inspected routes from a proposed clinic-search operation.
+It requires success, empty, and failure cases before a contributor starts implementation.
+The delivery checker validates a copied API call manifest before team review.
 The server test command uses Node test discovery. It runs on Windows shells that do not expand file patterns.
 The developer playbook includes a prompt that asks contributors to trace a changed connection and predict a changed result.
 The formatting rules exclude only generated, imported, and vendored files.
@@ -60,20 +65,21 @@ The formatting rules exclude only generated, imported, and vendored files.
 The diagram checker rejects unsupported types, missing files, paths outside the fork, repeated identifiers, and source metadata that disagrees with the manifest.
 It also rejects diagram pairs that Git does not track and HTML that does not match a current render.
 The delta step skips the first integration because its base revision has no architecture source.
+The API template check rejects a missing response case or an accepted contract with one team member.
 
 ## Evidence
 
-| Check                               | Result       | Evidence or reason not run                                                     |
-| ----------------------------------- | ------------ | ------------------------------------------------------------------------------ |
-| Client lint and build               | Pass         | Client lint, CSS lint, and a Node 22.23.2 production build pass.               |
-| Server lint and build               | Pass         | Server lint, TypeScript build, and four authentication tests pass.             |
-| ETL tests                           | Pass         | Python 3.14.3 runs Ruff, Mypy, and all 22 ETL tests.                           |
-| Technical prose and editorial style | Pass         | Prose check reports zero violations. Delivery-policy and routing tests pass.   |
-| Replit production build             | Pass         | `npm run replit:build` passes on main with Node.js 22.23.2.                    |
-| Replit production smoke check       | Not run      | The Windows workspace blocks the native SQLite install script.                 |
-| Manual user journey                 | Not affected | This change adds CI and documentation. It does not change a product journey.   |
-| Accessibility / responsive          | Not affected | This change adds CI and documentation. It does not change rendered product UI. |
-| Security / privacy / recovery       | Not run      | Hosted workflow permissions and artifact retention need GitHub CI evidence.    |
+| Check                               | Result       | Evidence or reason not run                                                       |
+| ----------------------------------- | ------------ | -------------------------------------------------------------------------------- |
+| Client lint and build               | Pass         | Client lint, CSS lint, and a Node 22.23.2 production build pass.                 |
+| Server lint and build               | Pass         | Server lint, TypeScript build, and four authentication tests pass.               |
+| ETL tests                           | Pass         | Python 3.14.3 runs Ruff, Mypy, and all 22 ETL tests.                             |
+| Technical prose and editorial style | Pass         | Prose check reports zero violations. Delivery policy validates the API template. |
+| Replit production build             | Pass         | `npm run replit:build` passes on main with Node.js 22.23.2.                      |
+| Replit production smoke check       | Not run      | The Windows workspace blocks the native SQLite install script.                   |
+| Manual user journey                 | Not affected | This change adds CI and documentation. It does not change a product journey.     |
+| Accessibility / responsive          | Not affected | This change adds CI and documentation. It does not change rendered product UI.   |
+| Security / privacy / recovery       | Not run      | Hosted workflow permissions and artifact retention need GitHub CI evidence.      |
 
 The application documentation audit and generation pass.
 Archify validates both diagrams with nine checks and no warnings.

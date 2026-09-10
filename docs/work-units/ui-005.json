@@ -29,6 +29,14 @@
       "purpose": "Available source fields and normalization boundaries"
     },
     {
+      "reference": "docs/work-units/api-call-manifest.template.yaml",
+      "purpose": "Starting structure for a proposed clinic-search contract"
+    },
+    {
+      "reference": "docs/work-units/api-call-manifest.schema.json",
+      "purpose": "Structural rules for the proposed clinic-search contract"
+    },
+    {
       "reference": "docs/work-units/DEVELOPER_AI_GUIDE.md",
       "purpose": "Prompts for clear code, plain explanations, and a contributor demonstration"
     }
@@ -86,7 +94,7 @@
     },
     {
       "step": "Produce",
-      "prompt": "Draft api-call-manifest.yaml plus success.json, empty.json, and error.json using synthetic clinics. Include proposed method/path, typed parameters, response fields, example statuses, action triggers, local-versus-server state, cancellation and retry rules, and field provenance. Mark the contract proposed. Ask me and the backend lead to accept the same revision before any implementation."
+      "prompt": "Copy api-call-manifest.template.yaml into the assignment artifact. Draft success.json, empty.json, and error.json using synthetic clinics. Include proposed method/path, typed parameters, response fields, example statuses, action triggers, local-versus-server state, cancellation and retry rules, and field provenance. Run python -B .agents/scripts/check_delivery.py api-call --api-call-file api-call-manifest.yaml. Mark the contract proposed. Ask me and the backend lead to accept the same revision before any implementation."
     },
     {
       "step": "Explain and defend",
@@ -97,7 +105,7 @@
     {
       "name": "api-call-manifest.yaml",
       "format": "YAML",
-      "contents": "One proposed operation, UI action mapping, types, null/error semantics, data gaps, and acceptance record."
+      "contents": "Copy the API template. Validate it with the API schema. Record one proposed operation, UI action mapping, types, null/error semantics, data gaps, and acceptance record."
     },
     {
       "name": "success.json",
