@@ -1,20 +1,20 @@
 ## Outcome
 
-Contributors receive five bounded frontend assignments with prompts, deliverables, and a human explanation checkpoint.
-The workflow checks the fork's application and committed work evidence.
+This unmerged pull request tests the committed-record status workflow.
+No application behavior changes.
 
 Closes #11
 
 ## Evidence and limits
 
-- Evidence: Local checks pass for client and server builds, four server tests, 22 Python tests, and 158 delivery-policy tests.
-- Why this evidence supports the result: Application checks preserve the fork's behavior. Policy tests reject incomplete records, invalid dependencies, and failed required jobs.
-- Conditions and limits: A completed record cannot establish that its statements are correct or that a contributor understands the work.
-- What could change the decision: Missing required checks, incorrect routing, or execution of untrusted code with a write token require revision.
+- Evidence: The Submission workflow and its checker are present on main at `43bf979`.
+- Why this evidence supports the result: A separate pull request runs trusted base code against this committed record.
+- Conditions and limits: This test proves workflow dispatch and status publication only.
+- What could change the decision: Missing or failed statuses require investigation before protection changes.
 
 ## Decision explanation
 
-- Why this design: Build on PR #10's tested fork revision and retain its application checks.
+- Why this design: Change only the committed record, so the test remains isolated from application behavior.
 - Closest alternative: The original pilot branch preserves earlier review history. It has conflicting application changes and continues to change elsewhere.
 - Trade-off accepted: This integration needs a separate review and an explicit merge order.
 - Revisit when: The maintainer selects another shared workflow or the host-specific release procedure.
