@@ -12,6 +12,7 @@ You can begin with research or design. You do not need to write production code 
 
 | If you want to...                   | Read this                                                   | Time to start |
 | ----------------------------------- | ----------------------------------------------------------- | ------------- |
+| Find a ready task or team decision  | [Developer work queue](docs/WORK_QUEUE.md)                  | 5 minutes     |
 | Choose a small UI task              | [Frontend AI assignments](docs/work-units/README.md)        | 5 minutes     |
 | Complete a guided first task        | [Your first frontend assignment](docs/GET_STARTED.md)       | 20 minutes    |
 | Use AI and explain your own work    | [Developer AI guide](docs/work-units/DEVELOPER_AI_GUIDE.md) | 10 minutes    |

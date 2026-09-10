@@ -7,6 +7,7 @@ It gives you one small task, a copyable AI prompt, and the team review steps.
 
 | If you need...                                | Go to...                                                    |
 | --------------------------------------------- | ----------------------------------------------------------- |
+| A ready task, waiting input, or team decision | [Developer work queue](docs/WORK_QUEUE.md)                  |
 | A small research or design task               | [Frontend AI assignments](docs/work-units/README.md)        |
 | A prompt to plan, test, and explain work      | [Developer AI guide](docs/work-units/DEVELOPER_AI_GUIDE.md) |
 | A rule for clear code and decisions           | [Code change standard](docs/CODE_CHANGE_STANDARD.md)        |
@@ -14,7 +15,7 @@ It gives you one small task, a copyable AI prompt, and the team review steps.
 
 ## Make your first change
 
-1. Pick one ready assignment or issue.
+1. Pick one ready assignment in the [developer work queue](docs/WORK_QUEUE.md).
 2. Check the assignee and recent issue comments.
 3. Claim an available issue and state your next check-in.
 4. Read its inputs, deliverable, and acceptance criteria.

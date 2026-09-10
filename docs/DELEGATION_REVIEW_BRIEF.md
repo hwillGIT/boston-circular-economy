@@ -16,7 +16,11 @@ specific revision request, or a recorded missing decision.
 Do not begin UI-002 until the review team accepts the UI-001 input. This limit keeps
 the next developer from building on an unreviewed assumption.
 
-## Chapter 2: Work is divided by handoff — 2 minutes
+## Chapter 2: Work queue and handoffs — 2 minutes
+
+Open the [developer work queue](WORK_QUEUE.md) before the discussion. It separates
+ready work, waiting work, team decisions, and accepted work. Each linked issue or
+pull request holds the current owner, revision, and review record.
 
 Each assignment produces an input for the next assignment. A contributor owns one
 assignment at a time. A start condition is an accepted decision or artifact that
@@ -62,6 +66,8 @@ certify a contributor's understanding.
 Continuous integration, or CI, runs automated checks for a pull request. The proposed
 CI workflow checks formatting, builds, tests, work-unit structure, prose, and the
 submission record. Checked Archify diagrams show the delivery and review flow.
+Open the [diagram package in PR #14](https://github.com/hwillGIT/boston-circular-economy/pull/14)
+during this review. Archify keeps its JSON sources and rendered HTML together.
 
 The CI checks establish that the submitted revision meets defined technical rules.
 They do not establish that a UI choice is useful or that an explanation is accurate.
@@ -94,12 +100,17 @@ release-host, data, and recovery decision. [Issue #17](https://github.com/hwillG
 holds the hosted AI review-service decision. Those decisions do not block the UI-001
 research pilot.
 
+Use one pull request for each pilot unit. This keeps the assignment, evidence, and
+two team approvals tied to one revision. A dedicated submission branch can serve a
+recurring cohort, event, or time-bounded batch. The team decides whether to create
+one after it names an owner, end date, review rule, and integration plan.
+
 ## Twenty-minute team review
 
 | Time          | Topic             | Decision or evidence                                                      |
 | ------------- | ----------------- | ------------------------------------------------------------------------- |
 | 0–2 minutes   | Outcome           | Confirm that the pilot should produce a research artifact before code.    |
-| 2–6 minutes   | Work map          | Confirm the UI-001 to UI-005 handoffs and the one-assignment rule.        |
+| 2–6 minutes   | Work queue        | Confirm the ready work, waiting inputs, team decisions, and handoffs.     |
 | 6–10 minutes  | Developer session | Check the claim, source, AI, changed-case, and explanation steps.         |
 | 10–14 minutes | CI and diagrams   | Check what automation proves and what still needs human review.           |
 | 14–17 minutes | Roles             | Name the mentor and two distinct review-team roles.                       |
@@ -119,6 +130,7 @@ Accepted input and source evidence:
 Changed case selected by the team:
 Pilot decision: accept, revise, or stop:
 Next unit or unresolved decision:
+Queue state and delivery route:
 ```
 
 The pilot is complete only when the review team records a decision for the exact
@@ -128,8 +140,10 @@ the decision.
 ## Material to open during the discussion
 
 - [UI-001 issue](https://github.com/hwillGIT/boston-circular-economy/issues/3)
+- [Developer work queue](WORK_QUEUE.md)
 - [Assignment catalog](work-units/README.md)
 - [Developer AI guide](work-units/DEVELOPER_AI_GUIDE.md)
 - [Mentor pilot guide](MENTOR_PILOT.md)
 - [CI and review workflow](CI_CD_AGENT_ARCHITECTURE.md)
+- [Archify diagrams in PR #14](https://github.com/hwillGIT/boston-circular-economy/pull/14)
 - [Activation tracker](https://github.com/hwillGIT/boston-circular-economy/issues/11)

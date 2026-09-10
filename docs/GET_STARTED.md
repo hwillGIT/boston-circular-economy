@@ -9,6 +9,7 @@ Your goal is simple: finish one small artifact and explain one decision to the r
 
 | If you want to...                   | Read this                                              | Time to start |
 | ----------------------------------- | ------------------------------------------------------ | ------------- |
+| Find a ready task or team decision  | [Developer work queue](WORK_QUEUE.md)                  | 5 minutes     |
 | Choose a small UI task              | [Frontend AI assignments](work-units/README.md)        | 5 minutes     |
 | Finish a guided first task          | Continue below                                         | 20 minutes    |
 | Use AI to plan and explain work     | [Developer AI guide](work-units/DEVELOPER_AI_GUIDE.md) | 10 minutes    |
@@ -44,12 +45,13 @@ deliverable. It tells you what to do without guessing.
 
 ## Your first 20 minutes
 
-1. Open the [assignment catalog](work-units/README.md).
-2. Start with UI-001 when it is available.
-3. Check the issue assignee and its recent comments.
-4. Claim an available assignment and state your next check-in.
-5. Open its manifest and every source link it names.
-6. Stop and record a question when a required decision is missing.
+1. Open the [developer work queue](WORK_QUEUE.md).
+2. Open the [assignment catalog](work-units/README.md).
+3. Start with UI-001 when it is available.
+4. Check the issue assignee and its recent comments.
+5. Claim an available assignment and state your next check-in.
+6. Open its manifest and every source link it names.
+7. Stop and record a question when a required decision is missing.
 
 Do not fill gaps with guesses. A small, honest question is useful work.
 

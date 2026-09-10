@@ -6,6 +6,8 @@ It gives you a short path through setup, one small task, AI use, and team review
 These assignments prepare UI specifications, research, wireframes, visual design, and
 backend-call proposals. Track the work in
 [hwillGIT/boston-circular-economy](https://github.com/hwillGIT/boston-circular-economy/issues).
+Use the [developer work queue](../WORK_QUEUE.md) to see which assignment is ready,
+waiting for an input, or needs a team decision.
 The assignment scope covers research and design artifacts.
 
 Hubert owns frontend work selection, engineering acceptance, and the proposed backend
