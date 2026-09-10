@@ -1,0 +1,111 @@
+{
+  "manifest_version": 1,
+  "journey": "MVP M2: senior resident finds a textile repair clinic",
+  "owner_role": "Frontend work lead (Hubert)",
+  "github_issue": "https://github.com/hwillGIT/boston-circular-economy/issues/4",
+  "inputs": [
+    {
+      "reference": "https://docs.google.com/document/d/1eI7OL8zppM01br13fuhXvWKAKnKWhRBOJ45NMYenpHU/edit",
+      "purpose": "Prototype requirements M2.1 and M2.2, screens 5 and 6"
+    },
+    {
+      "reference": "https://patterns.boston.gov/",
+      "purpose": "Official Boston component and visual guidance"
+    },
+    {
+      "reference": "client/README.md",
+      "purpose": "Existing React, TypeScript, Vite, and TanStack Router boundaries"
+    },
+    {
+      "reference": "docs/work-units/DEVELOPER_AI_GUIDE.md",
+      "purpose": "Prompts for clear code, plain explanations, and a contributor demonstration"
+    }
+  ],
+  "constraints": [
+    "Create issues and pull requests in hwillGIT/boston-circular-economy. Upstream issues are reference material.",
+    "Use the current textile MVP, a 390-pixel mobile viewport, and Fleet conventions.",
+    "Treat the older television persona and technical prototypes as historical context.",
+    "Use two synthetic clinics. Do not infer that the backend supports the mock fields.",
+    "Separate source facts, AI suggestions, and unresolved decisions.",
+    "Do not implement production code, query paid APIs, collect personal data, or publish to Slack.",
+    "Use the developer guide for clear code and plain explanations. Reserve the last 15 minutes for explaining and defending the result."
+  ],
+  "completion_record": {
+    "artifact_links": [],
+    "reviewed_by": null,
+    "review_date": null,
+    "accepted_revision": null,
+    "contributor_explanation": null,
+    "reviewer_observation": null
+  },
+  "id": "UI-002",
+  "title": "Write the clinic results screen specification",
+  "kind": "specification",
+  "status": "waiting_for_reviewed_input",
+  "risk": "Yellow",
+  "timebox_minutes": 90,
+  "reviewer_roles": ["Frontend work lead", "Product and design owners"],
+  "related_issues": ["https://github.com/codeforboston/boston-circular-economy/issues/38"],
+  "depends_on": ["UI-001"],
+  "objective": "Give a developer an explicit screen and interaction contract for results and filters.",
+  "in_scope": [
+    "Results and filter screens only",
+    "UI state and interaction tables",
+    "Screen manifest and acceptance examples"
+  ],
+  "out_of_scope": [
+    "Final visual styling",
+    "New product features",
+    "Implementing components or endpoints"
+  ],
+  "ai_steps": [
+    {
+      "step": "Brainstorm",
+      "prompt": "Use the accepted UI-001 note, the current MVP, and screen-manifest.template.yaml. Propose the smallest complete results/filter specification. List every user action, visible state, and data need. Distinguish MVP requirements from engineering proposals. Stop at a 250-word outline for my review."
+    },
+    {
+      "step": "Challenge",
+      "prompt": "Inspect the outline for ambiguous behavior. Trace opening filters, applying machines available, clearing filters, opening a clinic, and returning. Check loading, empty results, partial matches, missing data, and failures. Return at most five missing decisions with a source or concrete counterexample."
+    },
+    {
+      "step": "Produce",
+      "prompt": "Fill screen-manifest.yaml and write screen-spec.md in at most 800 words. Give stable IDs to components, actions, states, and acceptance cases. Reference the accepted inputs and actual design frames. Keep unknown decisions explicit and mark the manifest proposed until the human reviewers accept it."
+    },
+    {
+      "step": "Explain and defend",
+      "prompt": "Ask me to trace the machine filter from the resident's action to the displayed result. Wait for my answer. Ask which state changes and which part owns the rule. Ask why the action uses local data or a backend call. Change one input to an unknown value. Ask me to predict the result and locate the controlling specification. Check my explanation against the accepted revision. Do not supply an answer for me to repeat."
+    }
+  ],
+  "deliverables": [
+    {
+      "name": "screen-manifest.yaml",
+      "format": "YAML",
+      "contents": "Completed screen template with component, state, action, data, and approval records."
+    },
+    {
+      "name": "screen-spec.md",
+      "format": "Markdown or linked Google Doc",
+      "contents": "At most 800 words plus an action/state table and testable acceptance examples."
+    },
+    {
+      "name": "contributor-explanation",
+      "format": "150-word note or three-minute recording",
+      "contents": "Own explanation of the example, decision, alternative, evidence, failure behavior, and place to make a likely change."
+    }
+  ],
+  "acceptance": [
+    "The default result state displays two synthetic clinics with distinct machine availability.",
+    "Applying the machine filter leaves one clinic, and clearing it restores both.",
+    "The partial-match label and missing-data treatment are defined without inventing service guarantees.",
+    "Every action states its trigger, state change, navigation effect, and API need or local-only status.",
+    "Product/design confirm the interpretation and Hubert accepts the engineering handoff.",
+    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
+    "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
+    "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."
+  ],
+  "learning_check": "Trace one user action through input, state, visible result, and failure behavior. Explain the choice in your own words. Support it with inspected evidence and answer one changed-case question.",
+  "handoff": "The accepted specification starts UI-003 and UI-005 in parallel.",
+  "repository": "hwillGIT/boston-circular-economy",
+  "developer_guide": "docs/work-units/DEVELOPER_AI_GUIDE.md"
+}

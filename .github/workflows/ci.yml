@@ -4,7 +4,6 @@ on:
   push:
     branches: [main, 'feature/**']
   pull_request:
-    branches: [main]
   merge_group:
     types: [checks_requested]
   workflow_dispatch:
@@ -13,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -167,12 +166,40 @@ jobs:
           echo "Advisory audit result: $AUDIT_RESULT." >> "$GITHUB_STEP_SUMMARY"
           echo "See the audit log for missing or invalid docstrings." >> "$GITHUB_STEP_SUMMARY"
 
+  delivery-policy:
+    name: Delivery policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: etl/.python-version
+          cache: pip
+          cache-dependency-path: .agents/requirements.txt
+      - name: Install delivery check dependencies
+        run: python -m pip install -r .agents/requirements.txt
+      - name: Check prose and work units
+        run: python -B .agents/scripts/check_delivery.py all
+      - name: Check committed submission structure
+        run: python -B .agents/skills/make-evidence-based-technical-case/scripts/check_submission.py --body-file .github/submission.md
+      - name: Test delivery policy
+        run: |
+          python -B -m unittest discover -s .agents/scripts -v
+          python -B -m unittest discover -s .agents/skills/make-evidence-based-technical-case/scripts -v
+          python -B -m unittest discover -s .agents/skills/route-agent-work/scripts -v
+          python -B -m unittest discover -s .agents/skills/review-code-change/scripts -v
+
   quality-gate:
     name: Quality Gate
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     if: always()
-    needs: [lint-client, lint-server, lint-etl, typecheck, test-etl, docs, docs-python]
+    needs:
+      [lint-client, lint-server, lint-etl, typecheck, test-etl, docs, docs-python, delivery-policy]
     steps:
       - name: Require successful checks
         env:
