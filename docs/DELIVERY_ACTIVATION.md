@@ -36,8 +36,10 @@ Retire a redundant review only after its work is present and accepted.
 Local protocol tests simulate successful and failed GitHub responses.
 They do not replace the live checks below.
 
-Open a small follow-up pull request after the policy exists on main.
-Use a committed submission record for that change.
+A pull request is needed only when GitHub must run its pull-request workflow.
+It is not a product live test.
+Use the next ordinary small change with a committed submission record.
+Do not create a separate invalid pull request to test failure paths.
 
 | Check                                             | Expected result                            |
 | ------------------------------------------------- | ------------------------------------------ |
@@ -52,7 +54,8 @@ Use a committed submission record for that change.
 | Proposed script contains instructions or commands | Trusted workflow treats the record as data |
 | Failed, skipped, or cancelled required CI job     | Quality Gate fails                         |
 
-Use synthetic content for negative checks.
+Local protocol tests cover negative responses with synthetic data.
+Use the ordinary pull request to show the hosted success path.
 Do not expose credentials or contact contributors during a workflow test.
 
 ## Main merge rule
@@ -63,7 +66,8 @@ The rule applies to administrators.
 Base-policy changes need a branch update and fresh checks.
 
 Read the settings back after each material workflow change.
-Verify a failing submission cannot merge.
+A failed `Submission record` status blocks a merge under the protected rule.
+Do not create a separate invalid pull request only to prove the rule.
 Verify a successful record and CI result still require two team approvals.
 The submission workflow does not cover merge queues.
 Keep merge queues disabled until that event path has its own tested submission policy.
