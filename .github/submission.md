@@ -1,77 +1,73 @@
 ## Outcome
 
-Contributors receive five bounded frontend assignments with prompts, deliverables, and a human explanation checkpoint.
-The workflow checks the fork's application and committed work evidence.
+New developers can find one small frontend assignment, start it with a clear AI prompt,
+and prepare for team review.
+The repository now gives them a short starting path before the detailed guides.
 
-Closes #11
+Issue exception: This onboarding documentation change has no dedicated issue.
 
 ## Evidence and limits
 
-- Evidence: Local checks pass for client and server builds, four server tests, 22 Python tests, and 158 delivery-policy tests.
-- Why this evidence supports the result: Application checks preserve the fork's behavior. Policy tests reject incomplete records, invalid dependencies, and failed required jobs.
-- Conditions and limits: A completed record cannot establish that its statements are correct or that a contributor understands the work.
-- What could change the decision: Missing required checks, incorrect routing, or execution of untrusted code with a write token require revision.
+- Evidence: The new guide links from the repository root, the contribution guide, and the assignment catalog. Prettier, the prose check, and all local delivery-policy hooks pass.
+- Why this evidence supports the result: Each entry point now directs a new developer to the same bounded first action and the same detailed references.
+- Conditions and limits: The guide does not prove that a developer completed an assignment or understood the result. Team review still checks the submitted work.
+- What could change the decision: Confusing feedback from a first contributor, a changed startup command, or a new assignment flow requires a revision.
 
 ## Decision explanation
 
-- Why this design: Build on PR #10's tested fork revision and retain its application checks.
-- Closest alternative: The original pilot branch preserves earlier review history. It has conflicting application changes and continues to change elsewhere.
-- Trade-off accepted: This integration needs a separate review and an explicit merge order.
-- Revisit when: The maintainer selects another shared workflow or the host-specific release procedure.
+- Why this design: A short path based on a developer's goal makes the first action visible without hiding the detailed rules.
+- Closest alternative: One long contribution guide holds all information in one place. It gives complete context but delays the first useful action.
+- Trade-off accepted: The repository now maintains a short entry page and detailed reference guides. Links between them must stay current.
+- Revisit when: Contributor feedback shows that a path, time estimate, or prompt no longer answers the first question.
 
 ## Code quality
 
-- Trace one example: A changed legacy document loses its content exemption. The prose checker reports violations for correction before submission.
-- Where to make a likely change: The delivery checker owns baseline matching and manifest checks. The submission checker owns required record fields.
-- Who owns the rule and state: Versioned policy owns mechanical rules. GitHub owns check results. A human reviewer owns acceptance.
-- Failure and recovery: A missing field, unaccepted dependency, or failed required check prevents success. Correct the affected artifact and submit a new revision.
-- What became simpler or harder: Ordinary questions connect the assignment, record, and review. Content fingerprints preserve existing prose debt without exempting edited files.
+- Trace one example: A new developer opens `README.md`, selects the guided task path, reads `docs/GET_STARTED.md`, and opens a ready manifest.
+- Where to make a likely change: `docs/GET_STARTED.md` owns the first-task sequence and its copyable AI prompt.
+- Who owns the rule and state: The assignment manifest owns the task scope. GitHub branch protection owns the required checks and approvals.
+- Failure and recovery: A missing decision stops the assignment. The contributor records the smallest useful question in the assignment issue.
+- What became simpler or harder: One page now gives a clear start. Maintainers must keep its links and commands aligned with the detailed guides.
 
 ## Risk and scope
 
-- Review level: Red
-- In scope: Assignment guidance, local checks, CI integration, committed submission validation, review instructions, and activation steps.
-- Out of scope: New product behavior, live API credentials, automatic human approval, and Slack messages.
-- Rules that must remain true: Required checks remain effective. Privileged workflows execute trusted base code and treat the submitted record as data.
+- Review level: Green
+- In scope: Developer onboarding, documentation links, a first-task prompt, local setup instructions, and team-review instructions.
+- Out of scope: Application behavior, API contracts, live deployment, secrets, and Slack messages.
+- Rules that must remain true: The guide must not promise an unverified result. Required checks and team approvals remain separate from AI assistance.
 
 ## What changed
 
-Five manifests connect research, specifications, wireframes, visual design, and a backend-call proposal.
-Prompts ask contributors to predict, trace, compare, change a condition, and explain independently.
+The root README now identifies the project, points new developers to a first task, and
+lists guides by goal and time to start.
 
-The integration starts from PR #10 at revision `4a25a6f`.
-The workflow tools derive from `6ac23f9`, with fork-specific checks and ordinary language.
-A fingerprint baseline records 52 unchanged legacy files.
-The manual deployment readiness workflow performs no publication while hosting remains unresolved.
+`docs/GET_STARTED.md` explains how to select a ready assignment, inspect its sources,
+ask an AI for a plan, make the artifact, and prepare for the review team.
 
-The submission status script exercises GitHub calls through a testable boundary.
-It reads the record from the expected source commit and publishes through the base repository.
-The workflow executes that script from trusted base code.
+The contribution guide now gives a short first-change sequence, direct frontend startup
+commands, submission steps, and the two-approval rule.
+
+The frontend assignment catalog now links back to the first-task guide.
 
 ## Challenge cases
 
-Tests cover missing fields, misleading Markdown, incomplete acceptance, unknown dependencies, cycles, and missing sources.
-An edited legacy file loses its exemption.
-Each failed, skipped, or cancelled required job prevents a successful Quality Gate.
-The review router raises the minimum review level for sensitive paths.
-Submission tests cover changed commits, failed API reads and writes, malformed records, and contributor forks.
-Embedded record commands remain inert text.
+The guide directs research and design contributors to a bounded artifact before code.
+It directs code contributors to the relevant checks and the code standard.
+It tells a contributor to stop and record a question when a decision is missing.
+It separates an AI plan, a passing check, and a completed form from demonstrated understanding.
 
 ## Evidence
 
-| Check                               | Result       | Evidence or reason not run                                                                                      |
-| ----------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Client lint and build               | Pass         | Client lint, CSS checks, Prettier, and production build. Existing bundle warnings remain.                       |
-| Server lint and build               | Pass         | Server lint, TypeScript build, and four isolated authentication tests.                                          |
-| ETL tests                           | Pass         | Ruff checks, format, Mypy, and all 22 tests.                                                                    |
-| Technical prose and editorial style | Pass         | No new prose violations, five valid manifests, 158 policy tests, and four validated skills.                     |
-| Manual user journey                 | Not affected | Application source matches PR #10, which records the browser journey checks.                                    |
-| Accessibility / responsive          | Not affected | This integration changes delivery files and assignment guidance.                                                |
-| Security / privacy / recovery       | Not run      | Hosted trusted-base submission tests, human workflow review, and host-specific recovery remain activation work. |
+| Check                               | Result       | Evidence or reason not run                                                        |
+| ----------------------------------- | ------------ | --------------------------------------------------------------------------------- |
+| Client lint and build               | Not affected | This change updates Markdown only.                                                |
+| Server lint and build               | Not affected | This change updates Markdown only.                                                |
+| ETL tests                           | Not affected | This change updates Markdown only.                                                |
+| Technical prose and editorial style | Pass         | Prettier, the delivery prose check, and all six local delivery-policy hooks pass. |
+| Manual user journey                 | Not affected | This change does not alter a product journey.                                     |
+| Accessibility / responsive          | Not affected | This change does not alter rendered product UI.                                   |
+| Security / privacy / recovery       | Not affected | This change adds no runtime code, secret, or permission.                          |
 
-The public function documentation audit and generation pass.
-The existing Python docstring audit remains advisory.
-Hosted integration CI must be checked against the submitted commit.
+Hosted CI must still run against the submitted revision.
 
 ## AI assistance
 
@@ -79,20 +75,18 @@ Hosted integration CI must be checked against the submitted commit.
 - [x] AI assisted with implementation or tests
 - [x] AI assisted with review or challenge
 
+The review team must check the explanation against the submitted work.
 This record does not establish contributor understanding. Human review must check the explanation against the submitted work.
 
 ## Review focus and uncertainty
 
-Review the trusted-base submission workflow, baseline exemptions, preserved CI checks, and the decision to defer publication.
-The first integration cannot demonstrate trusted-base enforcement until its policy exists on main.
-A follow-up pull request must test that path before required status checks are enabled.
-
-Human review, a contributor demonstration, hosted AI review configuration, and deployment remain pending.
-The activation guide gives concrete checks and the required merge order.
+Review the first 20-minute sequence, the copyable AI prompt, and the setup commands.
+Confirm that the guide directs a developer to a small task without hiding the detailed rules.
+The guide has not yet been used by a new contributor.
 
 ## Documentation and learning
 
-- [x] I recorded a follow-up issue for remaining work
+- [x] I updated the relevant README, `AGENTS.md`, decision record, or runbook
 
-[Issue #11](https://github.com/hwillGIT/boston-circular-economy/issues/11) tracks integration and activation evidence.
-The developer guide contains practice prompts. Acceptance records remain empty until human review.
+The new guide asks a contributor to explain a concrete result, choice, evidence, and
+failure case before team review.

@@ -1,5 +1,8 @@
 # Frontend AI Assignments
 
+New to this repository? Start with [Your first frontend assignment](../GET_STARTED.md).
+It gives you a short path through setup, one small task, AI use, and team review.
+
 These assignments prepare UI specifications, research, wireframes, visual design, and
 backend-call proposals. Track the work in
 [hwillGIT/boston-circular-economy](https://github.com/hwillGIT/boston-circular-economy/issues).
