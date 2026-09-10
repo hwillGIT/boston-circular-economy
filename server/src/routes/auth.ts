@@ -12,6 +12,7 @@ import {
   hashToken,
 } from '../services/authService.ts';
 import { authenticate, requireAuth } from '../middleware/auth.ts';
+import type { UserRow } from '../db/userTypes.ts';
 
 const router = Router();
 
@@ -93,7 +94,7 @@ router.post('/login', (req, res) => {
   try {
     const { email, password } = loginSchema.parse(req.body);
 
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as any;
+    const user = db.prepare<[string], UserRow>('SELECT * FROM users WHERE email = ?').get(email);
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
@@ -129,7 +130,7 @@ router.post('/login', (req, res) => {
 
 router.post('/refresh', authenticate, requireAuth, (req, res) => {
   try {
-    const user = req.user;
+    const user = req.user!;
     const oldToken = req.token!;
 
     revokeSession(hashToken(oldToken));
@@ -138,7 +139,7 @@ router.post('/refresh', authenticate, requireAuth, (req, res) => {
     createSession(user.id, newToken, req.ip, req.get('user-agent'));
 
     res.json({ token: newToken });
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -147,16 +148,16 @@ router.post('/logout', authenticate, requireAuth, (req, res) => {
   try {
     revokeSession(hashToken(req.token!));
     res.status(204).send();
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 router.post('/logout-all', authenticate, requireAuth, (req, res) => {
   try {
-    revokeAllSessions(req.user.id);
+    revokeAllSessions(req.user!.id);
     res.status(204).send();
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Internal server error' });
   }
 });

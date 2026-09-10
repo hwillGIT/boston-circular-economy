@@ -1,27 +1,8 @@
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { UserSession, UserSummary, UserRole } from './userTypes';
 import { createUserSession, toSummary, derivePermissions, hasRole } from './userTypes';
-
-/* ── Context Shape ── */
-interface AuthContextType {
-  /** Full session object (heavyweight enough for permissions, lightweight enough for memory) */
-  user: UserSession | null;
-  /** Quick identity projection for components that only need name/avatar/role */
-  summary: UserSummary | null;
-  /** Convenience flags */
-  isLoggedIn: boolean;
-  isAdmin: boolean;
-  isModerator: boolean;
-  isBusiness: boolean;
-  /** Check if user has at least a given role level */
-  hasRole: (role: UserRole) => boolean;
-  /** Auth actions */
-  signIn: (displayName: string, email?: string) => void;
-  signOut: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
+import { AuthContext } from './authContext';
 
 /* ── Storage Key ── */
 const STORAGE_KEY = 'bce_user';
@@ -115,24 +96,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-/* ── Hook ── */
-/**
- * Hook to access the authentication context.
- * Provides the current user, session summaries, permission flags, and auth actions (signIn, signOut).
- * @category Auth
- * @returns The authentication context object.
- * @throws {Error} If called outside of an AuthProvider.
- * @example
- * const { user, isLoggedIn, signIn, signOut } = useAuth();
- */
-export function useAuth(): AuthContextType {
-  const ctx = useContext(AuthContext);
-  if (!ctx) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return ctx;
 }
 
 /* ── Re-export types for convenience ── */

@@ -83,7 +83,11 @@ class GeoNameMatcher:
                 if is_name_match(loc_i.name, loc_j.name, self.config.name_similarity_threshold):
                     logger.debug(
                         "Matched '%s' (%s) with '%s' (%s) — distance: %dm, similarity: %.2f",
-                        loc_i.name, src_i, loc_j.name, src_j, int(dist),
+                        loc_i.name,
+                        src_i,
+                        loc_j.name,
+                        src_j,
+                        int(dist),
                         name_similarity(norm_name_i, normalize_name(loc_j.name)),
                     )
                     group[src_j] = loc_j

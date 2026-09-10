@@ -27,27 +27,27 @@ NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 # ── Google Places type → (activity, item_category) ───────────────────────────
 
 TYPE_ACTIVITY_MAP: dict[str, tuple[str, str]] = {
-    "appliance_repair_service":     ("repair_paid", "tools"),
-    "electronics_store":            ("repair_paid", "electronics"),
-    "computer_repair_service":      ("repair_paid", "electronics"),
-    "shoe_repair_shop":             ("repair_paid", "shoes"),
-    "clothing_alteration_service":  ("repair_paid", "clothing"),
-    "tailor":                       ("repair_paid", "clothing"),
-    "second_hand_store":            ("resale_buy",  "clothing"),
-    "thrift_store":                 ("resale_buy",  "clothing"),
-    "charity":                      ("donation_drop", "clothing"),
-    "donation_center":              ("donation_drop", "clothing"),
-    "furniture_store":              ("resale_buy",  "furniture"),
-    "book_store":                   ("resale_buy",  "books"),
-    "association_or_organization":  ("donation_drop", "clothing"),
+    "appliance_repair_service": ("repair_paid", "tools"),
+    "electronics_store": ("repair_paid", "electronics"),
+    "computer_repair_service": ("repair_paid", "electronics"),
+    "shoe_repair_shop": ("repair_paid", "shoes"),
+    "clothing_alteration_service": ("repair_paid", "clothing"),
+    "tailor": ("repair_paid", "clothing"),
+    "second_hand_store": ("resale_buy", "clothing"),
+    "thrift_store": ("resale_buy", "clothing"),
+    "charity": ("donation_drop", "clothing"),
+    "donation_center": ("donation_drop", "clothing"),
+    "furniture_store": ("resale_buy", "furniture"),
+    "book_store": ("resale_buy", "books"),
+    "association_or_organization": ("donation_drop", "clothing"),
 }
 
 SOURCE_ACTIVITY_MAP: dict[str, tuple[str, str]] = {
-    "appliance-repair":   ("repair_paid", "tools"),
+    "appliance-repair": ("repair_paid", "tools"),
     "electronics-repair": ("repair_paid", "electronics"),
-    "shoe-repair":        ("repair_paid", "shoes"),
-    "donations":          ("donation_drop", "clothing"),
-    "repair-shops":       ("repair_paid", "tools"),
+    "shoe-repair": ("repair_paid", "shoes"),
+    "donations": ("donation_drop", "clothing"),
+    "repair-shops": ("repair_paid", "tools"),
 }
 
 
@@ -63,6 +63,7 @@ def infer_services(types: list[str], source: str) -> list[tuple[str, str]]:
 
 # ── address parsing ───────────────────────────────────────────────────────────
 
+
 def parse_address(formatted: str) -> tuple[str, str, str, str]:
     """Split 'Street, City, ST ZIP, USA' into (street, city, state, zip)."""
     parts = [p.strip() for p in formatted.split(",")]
@@ -74,7 +75,7 @@ def parse_address(formatted: str) -> tuple[str, str, str, str]:
         return formatted, "", "", ""
 
     street = parts[0]
-    city   = parts[-2]
+    city = parts[-2]
 
     state_zip = parts[-1].strip()
     m = re.match(r"([A-Z]{2})\s+(\d{5}(?:-\d{4})?)", state_zip)
@@ -88,6 +89,7 @@ def parse_address(formatted: str) -> tuple[str, str, str, str]:
 
 # ── Census batch geocoder ─────────────────────────────────────────────────────
 
+
 def census_batch(records: list[dict]) -> dict[str, tuple[float, float]]:
     """Submit up to 10 000 records; return {id: (lat, lon)} for matches."""
     rows = []
@@ -99,20 +101,24 @@ def census_batch(records: list[dict]) -> dict[str, tuple[float, float]]:
 
     boundary = "----FormBoundary7MA4YWxkTrZu0gW"
     body = (
-        f"--{boundary}\r\n"
-        f'Content-Disposition: form-data; name="benchmark"\r\n\r\n'
-        f"Public_AR_Current\r\n"
-        f"--{boundary}\r\n"
-        f'Content-Disposition: form-data; name="addressFile"; filename="addresses.csv"\r\n'
-        f"Content-Type: text/csv\r\n\r\n"
-    ).encode() + csv_payload + f"\r\n--{boundary}--\r\n".encode()
+        (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="benchmark"\r\n\r\n'
+            f"Public_AR_Current\r\n"
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="addressFile"; filename="addresses.csv"\r\n'
+            f"Content-Type: text/csv\r\n\r\n"
+        ).encode()
+        + csv_payload
+        + f"\r\n--{boundary}--\r\n".encode()
+    )
 
     req = urllib.request.Request(
         CENSUS_BATCH_URL,
         data=body,
         headers={
             "Content-Type": f"multipart/form-data; boundary={boundary}",
-            "User-Agent":   "boston-circular-economy/1.0 (education)",
+            "User-Agent": "boston-circular-economy/1.0 (education)",
         },
         method="POST",
     )
@@ -138,6 +144,7 @@ def census_batch(records: list[dict]) -> dict[str, tuple[float, float]]:
 
 # ── Nominatim single geocoder ─────────────────────────────────────────────────
 
+
 def nominatim_one(address: str) -> tuple[float, float] | None:
     query = urllib.parse.urlencode({"q": address, "format": "json", "limit": "1"})
     req = urllib.request.Request(
@@ -155,6 +162,7 @@ def nominatim_one(address: str) -> tuple[float, float] | None:
 
 
 # ── database helpers ──────────────────────────────────────────────────────────
+
 
 def upsert_location(cur: sqlite3.Cursor, row: dict) -> int | None:
     cur.execute(
@@ -191,6 +199,7 @@ def insert_services(cur: sqlite3.Cursor, loc_id: int, services: list[tuple[str, 
 
 # ── main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     samples = ROOT / "data-explorations" / "google-places" / "samples"
 
@@ -200,13 +209,15 @@ def main() -> None:
         source = path.stem
         data = json.loads(path.read_text())
         for i, p in enumerate(data.get("places", [])):
-            places.append({
-                "id":       f"gp-{source}-{i}",
-                "source":   source,
-                "name":     p["displayName"]["text"],
-                "address":  p["formattedAddress"],
-                "types":    p.get("types", []),
-            })
+            places.append(
+                {
+                    "id": f"gp-{source}-{i}",
+                    "source": source,
+                    "name": p["displayName"]["text"],
+                    "address": p["formattedAddress"],
+                    "types": p.get("types", []),
+                }
+            )
 
     print(f"Loaded {len(places)} Google Places records")
 
@@ -226,7 +237,7 @@ def main() -> None:
                 print(f"  ✓  {p['name']}")
             else:
                 print(f"  ✗  {p['name']} — no match")
-            time.sleep(1.1)   # Nominatim ToS: max 1 req/sec
+            time.sleep(1.1)  # Nominatim ToS: max 1 req/sec
 
     total_geocoded = len(coords_map)
     print(f"Geocoded {total_geocoded}/{len(places)} records")
@@ -244,17 +255,20 @@ def main() -> None:
         street, city, state, zipcode = parse_address(p["address"])
         services = infer_services(p["types"], p["source"])
 
-        loc_id = upsert_location(cur, {
-            "data_source":    "google_places",
-            "data_source_id": p["id"],
-            "name":           p["name"],
-            "lat":            lat,
-            "lon":            lon,
-            "street":         street,
-            "city":           city,
-            "state":          state,
-            "postcode":       zipcode,
-        })
+        loc_id = upsert_location(
+            cur,
+            {
+                "data_source": "google_places",
+                "data_source_id": p["id"],
+                "name": p["name"],
+                "lat": lat,
+                "lon": lon,
+                "street": street,
+                "city": city,
+                "state": state,
+                "postcode": zipcode,
+            },
+        )
         if loc_id:
             insert_services(cur, loc_id, services)
             inserted += 1

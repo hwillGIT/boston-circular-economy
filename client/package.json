@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:css": "stylelint 'src/**/*.css'",
-    "lint:all": "eslint . && stylelint 'src/**/*.css'",
-    "format": "prettier --write 'src/**/*.{ts,tsx,css}'",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:all": "npm run lint && npm run lint:css",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "preview": "vite preview"
   },
   "dependencies": {

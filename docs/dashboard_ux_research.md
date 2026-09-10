@@ -1,4 +1,5 @@
 # Dashboard UX/UI Guiding Principles
+
 ## Desktop · Web App · Mobile
 
 > [!IMPORTANT]
@@ -15,34 +16,34 @@ a precision mouse, and a keyboard. They expect information density.
 
 ### Layout
 
-| Principle | Guideline | Reference |
-|---|---|---|
-| **Two-column layout** | Standard and recommended. Main content (flexible width) + sidebar (240–280px fixed). | GitHub, Vercel, Figma, Stripe |
-| **Sidebar purpose** | Persistent navigation, project-switching, user context, or summary widgets. Keeps navigation visible for quick context-switching. | NN/g: constant spatial orientation reduces cognitive load |
-| **Grid system** | Use a 12-column grid for alignment. Data-dense components (tables, charts) need breathing room. | Material Design, Bootstrap |
-| **Collapsible sidebar** | Allow users to collapse the sidebar to maximize content width for data-heavy views (maps, wide tables). | VS Code, Linear, Notion |
+| Principle               | Guideline                                                                                                                         | Reference                                                 |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| **Two-column layout**   | Standard and recommended. Main content (flexible width) + sidebar (240–280px fixed).                                              | GitHub, Vercel, Figma, Stripe                             |
+| **Sidebar purpose**     | Persistent navigation, project-switching, user context, or summary widgets. Keeps navigation visible for quick context-switching. | NN/g: constant spatial orientation reduces cognitive load |
+| **Grid system**         | Use a 12-column grid for alignment. Data-dense components (tables, charts) need breathing room.                                   | Material Design, Bootstrap                                |
+| **Collapsible sidebar** | Allow users to collapse the sidebar to maximize content width for data-heavy views (maps, wide tables).                           | VS Code, Linear, Notion                                   |
 
 ### Information Hierarchy (F-Pattern)
 
 Users scan desktop dashboards in an **F-Pattern** — left to right, then down:
 
-| Zone | Content | Why |
-|---|---|---|
-| **Top-left** | North Star metric (most critical KPI) | Eyes land here first. ~80% of viewing time is on left half. |
-| **Top row** | 3–5 primary KPIs with trend deltas | Instant health check in under 5 seconds |
-| **Middle band** | Trend charts, time-series data | Shows direction — are things improving? |
-| **Bottom section** | Detailed tables, activity logs | Drill-down for users who need granularity |
-| **Right sidebar** | Leaderboard, community feed, contextual widgets | Complementary, glanceable, non-critical |
+| Zone               | Content                                         | Why                                                         |
+| ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
+| **Top-left**       | North Star metric (most critical KPI)           | Eyes land here first. ~80% of viewing time is on left half. |
+| **Top row**        | 3–5 primary KPIs with trend deltas              | Instant health check in under 5 seconds                     |
+| **Middle band**    | Trend charts, time-series data                  | Shows direction — are things improving?                     |
+| **Bottom section** | Detailed tables, activity logs                  | Drill-down for users who need granularity                   |
+| **Right sidebar**  | Leaderboard, community feed, contextual widgets | Complementary, glanceable, non-critical                     |
 
 ### Sidebar DO's and DON'Ts
 
-| ✅ DO | ❌ DON'T |
-|---|---|
-| Navigation links | Dump unrelated widgets ("Digital Attic") |
-| User profile/context summary | Duplicate navigation from the header |
-| Compact leaderboard or activity feed | Put primary CTAs in the sidebar |
-| Quick-action shortcuts | Create orphaned scrolling (sidebar shorter than main) |
-| Make it sticky so it scrolls with content | Force interactive elements the user must click here |
+| ✅ DO                                     | ❌ DON'T                                              |
+| ----------------------------------------- | ----------------------------------------------------- |
+| Navigation links                          | Dump unrelated widgets ("Digital Attic")              |
+| User profile/context summary              | Duplicate navigation from the header                  |
+| Compact leaderboard or activity feed      | Put primary CTAs in the sidebar                       |
+| Quick-action shortcuts                    | Create orphaned scrolling (sidebar shorter than main) |
+| Make it sticky so it scrolls with content | Force interactive elements the user must click here   |
 
 ### KPI Cards
 
@@ -53,12 +54,12 @@ Users scan desktop dashboards in an **F-Pattern** — left to right, then down:
 
 ### Gamification Placement (Desktop)
 
-| Element | Placement | Pattern Source |
-|---|---|---|
-| **Streak counter** | Top-right of header/nav bar. Visible on every page. | Duolingo |
-| **Kudos/social buttons** | Inline with activity feed items, not as standalone widgets | Strava |
-| **Leaderboard** | Right sidebar (compact) or dedicated tab | Peloton |
-| **Badges** | Collapsed summary row ("3 of 12 earned") with expand-on-click | Progressive disclosure |
+| Element                  | Placement                                                     | Pattern Source         |
+| ------------------------ | ------------------------------------------------------------- | ---------------------- |
+| **Streak counter**       | Top-right of header/nav bar. Visible on every page.           | Duolingo               |
+| **Kudos/social buttons** | Inline with activity feed items, not as standalone widgets    | Strava                 |
+| **Leaderboard**          | Right sidebar (compact) or dedicated tab                      | Peloton                |
+| **Badges**               | Collapsed summary row ("3 of 12 earned") with expand-on-click | Progressive disclosure |
 
 ### Action Density
 
@@ -75,29 +76,29 @@ screen, use their thumbs, and expect fast, glanceable information.
 
 ### Layout
 
-| Principle | Guideline | Reference |
-|---|---|---|
-| **Single column** | Mandatory. No sidebars. Vertical stacking only. | iOS HIG, Material Design |
-| **Bottom navigation** | 3–5 tabs maximum. Icons with labels. Active state visually distinct. | iOS Tab Bar, Android Bottom Nav |
-| **Thumb zone** | Primary interactive elements in the bottom third of screen. Avoid critical nav at the top on large phones. | Thumb zone research |
-| **Card stacking order** | 1) Total impact summary → 2) Pending actions → 3) Recent activity → 4) Deep-dive charts (simplified) | Priority-based stacking |
+| Principle               | Guideline                                                                                                  | Reference                       |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| **Single column**       | Mandatory. No sidebars. Vertical stacking only.                                                            | iOS HIG, Material Design        |
+| **Bottom navigation**   | 3–5 tabs maximum. Icons with labels. Active state visually distinct.                                       | iOS Tab Bar, Android Bottom Nav |
+| **Thumb zone**          | Primary interactive elements in the bottom third of screen. Avoid critical nav at the top on large phones. | Thumb zone research             |
+| **Card stacking order** | 1) Total impact summary → 2) Pending actions → 3) Recent activity → 4) Deep-dive charts (simplified)       | Priority-based stacking         |
 
 ### Information Hierarchy
 
-| Zone | Content |
-|---|---|
-| **Top strip** | 3–4 KPIs in a horizontally scrollable strip or tight 2×2 grid |
-| **Below KPIs** | Primary action card ("Log your next activity") |
-| **Middle** | Activity feed with inline kudos |
-| **Bottom** | Simplified charts, badges (collapsed) |
-| **Bottom nav bar** | Explore · Dashboard · Community · Profile |
+| Zone               | Content                                                       |
+| ------------------ | ------------------------------------------------------------- |
+| **Top strip**      | 3–4 KPIs in a horizontally scrollable strip or tight 2×2 grid |
+| **Below KPIs**     | Primary action card ("Log your next activity")                |
+| **Middle**         | Activity feed with inline kudos                               |
+| **Bottom**         | Simplified charts, badges (collapsed)                         |
+| **Bottom nav bar** | Explore · Dashboard · Community · Profile                     |
 
 ### Touch Targets
 
 | Platform | Minimum Size |
-|---|---|
-| iOS | 44×44 pt |
-| Android | 48×48 dp |
+| -------- | ------------ |
+| iOS      | 44×44 pt     |
+| Android  | 48×48 dp     |
 
 - Provide immediate visual feedback on all taps (color change, micro-animation)
 - **No hover states** — everything must work on tap
@@ -106,12 +107,12 @@ screen, use their thumbs, and expect fast, glanceable information.
 
 ### Gamification Placement (Mobile)
 
-| Element | Placement | Pattern Source |
-|---|---|---|
-| **Streak counter** | Top of screen, always visible, or in nav bar | Duolingo |
-| **Kudos** | Inline with each activity in the feed. One-tap. | Strava |
-| **Leaderboard** | Dedicated tab in bottom nav, NOT in main dashboard | Peloton |
-| **Badges** | Horizontal scroll strip, tap to expand details | Nike Run Club |
+| Element            | Placement                                          | Pattern Source |
+| ------------------ | -------------------------------------------------- | -------------- |
+| **Streak counter** | Top of screen, always visible, or in nav bar       | Duolingo       |
+| **Kudos**          | Inline with each activity in the feed. One-tap.    | Strava         |
+| **Leaderboard**    | Dedicated tab in bottom nav, NOT in main dashboard | Peloton        |
+| **Badges**         | Horizontal scroll strip, tap to expand details     | Nike Run Club  |
 
 ### Progressive Disclosure
 
@@ -130,23 +131,23 @@ Use responsive design with adaptive breakpoints.
 
 ### Breakpoint Strategy
 
-| Breakpoint | Layout | Navigation | Content |
-|---|---|---|---|
-| **≥1200px** (Desktop) | Two-column: main + sidebar | Persistent sidebar or top nav | Full data density, charts, tables |
-| **768–1199px** (Tablet) | Single column, wider cards | Collapsible sidebar or top nav | Moderate density, stack charts |
-| **<768px** (Mobile) | Single column, stacked cards | Bottom tab bar or hamburger | KPI strip, simplified feed, sparklines |
+| Breakpoint              | Layout                       | Navigation                     | Content                                |
+| ----------------------- | ---------------------------- | ------------------------------ | -------------------------------------- |
+| **≥1200px** (Desktop)   | Two-column: main + sidebar   | Persistent sidebar or top nav  | Full data density, charts, tables      |
+| **768–1199px** (Tablet) | Single column, wider cards   | Collapsible sidebar or top nav | Moderate density, stack charts         |
+| **<768px** (Mobile)     | Single column, stacked cards | Bottom tab bar or hamburger    | KPI strip, simplified feed, sparklines |
 
 ### Responsive Component Behavior
 
-| Component | Desktop | Tablet | Mobile |
-|---|---|---|---|
-| **KPI Cards** | 4-across row | 2×2 grid | Horizontal scroll strip |
-| **Activity Log** | Full table with columns | Simplified table | Card list, no table |
-| **Leaderboard** | Sidebar widget | Below main content | Dedicated tab |
-| **Sidebar** | Visible, fixed 280px | Collapsed, toggle | Hidden (bottom nav instead) |
-| **Tooltips** | Hover + click | Click only | Tap-to-reveal popover |
-| **Charts** | Full interactive | Simplified | Sparklines only |
-| **Badges** | Expandable grid | Horizontal scroll | Collapsed count |
+| Component        | Desktop                 | Tablet             | Mobile                      |
+| ---------------- | ----------------------- | ------------------ | --------------------------- |
+| **KPI Cards**    | 4-across row            | 2×2 grid           | Horizontal scroll strip     |
+| **Activity Log** | Full table with columns | Simplified table   | Card list, no table         |
+| **Leaderboard**  | Sidebar widget          | Below main content | Dedicated tab               |
+| **Sidebar**      | Visible, fixed 280px    | Collapsed, toggle  | Hidden (bottom nav instead) |
+| **Tooltips**     | Hover + click           | Click only         | Tap-to-reveal popover       |
+| **Charts**       | Full interactive        | Simplified         | Sparklines only             |
+| **Badges**       | Expandable grid         | Horizontal scroll  | Collapsed count             |
 
 ### Container Queries (2026 Standard)
 
@@ -156,14 +157,20 @@ container width, regardless of screen size. This is critical for components
 that may appear in a sidebar (narrow) or main content (wide).
 
 ```css
-.kpi-card-container { container-type: inline-size; }
+.kpi-card-container {
+  container-type: inline-size;
+}
 
 @container (min-width: 200px) {
-  .kpi-card { /* compact layout */ }
+  .kpi-card {
+    /* compact layout */
+  }
 }
 
 @container (min-width: 350px) {
-  .kpi-card { /* full layout with trend chart */ }
+  .kpi-card {
+    /* full layout with trend chart */
+  }
 }
 ```
 
@@ -179,14 +186,14 @@ that may appear in a sidebar (narrow) or main content (wide).
 
 ### Accessibility (WCAG 2.1 AA)
 
-| Requirement | Standard |
-|---|---|
-| Text contrast | 4.5:1 minimum |
-| Data visualization contrast | 3:1 minimum |
-| Color alone | Never use color alone to convey meaning. Always pair with icon/text. |
-| Screen reader order | DOM order must match visual hierarchy |
-| Focus indicators | Visible focus rings on all interactive elements |
-| Alt text for charts | Provide text summary (e.g., "Bar chart showing 10% decrease in water usage") |
+| Requirement                 | Standard                                                                     |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| Text contrast               | 4.5:1 minimum                                                                |
+| Data visualization contrast | 3:1 minimum                                                                  |
+| Color alone                 | Never use color alone to convey meaning. Always pair with icon/text.         |
+| Screen reader order         | DOM order must match visual hierarchy                                        |
+| Focus indicators            | Visible focus rings on all interactive elements                              |
+| Alt text for charts         | Provide text summary (e.g., "Bar chart showing 10% decrease in water usage") |
 
 ### The 5-Second Test
 
@@ -211,15 +218,15 @@ Every widget should answer a specific question or prompt a decision.
 
 ### What We Were Doing Wrong
 
-| Anti-Pattern | What We Did | Research Says |
-|---|---|---|
-| **Digital Attic sidebar** | Dumped Leaderboard + GratitudeFeed + Kudos + SDG in right col | Sidebar is for navigation/context, not widget dumping |
-| **Orphaned scrolling** | SDG badges at bottom of long right col, isolated with whitespace | Fix with sticky sidebar OR move content to appropriate zone |
-| **Mobile patterns on desktop** | Proposed killing the sidebar entirely | Sidebars are STANDARD on desktop — the fix is what goes IN the sidebar |
-| **Wrong Kudos placement** | Kudos as standalone sidebar widget | Strava: Kudos go INLINE with activity feed items |
-| **Wrong Streak placement** | EcoStreak buried in main content area | Duolingo: Streak in top-right nav, visible on every page |
-| **Too many CTAs** | Multiple competing interactive elements visible at once | 1 primary CTA per viewport |
-| **No progressive disclosure** | Everything shown at once (badges, log, kudos, leaderboard, gratitude) | Show summary, let users expand depth |
+| Anti-Pattern                   | What We Did                                                           | Research Says                                                          |
+| ------------------------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Digital Attic sidebar**      | Dumped Leaderboard + GratitudeFeed + Kudos + SDG in right col         | Sidebar is for navigation/context, not widget dumping                  |
+| **Orphaned scrolling**         | SDG badges at bottom of long right col, isolated with whitespace      | Fix with sticky sidebar OR move content to appropriate zone            |
+| **Mobile patterns on desktop** | Proposed killing the sidebar entirely                                 | Sidebars are STANDARD on desktop — the fix is what goes IN the sidebar |
+| **Wrong Kudos placement**      | Kudos as standalone sidebar widget                                    | Strava: Kudos go INLINE with activity feed items                       |
+| **Wrong Streak placement**     | EcoStreak buried in main content area                                 | Duolingo: Streak in top-right nav, visible on every page               |
+| **Too many CTAs**              | Multiple competing interactive elements visible at once               | 1 primary CTA per viewport                                             |
+| **No progressive disclosure**  | Everything shown at once (badges, log, kudos, leaderboard, gratitude) | Show summary, let users expand depth                                   |
 
 ### Recommended Layout (Desktop Web App)
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useMatchRoute } from '@tanstack/react-router';
-import { useAuth } from '../lib/auth';
+import { useAuth } from '../lib/authContext';
 import './AppHeader.css';
 
 interface AppHeaderProps {

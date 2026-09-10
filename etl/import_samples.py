@@ -12,7 +12,6 @@ Google Places files are skipped — they contain no coordinates.
 import json
 import os
 import sqlite3
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -21,30 +20,31 @@ DB_PATH = os.environ.get("SQLITE_PATH") or str(ROOT / "dev.db")
 # ── activity / category mappings ─────────────────────────────────────────────
 
 ACTIVITY_MAP = {
-    "donate":  "donation_drop",
-    "resell":  "resale_buy",
-    "repair":  "repair_paid",
-    "reuse":   "donation_pick",
-    "alter":   "repair_paid",
-    "rent":    "renting",
+    "donate": "donation_drop",
+    "resell": "resale_buy",
+    "repair": "repair_paid",
+    "reuse": "donation_pick",
+    "alter": "repair_paid",
+    "rent": "renting",
 }
 
 CATEGORY_MAP = {
-    "clothing":          "clothing",
-    "electronics":       "electronics",
-    "art_supplies":      "tools",        # closest match
+    "clothing": "clothing",
+    "electronics": "electronics",
+    "art_supplies": "tools",  # closest match
     "musical_instruments": "tools",
-    "tires":             "tools",
-    "books":             "books",
-    "furniture":         "furniture",
-    "shoes":             "shoes",
-    "tools":             "tools",
+    "tires": "tools",
+    "books": "books",
+    "furniture": "furniture",
+    "shoes": "shoes",
+    "tools": "tools",
 }
+
 
 # OSM tag → (activity, category) heuristics
 def infer_services_from_tags(tags: dict) -> list[tuple[str, str]]:
     services: list[tuple[str, str]] = []
-    shop  = tags.get("shop", "")
+    shop = tags.get("shop", "")
     repair = tags.get("repair", "")
     rental = tags.get("rental", "") or tags.get("rent", "")
 
@@ -82,6 +82,7 @@ def infer_services_from_tags(tags: dict) -> list[tuple[str, str]]:
 
 # ── database helpers ──────────────────────────────────────────────────────────
 
+
 def upsert_location(cur: sqlite3.Cursor, row: dict) -> int | None:
     if row.get("lat") is None or row.get("lon") is None:
         return None
@@ -108,24 +109,24 @@ def upsert_location(cur: sqlite3.Cursor, row: dict) -> int | None:
         RETURNING id
         """,
         {
-            "data_source":    row["data_source"],
+            "data_source": row["data_source"],
             "data_source_id": row["data_source_id"],
-            "name":           row["name"],
-            "lat":            row["lat"],
-            "lon":            row["lon"],
-            "street":         row.get("street"),
-            "city":           row.get("city"),
-            "state":          row.get("state"),
-            "postcode":       row.get("postcode"),
-            "phone":          row.get("phone"),
-            "email":          row.get("email"),
-            "website":        row.get("website"),
-            "social":         row.get("social"),
-            "opening_hours":  row.get("opening_hours"),
-            "is_persistent":  1 if row.get("is_persistent", True) else 0,
-            "last_verified":  row.get("last_verified"),
-            "rating":         row.get("rating"),
-            "review_count":   row.get("review_count"),
+            "name": row["name"],
+            "lat": row["lat"],
+            "lon": row["lon"],
+            "street": row.get("street"),
+            "city": row.get("city"),
+            "state": row.get("state"),
+            "postcode": row.get("postcode"),
+            "phone": row.get("phone"),
+            "email": row.get("email"),
+            "website": row.get("website"),
+            "social": row.get("social"),
+            "opening_hours": row.get("opening_hours"),
+            "is_persistent": 1 if row.get("is_persistent", True) else 0,
+            "last_verified": row.get("last_verified"),
+            "rating": row.get("rating"),
+            "review_count": row.get("review_count"),
         },
     )
     result = cur.fetchone()
@@ -142,6 +143,7 @@ def insert_services(cur: sqlite3.Cursor, location_id: int, services: list[tuple[
 
 
 # ── source parsers ────────────────────────────────────────────────────────────
+
 
 def parse_sources_json(path: Path) -> list[dict]:
     records = json.loads(path.read_text())
@@ -171,27 +173,29 @@ def parse_sources_json(path: Path) -> list[dict]:
         if not name:
             continue
 
-        rows.append({
-            "data_source":    "openstreetmap",
-            "data_source_id": r["source_id"],
-            "name":           name,
-            "lat":            r["lat"],
-            "lon":            r["lon"],
-            "street":         addr.get("street"),
-            "city":           addr.get("city"),
-            "state":          addr.get("state"),
-            "postcode":       addr.get("postcode"),
-            "phone":          contact.get("phone"),
-            "email":          contact.get("email"),
-            "website":        contact.get("website"),
-            "social":         social,
-            "opening_hours":  avail.get("opening_hours"),
-            "is_persistent":  avail.get("is_persistent", True),
-            "last_verified":  r.get("last_verified"),
-            "rating":         None,
-            "review_count":   None,
-            "services":       services,
-        })
+        rows.append(
+            {
+                "data_source": "openstreetmap",
+                "data_source_id": r["source_id"],
+                "name": name,
+                "lat": r["lat"],
+                "lon": r["lon"],
+                "street": addr.get("street"),
+                "city": addr.get("city"),
+                "state": addr.get("state"),
+                "postcode": addr.get("postcode"),
+                "phone": contact.get("phone"),
+                "email": contact.get("email"),
+                "website": contact.get("website"),
+                "social": social,
+                "opening_hours": avail.get("opening_hours"),
+                "is_persistent": avail.get("is_persistent", True),
+                "last_verified": r.get("last_verified"),
+                "rating": None,
+                "review_count": None,
+                "services": services,
+            }
+        )
     return rows
 
 
@@ -216,31 +220,34 @@ def parse_overpass_json(path: Path, source_prefix: str) -> list[dict]:
         email = tags.get("email") or tags.get("contact:email")
         website = tags.get("website") or tags.get("contact:website")
 
-        rows.append({
-            "data_source":    "openstreetmap",
-            "data_source_id": osm_id,
-            "name":           name,
-            "lat":            lat,
-            "lon":            lon,
-            "street":         street,
-            "city":           tags.get("addr:city"),
-            "state":          tags.get("addr:state"),
-            "postcode":       tags.get("addr:postcode"),
-            "phone":          phone,
-            "email":          email,
-            "website":        website,
-            "social":         tags.get("contact:facebook"),
-            "opening_hours":  tags.get("opening_hours"),
-            "is_persistent":  True,
-            "last_verified":  tags.get("check_date"),
-            "rating":         None,
-            "review_count":   None,
-            "services":       infer_services_from_tags(tags),
-        })
+        rows.append(
+            {
+                "data_source": "openstreetmap",
+                "data_source_id": osm_id,
+                "name": name,
+                "lat": lat,
+                "lon": lon,
+                "street": street,
+                "city": tags.get("addr:city"),
+                "state": tags.get("addr:state"),
+                "postcode": tags.get("addr:postcode"),
+                "phone": phone,
+                "email": email,
+                "website": website,
+                "social": tags.get("contact:facebook"),
+                "opening_hours": tags.get("opening_hours"),
+                "is_persistent": True,
+                "last_verified": tags.get("check_date"),
+                "rating": None,
+                "review_count": None,
+                "services": infer_services_from_tags(tags),
+            }
+        )
     return rows
 
 
 # ── main ──────────────────────────────────────────────────────────────────────
+
 
 def main() -> None:
     samples = ROOT / "data-explorations" / "openstreetmap" / "samples"

@@ -16,13 +16,16 @@ Here is the high-resolution Nano Banana generated visual architecture diagram de
 ## 2. Who & What Draws the Map (Deep Dive into the 5 Engines)
 
 ### Engine 1: The JavaScript Map Instance (Who holds state?)
+
 When your code executes:
+
 ```javascript
-const map = new google.maps.Map(document.getElementById("map"), {
+const map = new google.maps.Map(document.getElementById('map'), {
   center: { lat: 42.3601, lng: -71.0589 },
-  zoom: 12
+  zoom: 12,
 });
 ```
+
 - **Who executes this?** The browser's V8 JavaScript Engine.
 - **What gets created?** A JavaScript object in RAM that maintains internal state:
   - `center`: `{ lat: 42.3601, lng: -71.0589 }`
@@ -33,13 +36,14 @@ const map = new google.maps.Map(document.getElementById("map"), {
 ---
 
 ### Engine 2: The Mercator Projection Engine (Who does the math?)
+
 Before anything can be drawn on screen, real-world spherical GPS coordinates MUST be converted into flat 2D pixel coordinates.
 
 - **Who does this?** The Mapping SDK's internal **Projection Module**.
 - **The Exact Formula**:
   $$\text{pixelX} = \text{scale} \times \left(\frac{\text{lng} + 180}{360}\right)$$
   $$\text{pixelY} = \text{scale} \times \left(1 - \frac{\ln(\tan(\text{lat} \cdot \frac{\pi}{180}) + \sec(\text{lat} \cdot \frac{\pi}{180}))}{\pi}\right) / 2$$
-  *(where $\text{scale} = 256 \times 2^{\text{zoom}}$)*
+  _(where $\text{scale} = 256 \times 2^{\text{zoom}}$)_
 
 - **What it calculates**:
   - Boston City Hall `[42.3601, -71.0589]` at Zoom 12 is calculated to lie inside **Tile `12 / 1215 / 1537`** at pixel offset `{ x: 120px, y: 84px }` relative to the tile's top-left corner.
@@ -47,6 +51,7 @@ Before anything can be drawn on screen, real-world spherical GPS coordinates MUS
 ---
 
 ### Engine 3: The Tile Loader & Network Manager (Who gets the images?)
+
 Now that the Projection Engine knows which tiles are required to fill your `<div id="map">` (e.g. 6 tiles for an $800 \times 600$ container):
 
 - **Who fetches data?** The SDK's internal **Network Manager** issuing asynchronous HTTP/2 GET requests to CDN servers.
@@ -57,6 +62,7 @@ Now that the Projection Engine knows which tiles are required to fill your `<div
 ---
 
 ### Engine 4: The Graphics Painting Engine (Who paints the screen?)
+
 This is where raw data turns into visual artwork on your monitor!
 
 - **Who paints pixels?** The physical **GPU (Graphics Processing Unit / Graphics Card)** inside the user's computer or smartphone.
@@ -68,7 +74,9 @@ This is where raw data turns into visual artwork on your monitor!
 ---
 
 ### Engine 5: The DOM Marker Compositor & Pan/Zoom Event Loop (Who moves pins?)
+
 When you add custom HTML pins onto the map:
+
 ```javascript
 new AdvancedMarkerElement({ map, position: { lat: 42.3438, lng: -71.0734 }, content: pinElement });
 ```
@@ -87,9 +95,9 @@ new AdvancedMarkerElement({ map, position: { lat: 42.3438, lng: -71.0734 }, cont
 
 ## 3. Connecting Developer Actions to UI Results
 
-| Developer Code Action | Internal Engine Component Triggered | What Gets Changed on Screen |
-| :--- | :--- | :--- |
-| `map.setCenter({ lat, lng })` | Engine 1 (State) $\rightarrow$ Engine 2 (Projection Math) | Recalculates visible bounding box and shifts canvas view. |
-| `map.setZoom(15)` | Engine 2 (Projection) $\rightarrow$ Engine 3 (Tile Loader) | Fetches higher-detail zoom 15 tiles; scales map geometry $2\times$. |
+| Developer Code Action         | Internal Engine Component Triggered                           | What Gets Changed on Screen                                                                     |
+| :---------------------------- | :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------- |
+| `map.setCenter({ lat, lng })` | Engine 1 (State) $\rightarrow$ Engine 2 (Projection Math)     | Recalculates visible bounding box and shifts canvas view.                                       |
+| `map.setZoom(15)`             | Engine 2 (Projection) $\rightarrow$ Engine 3 (Tile Loader)    | Fetches higher-detail zoom 15 tiles; scales map geometry $2\times$.                             |
 | `new AdvancedMarkerElement()` | Engine 2 (Projection) $\rightarrow$ Engine 5 (DOM Compositor) | Calculates Lat/Lng to pixel offset $(x, y)$ and appends HTML element with `translate3d(x,y,0)`. |
-| User drags map with mouse | Engine 5 (Events) $\rightarrow$ Engine 4 (GPU Render Loop) | GPU repaints WebGL canvas lines and shifts HTML markers smoothly at 60 FPS. |
+| User drags map with mouse     | Engine 5 (Events) $\rightarrow$ Engine 4 (GPU Render Loop)    | GPU repaints WebGL canvas lines and shifts HTML markers smoothly at 60 FPS.                     |

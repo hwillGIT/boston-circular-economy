@@ -3,7 +3,6 @@ from etl.dtos import RawLocation
 
 
 class GooglePlacesQuerier(BaseQuerier):
-
     def fetch(self) -> list[RawLocation]:
         """Fetches raw location data from the Google Places API.
 

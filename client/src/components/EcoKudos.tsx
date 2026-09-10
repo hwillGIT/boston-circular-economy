@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './EcoKudos.css';
 
 interface Props {
@@ -6,16 +6,15 @@ interface Props {
 }
 
 export default function EcoKudos({ targetId }: Props) {
-  const [kudos, setKudos] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  return <KudosButton key={targetId} targetId={targetId} />;
+}
 
-  useEffect(() => {
-    const key = `bce_kudos_${targetId}`;
-    const stored = localStorage.getItem(key);
-    if (stored) {
-      setKudos(parseInt(stored, 10));
-    }
-  }, [targetId]);
+function KudosButton({ targetId }: Props) {
+  const [kudos, setKudos] = useState(() => {
+    const stored = localStorage.getItem(`bce_kudos_${targetId}`);
+    return stored ? parseInt(stored, 10) : 0;
+  });
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleTap = () => {
     const newKudos = kudos + 1;

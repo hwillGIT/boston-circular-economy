@@ -33,3 +33,11 @@ __pycache__/
 
 # TanStack Router generated files
 client/.tanstack/
+
+# Generated API reference and local Python reports
+docs/api/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.playwright-cli/
+output/playwright/

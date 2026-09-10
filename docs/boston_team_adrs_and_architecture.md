@@ -41,14 +41,17 @@ COLUMN 1: SOURCES          COLUMN 2: ETL INGESTION        COLUMN 3: LOCAL SNAPSH
 ## 2. ADR-001: API Key Security & Backend Express Proxying
 
 ### Status
+
 **ACCEPTED** (Implemented in `server/routes/api.js` & `client/src/components/BostonMap.jsx`)
 
 ---
 
 ### Context & Problem Statement
-In modern web applications, client-side React code executes inside the user's browser environment. 
+
+In modern web applications, client-side React code executes inside the user's browser environment.
 
 If third-party location APIs (such as Google Places API) are queried directly from front-end components:
+
 1. **API Key Theft**: Secret Google Cloud API keys embedded in front-end JavaScript bundles can be trivially extracted by anyone opening Chrome Developer Tools (F12 Network / Sources tab).
 2. **Financial Vulnerability**: Malicious actors can steal exposed API keys and make unauthorized requests, driving up thousands of dollars in unexpected Google Cloud billing charges.
 3. **Latency & Cost**: Direct client queries force thousands of users to issue repeated live network requests to Google/OSM, resulting in 1,000ms–3,000ms load times and high API costs.
@@ -64,6 +67,7 @@ Client Browser ──(Fast 20ms)──> Express Server (`server/`) ──► Loc
 ---
 
 ### Decision Drivers
+
 - **Security**: Must prevent public exposure of paid Google Cloud API keys.
 - **Performance**: Must deliver instant map rendering (< 50ms) for citizens browsing recycling drop-offs.
 - **Cost Efficiency**: Must avoid per-query Google Cloud billing charges for routine map views.
@@ -72,15 +76,18 @@ Client Browser ──(Fast 20ms)──> Express Server (`server/`) ──► Loc
 ---
 
 ### Considered Options
+
 1. **Option A: Direct Client-Side API Queries**: Query Google Places API directly from React components (`client/src/components/BostonMap.jsx`).
 2. **Option B: Backend Express Proxy with Local GeoJSON Snapshots**: Route requests through `server/routes/api.js` and serve pre-deduplicated GeoJSON snapshots (`server/data/boston_merged_nodes.json`).
 
 ---
 
 ### Decision Outcome
+
 **Chosen Option: Option B (Backend Express Proxy with Local Snapshots)**
 
 #### Implementation Details:
+
 1. **Environment Variables**: Secret keys are stored exclusively in server-side environment variables (`process.env.GOOGLE_PLACES_API_KEY`). They are **never** prefixed with `REACT_APP_` or included in front-end build artifacts.
 2. **Backend Proxy Route (`server/routes/api.js`)**:
    ```javascript
@@ -102,14 +109,15 @@ Client Browser ──(Fast 20ms)──> Express Server (`server/`) ──► Loc
    useEffect(() => {
      // Queries internal server endpoint (No API key exposed!)
      fetch('/api/locations')
-       .then(res => res.json())
-       .then(geoJson => L.geoJSON(geoJson).addTo(map));
+       .then((res) => res.json())
+       .then((geoJson) => L.geoJSON(geoJson).addTo(map));
    }, []);
    ```
 
 ---
 
 ### Positive Consequences
+
 - **Zero Key Leaks**: Paid Google Cloud API keys remain 100% server-side and invisible to browser inspection.
 - **20ms Lightning Responses**: Serving local snapshots reduces user load times from 3,000ms to **20ms**.
 - **$0.00 Per-User Billing**: Pre-merged snapshots eliminate per-user Google API query costs.
@@ -118,13 +126,14 @@ Client Browser ──(Fast 20ms)──> Express Server (`server/`) ──► Loc
 ---
 
 ### Negative Consequences / Trade-Offs
+
 - Requires maintaining a lightweight Node.js/Express server process.
 
 ---
 
 ## 3. DECISION 2: The Merge Processor & Deduplication Engine (`etl/`)
 
-If a repair shop like *"Mattapan Community Repair"* exists in both OpenStreetMap AND Google Places, how do we prevent showing duplicate pins on the map?
+If a repair shop like _"Mattapan Community Repair"_ exists in both OpenStreetMap AND Google Places, how do we prevent showing duplicate pins on the map?
 
 The team built a **Merge Processor** script in `etl/merge_processor.py`!
 
@@ -133,7 +142,7 @@ The team built a **Merge Processor** script in `etl/merge_processor.py`!
 ### How the Merge Algorithm Works (3 Steps):
 
 1. **Spatial Distance Check**: Calculate distance between an OSM point and a Google Place point. If distance $< 50$ meters $\rightarrow$ They are likely the same physical location!
-2. **Name Similarity Check**: Verify string similarity (e.g. *"South End Eco Hub"* vs *"South End Recycling Center"*).
+2. **Name Similarity Check**: Verify string similarity (e.g. _"South End Eco Hub"_ vs _"South End Recycling Center"_).
 3. **Attribute Merging**:
    - Take the exact location coordinates from OpenStreetMap.
    - Take the operating hours, rating, and website from Google Places.

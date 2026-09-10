@@ -13,7 +13,7 @@ function ensureProvider(): MapProvider {
 }
 
 export const MapFacade = {
-  setProvider(name: string, options?: Record<string, unknown>): void {
+  setProvider(name: string): void {
     if (name === currentProviderName && providerInstance) return;
 
     if (providerInstance) {
@@ -21,7 +21,7 @@ export const MapFacade = {
     }
 
     currentProviderName = name;
-    providerInstance = createProvider(name, options);
+    providerInstance = createProvider(name);
   },
 
   init(containerId: string, options?: MapOptions): void {

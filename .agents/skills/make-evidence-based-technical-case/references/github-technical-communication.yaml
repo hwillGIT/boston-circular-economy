@@ -1,0 +1,34 @@
+policy_name: Clear technical decisions
+policy_schema_version: 1
+objective: Explain decisions with evidence and plain language
+applies_to:
+  - issue comments and work-unit proposals
+  - implementation plans and mentor guidance
+  - pull request summaries and reviews
+  - commit messages and GitHub Actions status text
+decision_questions:
+  outcome: decision or observable result
+  evidence: inspected code tests measurements logs or accepted decisions
+  reason: why the evidence supports the result
+  support: project rule standard or accepted requirement behind the reasoning
+  limits: conditions and uncertainty
+  reconsideration: evidence or changed condition that would change the decision
+compact_order:
+  - concrete problem and resulting behavior
+  - mechanism and supporting evidence
+  - material limit or next decision
+semantic_rules:
+  - separate observations from inference
+  - do not invent evidence
+  - do not treat an AI answer as evidence
+  - compare a credible alternative fairly
+  - name what would change the decision
+  - leave human decisions with the responsible person
+language_rules:
+  descriptive_sentence_max_words: 25
+  procedural_sentence_max_words: 20
+  permit_contractions_in_prose: false
+  permit_semicolon_in_prose: false
+  prefer_active_voice: true
+  require_stable_term_meaning: true
+source: Adapted from the Library of Context communication skill

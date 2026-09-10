@@ -32,16 +32,16 @@ Best for: Commercial POI Lookup      Best for: Custom UX & Isochrone Best for: D
 
 ### Comprehensive Technical Comparison Matrix
 
-| Feature / Capability | Google Maps JS API | Mapbox GL JS | MapLibre GL JS (OSM) |
-| :--- | :--- | :--- | :--- |
-| **Data Engine** | Google Vector Renderer | WebGL Mapbox Vector | WebGL Open-Source Renderer |
-| **Base Map Data** | Google Maps Database | OpenStreetMap + Custom | OpenStreetMap / Custom Tiles |
-| **Custom Styling** | Cloud Style Editor (Basic) | Mapbox Studio (Advanced) | Maputnik / Open Style Spec |
-| **Isochrone API** | Workarounds / Distance Matrix | Native Isochrone API | Valhalla / OSRM Self-Hosted |
-| **Data Sovereignty** | Google Cloud Only | Mapbox Cloud | 100% Self-Hostable (PMTiles) |
-| **Custom HTML Markers** | `AdvancedMarkerElement` | `mapboxgl.Marker` | `maplibregl.Marker` |
-| **GeoJSON Performance** | `map.data` layer | `addSource('geojson')` | `addSource('geojson')` |
-| **License** | Commercial Proprietary | Proprietary (v2+) | Open Source (BSD-3-Clause) |
+| Feature / Capability    | Google Maps JS API            | Mapbox GL JS             | MapLibre GL JS (OSM)         |
+| :---------------------- | :---------------------------- | :----------------------- | :--------------------------- |
+| **Data Engine**         | Google Vector Renderer        | WebGL Mapbox Vector      | WebGL Open-Source Renderer   |
+| **Base Map Data**       | Google Maps Database          | OpenStreetMap + Custom   | OpenStreetMap / Custom Tiles |
+| **Custom Styling**      | Cloud Style Editor (Basic)    | Mapbox Studio (Advanced) | Maputnik / Open Style Spec   |
+| **Isochrone API**       | Workarounds / Distance Matrix | Native Isochrone API     | Valhalla / OSRM Self-Hosted  |
+| **Data Sovereignty**    | Google Cloud Only             | Mapbox Cloud             | 100% Self-Hostable (PMTiles) |
+| **Custom HTML Markers** | `AdvancedMarkerElement`       | `mapboxgl.Marker`        | `maplibregl.Marker`          |
+| **GeoJSON Performance** | `map.data` layer              | `addSource('geojson')`   | `addSource('geojson')`       |
+| **License**             | Commercial Proprietary        | Proprietary (v2+)        | Open Source (BSD-3-Clause)   |
 
 ---
 
@@ -50,6 +50,7 @@ Best for: Commercial POI Lookup      Best for: Custom UX & Isochrone Best for: D
 Mapbox GL JS uses client-side WebGL rendering to draw vector tiles at 60 FPS.
 
 ### Step 1: Map Initialization & Custom Style
+
 ```javascript
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -61,11 +62,12 @@ const map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/dark-v11', // Custom Studio Style URL
   center: [-122.4194, 37.7749], // [Lng, Lat] format! (Note order difference from Google Maps)
   zoom: 13,
-  pitch: 45 // 3D perspective tilt
+  pitch: 45, // 3D perspective tilt
 });
 ```
 
 ### Step 2: Adding HTML Custom Markers (Recycling Hubs)
+
 ```javascript
 function addMapboxRecyclingMarker(map, lng, lat, title, capacity) {
   // Create DOM element for marker content
@@ -80,18 +82,18 @@ function addMapboxRecyclingMarker(map, lng, lat, title, capacity) {
   new mapboxgl.Marker(el)
     .setLngLat([lng, lat]) // [Lng, Lat]
     .setPopup(
-      new mapboxgl.Popup({ offset: 25 })
-        .setHTML(`<h4>${title}</h4><p>Capacity: ${capacity}</p>`)
+      new mapboxgl.Popup({ offset: 25 }).setHTML(`<h4>${title}</h4><p>Capacity: ${capacity}</p>`),
     )
     .addTo(map);
 }
 ```
 
 ### Step 3: Fetching Catchment Isochrones (15-Minute Repair Cafe Zone)
+
 ```javascript
 async function getIsochrone(lng, lat, minutes = 15) {
   const url = `https://api.mapbox.com/isochrone/v1/mapbox/cycling/${lng},${lat}?contours_minutes=${minutes}&polygons=true&access_token=${mapboxgl.accessToken}`;
-  
+
   const response = await fetch(url);
   const data = await response.json();
 
@@ -101,7 +103,7 @@ async function getIsochrone(lng, lat, minutes = 15) {
   } else {
     map.addSource('isochrone-src', {
       type: 'geojson',
-      data: data
+      data: data,
     });
 
     map.addLayer({
@@ -111,8 +113,8 @@ async function getIsochrone(lng, lat, minutes = 15) {
       layout: {},
       paint: {
         'fill-color': '#10b981',
-        'fill-opacity': 0.3
-      }
+        'fill-opacity': 0.3,
+      },
     });
   }
 }
@@ -125,6 +127,7 @@ async function getIsochrone(lng, lat, minutes = 15) {
 MapLibre GL JS is the community-driven open-source fork of Mapbox GL JS. It uses standard OpenStreetMap tiles or self-hosted vector tile servers like **TileServer GL** or **PMTiles**.
 
 ### Step 1: Open-Source Map Initialization (Zero API Key Required)
+
 ```javascript
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -134,17 +137,18 @@ const map = new maplibregl.Map({
   container: 'map',
   style: 'https://demotiles.maplibre.org/style.json', // Open-source tile spec
   center: [-122.4194, 37.7749], // [Lng, Lat]
-  zoom: 12
+  zoom: 12,
 });
 ```
 
 ### Step 2: Streaming GeoJSON Vector Layers in MapLibre
+
 ```javascript
 map.on('load', () => {
   // Add GeoJSON Feature Collection Source
   map.addSource('material-flow-data', {
     type: 'geojson',
-    data: 'https://your-domain.org/api/v1/circular-flow.geojson'
+    data: 'https://your-domain.org/api/v1/circular-flow.geojson',
   });
 
   // Render Line Layer for Material Transport
@@ -155,8 +159,8 @@ map.on('load', () => {
     paint: {
       'line-color': '#06b6d4',
       'line-width': 4,
-      'line-dasharray': [2, 2]
-    }
+      'line-dasharray': [2, 2],
+    },
   });
 });
 ```

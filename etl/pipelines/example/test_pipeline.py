@@ -1,6 +1,6 @@
-from pipelines.example.querier import ExampleQuerier
-from pipelines.example.normalizer import ExampleNormalizer
 from dtos import Activity, ItemCategory
+from pipelines.example.normalizer import ExampleNormalizer
+from pipelines.example.querier import ExampleQuerier
 
 
 def test_example_querier_wraps_mock_data_as_raw_locations():

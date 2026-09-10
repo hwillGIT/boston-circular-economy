@@ -11,7 +11,8 @@
 After a line-by-line inspection of the live Vercel prototype application (`circular-economy-prototype.vercel.app`), here are the core user personas, customer journeys, and friction point findings:
 
 ### A. The Primary Target Persona
-- **Name**: *"Jordan"*
+
+- **Name**: _"Jordan"_
 - **Demographics**: Boston resident, MBTA transit commuter, non-car owner. College student or young professional.
 - **Core Motivation**: Wants to mend, repair, or responsibly rehome items (clothing, small electronics) without expensive fees or long transit trips.
 
@@ -39,13 +40,15 @@ After a line-by-line inspection of the live Vercel prototype application (`circu
 ```
 
 #### Flow A: Small Appliance Journey (Broken Toaster)
-- **Problem & Emotional Barrier**: Toaster stops working. Jordan performs basic troubleshooting (unplug/replug). Feels uncertain (*"Is it worth repairing? Will a shop accept a cheap toaster?"*). Without clear guidance, Jordan throws the toaster in the trash with vague guilt.
+
+- **Problem & Emotional Barrier**: Toaster stops working. Jordan performs basic troubleshooting (unplug/replug). Feels uncertain (_"Is it worth repairing? Will a shop accept a cheap toaster?"_). Without clear guidance, Jordan throws the toaster in the trash with vague guilt.
 - **Customer Options Provided**:
   1. **Professional Repair (Path A1)**: JP Appliance Repair (Locally owned, walk-in/call ahead, same-day service).
   2. **Community Skill-Share / Fix-It Clinic (Path A2)**: Boston Center for the Arts Fix-It Clinic / Somerville Repair Cafe (Free, volunteer technicians from MIT/Northeastern, learn to repair it yourself).
 - **Direct Impact**: Toaster diverted from landfill; resident gains mending skills.
 
 #### Flow B: Textiles & Clothing Journey (Old Shirt)
+
 - **Problem & Friction**: Shirt has a torn seam. Jordan wants to mend it or find it a new owner.
 - **Customer Options Provided**:
   1. **Professional Tailor (Path B1)**: Expert alteration shops with transparent pricing and same-day seam mending.
@@ -56,6 +59,7 @@ After a line-by-line inspection of the live Vercel prototype application (`circu
 ---
 
 ### C. Embedded Friction Points & Stakeholder Questions
+
 1. **Geographic Opacity**: Residents do not know where repair facilities exist relative to MBTA subway lines.
 2. **Cost & Viability Uncertainty**: Residents self-screen out small repairs because costs are unknown.
 3. **Data Freshness Gap**: Community events (Fix-It Cafes) have irregular schedules not indexed by Google Search.
@@ -70,15 +74,15 @@ After a line-by-line inspection of the live Vercel prototype application (`circu
 
 Comparing the live prototype against the current GitHub repository (`G:\Projects\boston-circular-economy`):
 
-| Feature / Artifact | Present in Live Prototype? | Present in GitHub Repo? | Action Required |
-| :--- | :---: | :---: | :--- |
-| **User Personas & Scenarios** | ✅ Yes (Jordan, Toaster, Shirt) | ❌ **Missing** | Add Persona & Scenario specifications to `README.md` and `docs/`. |
-| **Customer Journey Flow UI** | ✅ Yes (Flow A & Flow B) | ❌ **Missing** | Implement React Flow components in `client/src/pages/`. |
-| **MBTA Transit Filters** | ✅ Yes (Filter by T access) | ❌ **Missing** | Add MBTA filter logic to front-end spatial components. |
-| **Cost & Appointment Badges** | ✅ Yes (Free, Walk-in, Hours) | ❌ **Missing** | Extend GeoJSON feature properties schema. |
-| **Dual ETL Data Pipeline** | ⚠️ Partial | ✅ **Implemented** | `etl/google_places.py` & `etl/osm.py` ready. |
-| **50m Merge Deduplicator** | ⚠️ Partial | ✅ **Implemented** | `etl/merge_processor.py` ready. |
-| **Express Server API Proxy** | ⚠️ Partial | ✅ **Implemented** | `server/routes/api.js` ready. |
+| Feature / Artifact            |   Present in Live Prototype?    | Present in GitHub Repo? | Action Required                                                   |
+| :---------------------------- | :-----------------------------: | :---------------------: | :---------------------------------------------------------------- |
+| **User Personas & Scenarios** | ✅ Yes (Jordan, Toaster, Shirt) |     ❌ **Missing**      | Add Persona & Scenario specifications to `README.md` and `docs/`. |
+| **Customer Journey Flow UI**  |    ✅ Yes (Flow A & Flow B)     |     ❌ **Missing**      | Implement React Flow components in `client/src/pages/`.           |
+| **MBTA Transit Filters**      |   ✅ Yes (Filter by T access)   |     ❌ **Missing**      | Add MBTA filter logic to front-end spatial components.            |
+| **Cost & Appointment Badges** |  ✅ Yes (Free, Walk-in, Hours)  |     ❌ **Missing**      | Extend GeoJSON feature properties schema.                         |
+| **Dual ETL Data Pipeline**    |           ⚠️ Partial            |   ✅ **Implemented**    | `etl/google_places.py` & `etl/osm.py` ready.                      |
+| **50m Merge Deduplicator**    |           ⚠️ Partial            |   ✅ **Implemented**    | `etl/merge_processor.py` ready.                                   |
+| **Express Server API Proxy**  |           ⚠️ Partial            |   ✅ **Implemented**    | `server/routes/api.js` ready.                                     |
 
 ---
 
@@ -97,10 +101,12 @@ flowchart TD
 ### Subagent Team Roster & Goals
 
 #### 1. User Experience (UX) Architect
+
 - **Goal**: Translate prototype user flows (Flow A/B, Persona Jordan) into modular React UI wireframes.
 - **Focus**: MBTA filter accessibility, cost range transparency, walk-in vs. appointment clarity.
 
 #### 2. Dialectic Adversarial Critic (Red Team / Devil's Advocate)
+
 - **Goal**: Stress-test user flows, data schemas, and edge cases.
 - **Key Questions**:
   - What happens when a user brings an item a repair cafe CANNOT fix?
@@ -108,16 +114,19 @@ flowchart TD
   - How do we prevent low-income neighborhoods from being repair deserts?
 
 #### 3. Multi-Option Product Strategist
+
 - **Goal**: Formulate 3 distinct architectural implementation options for the team to choose from:
   - **Option 1 (Lightweight SPA)**: Pure React client rendering pre-merged GeoJSON snapshot.
   - **Option 2 (Full-Stack Portal)**: Express + React with user submission form for community Fix-It Clinics.
   - **Option 3 (City 311 Integrated)**: Enterprise API integration directly pushing waste diversion metrics to Boston.gov.
 
 #### 4. City Stakeholder & Impact Analyst
+
 - **Goal**: Align data structures with City of Boston Environment Department metrics.
 - **Metrics**: Tonnage diverted, geographic search distribution by ZIP code, repair vs. donation ratios.
 
 #### 5. Full-Stack Lead Engineer
+
 - **Goal**: Build production React pages in `client/src/pages/`, write unit tests, and integrate Express proxy endpoints.
 
 ---

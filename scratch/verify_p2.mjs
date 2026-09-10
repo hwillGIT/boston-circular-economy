@@ -15,12 +15,12 @@ async function main() {
   await page.goto(`${BASE}/dashboard`, { waitUntil: 'networkidle', timeout: 15000 });
 
   const checks = [
-    { name: 'EcoStreak',     selector: '.eco-streak' },
-    { name: 'BadgeGrid',     selector: '.badge-grid' },
-    { name: 'Leaderboard',   selector: '.leaderboard' },
+    { name: 'EcoStreak', selector: '.eco-streak' },
+    { name: 'BadgeGrid', selector: '.badge-grid' },
+    { name: 'Leaderboard', selector: '.leaderboard' },
     { name: 'GratitudeFeed', selector: '.gratitude-feed' },
-    { name: 'EcoKudos',      selector: '.eco-kudos-btn' },
-    { name: 'CurbsideMode',  selector: '.curbside-container' },
+    { name: 'EcoKudos', selector: '.eco-kudos-btn' },
+    { name: 'CurbsideMode', selector: '.curbside-container' },
   ];
 
   let passed = 0;
@@ -54,7 +54,7 @@ async function main() {
   process.exit(failed > 0 ? 1 : 0);
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Error:', err.message);
   process.exit(1);
 });

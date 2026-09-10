@@ -1,26 +1,27 @@
 """Tests for the merge package."""
+
 from __future__ import annotations
 
 from etl.dtos import (
+    Activity,
     Address,
     Availability,
     Contact,
+    ItemCategory,
     MatchGroup,
     NormalizedLocation,
-    Activity,
-    ItemCategory,
     Service,
 )
 from etl.merge.config import MergeConfig
 from etl.merge.geo import haversine_m
-from etl.merge.similarity import normalize_name, name_similarity, is_name_match
 from etl.merge.matcher import GeoNameMatcher
 from etl.merge.merger import PriorityFillMerger
-
+from etl.merge.similarity import is_name_match, name_similarity, normalize_name
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _loc(
     name: str = "Test Place",
@@ -51,6 +52,7 @@ def _loc(
 # ---------------------------------------------------------------------------
 # Geo tests
 # ---------------------------------------------------------------------------
+
 
 def test_haversine_known_distance():
     """Verify haversine distance between two known coordinates.
@@ -98,6 +100,7 @@ def test_haversine_same_point():
 # ---------------------------------------------------------------------------
 # Similarity tests
 # ---------------------------------------------------------------------------
+
 
 def test_normalize_strips_suffix():
     """Verify that normalize_name strips common suffixes.
@@ -248,6 +251,7 @@ def test_is_name_match_false():
 # Matcher tests
 # ---------------------------------------------------------------------------
 
+
 def test_match_same_location_different_sources():
     """Verify that GeoNameMatcher groups identical locations from different sources.
 
@@ -334,6 +338,7 @@ def test_match_nearby_but_different_name():
 # Merger tests
 # ---------------------------------------------------------------------------
 
+
 def test_merge_fills_missing_phone():
     """Verify that PriorityFillMerger fills missing phone fields from other sources.
 
@@ -414,7 +419,9 @@ def test_merge_unions_services():
     loc_gp = _loc("Fix It", source="google_places")
     loc_gp.services = [Service(activity=Activity.REPAIR_PAID, item_category=ItemCategory.SHOES)]
     loc_osm = _loc("Fix It", source="openstreetmap")
-    loc_osm.services = [Service(activity=Activity.REPAIR_FREE, item_category=ItemCategory.ELECTRONICS)]
+    loc_osm.services = [
+        Service(activity=Activity.REPAIR_FREE, item_category=ItemCategory.ELECTRONICS)
+    ]
     group: MatchGroup = {"google_places": loc_gp, "openstreetmap": loc_osm}
     fields: dict[str, int] = {}
     result = merger.merge([group], fields)

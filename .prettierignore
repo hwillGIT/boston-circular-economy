@@ -3,4 +3,16 @@ node_modules/
 *.min.js
 *.min.css
 coverage/
+.playwright-cli/
+output/playwright/
 etl/
+
+# Generated output is checked by its generator.
+docs/api/
+client/src/routeTree.gen.ts
+
+# Preserve imported source samples and inactive package-manager lockfiles.
+data-explorations/**/samples/
+pnpm-lock.yaml
+client/pnpm-lock.yaml
+server/pnpm-lock.yaml

@@ -1,4 +1,5 @@
 # OpenStreetMap (OSM) Developer Visual Guide & Master Handbook
+
 > **Special Focus**: Building Location-Aware Circular Economy Applications with Open Data
 
 ---
@@ -11,13 +12,13 @@
 
 ### Five Pillar Tools of the OpenStreetMap Stack
 
-| OSM Tool / Library | Role in Circular Economy Applications | Key Features |
-| :--- | :--- | :--- |
-| **Leaflet.js** | Client-Side 2D Interactive Map Canvas | Lightweight (40KB), mobile-friendly, custom `L.divIcon` HTML markers |
-| **Overpass API** | Spatial Data Query Engine | Query raw OSM tags (`amenity=recycling`, `shop=second_hand`, `repair=yes`) |
-| **Nominatim API** | Geocoding & Reverse Geocoding | Convert addresses to Lng/Lat coordinates using OSM data |
-| **OSRM (Routing)** | Open Source Routing Machine | Fast C++ engine for reverse logistics and waste pickup route optimization |
-| **PMTiles / MapLibre** | Serverless Vector Tiles | Single-file cloud-optimized vector tile storage with zero server backend |
+| OSM Tool / Library     | Role in Circular Economy Applications | Key Features                                                               |
+| :--------------------- | :------------------------------------ | :------------------------------------------------------------------------- |
+| **Leaflet.js**         | Client-Side 2D Interactive Map Canvas | Lightweight (40KB), mobile-friendly, custom `L.divIcon` HTML markers       |
+| **Overpass API**       | Spatial Data Query Engine             | Query raw OSM tags (`amenity=recycling`, `shop=second_hand`, `repair=yes`) |
+| **Nominatim API**      | Geocoding & Reverse Geocoding         | Convert addresses to Lng/Lat coordinates using OSM data                    |
+| **OSRM (Routing)**     | Open Source Routing Machine           | Fast C++ engine for reverse logistics and waste pickup route optimization  |
+| **PMTiles / MapLibre** | Serverless Vector Tiles               | Single-file cloud-optimized vector tile storage with zero server backend   |
 
 ---
 
@@ -36,15 +37,15 @@ Places API (Pre-defined Categories)                            Overpass API (Unl
 
 ### Comparative Feature Matrix
 
-| Feature | Google Maps Platform | OpenStreetMap Stack |
-| :--- | :--- | :--- |
-| **Map Rendering** | Maps JavaScript API (`importLibrary`) | **Leaflet.js** or **MapLibre GL JS** |
-| **Poi Search** | Places API (Nearby Search) | **Overpass API** (`nwr["amenity"="recycling"]`) |
-| **Address Geocoding** | Google Geocoding API | **Nominatim API** or **Photon** |
-| **Directions & Routing** | Google Routes API | **OSRM**, **Valhalla**, or **GraphHopper** |
-| **Cost Model** | Usage-based credit billing | Free (Community tile servers or self-hosted) |
-| **Data Privacy** | Subject to Google Terms | 100% Data Sovereignty / Self-Hostable |
-| **Custom Markers** | `AdvancedMarkerElement` + `PinElement` | `L.divIcon` HTML/CSS Markers |
+| Feature                  | Google Maps Platform                   | OpenStreetMap Stack                             |
+| :----------------------- | :------------------------------------- | :---------------------------------------------- |
+| **Map Rendering**        | Maps JavaScript API (`importLibrary`)  | **Leaflet.js** or **MapLibre GL JS**            |
+| **Poi Search**           | Places API (Nearby Search)             | **Overpass API** (`nwr["amenity"="recycling"]`) |
+| **Address Geocoding**    | Google Geocoding API                   | **Nominatim API** or **Photon**                 |
+| **Directions & Routing** | Google Routes API                      | **OSRM**, **Valhalla**, or **GraphHopper**      |
+| **Cost Model**           | Usage-based credit billing             | Free (Community tile servers or self-hosted)    |
+| **Data Privacy**         | Subject to Google Terms                | 100% Data Sovereignty / Self-Hostable           |
+| **Custom Markers**       | `AdvancedMarkerElement` + `PinElement` | `L.divIcon` HTML/CSS Markers                    |
 
 ---
 
@@ -54,20 +55,21 @@ One of OpenStreetMap's greatest advantages for circular economy platforms is its
 
 ### Essential OpenStreetMap Tags for Circular Economy
 
-| Circular Economy Feature | OSM Key-Value Tag | Description |
-| :--- | :--- | :--- |
-| **Recycling Center** | `amenity=recycling` | Drop-off hubs for glass, metal, paper, electronics |
-| **Recycling Bin** | `recycling_type=container` | Individual public municipal recycling bins |
-| **Community Repair Shop** | `amenity=repair_cafe` or `shop=repair` | Places to fix electronics, bikes, and clothing |
-| **Second-Hand Shop** | `shop=second_hand` | Thrift stores, upcycled goods, reused furniture |
-| **Waste Transfer Station**| `amenity=waste_transfer_station`| Municipal waste sorting facilities |
-| **E-Waste Drop-off** | `recycling:waste_electrical=yes` | Specialized electronic waste drop-off locations |
+| Circular Economy Feature   | OSM Key-Value Tag                      | Description                                        |
+| :------------------------- | :------------------------------------- | :------------------------------------------------- |
+| **Recycling Center**       | `amenity=recycling`                    | Drop-off hubs for glass, metal, paper, electronics |
+| **Recycling Bin**          | `recycling_type=container`             | Individual public municipal recycling bins         |
+| **Community Repair Shop**  | `amenity=repair_cafe` or `shop=repair` | Places to fix electronics, bikes, and clothing     |
+| **Second-Hand Shop**       | `shop=second_hand`                     | Thrift stores, upcycled goods, reused furniture    |
+| **Waste Transfer Station** | `amenity=waste_transfer_station`       | Municipal waste sorting facilities                 |
+| **E-Waste Drop-off**       | `recycling:waste_electrical=yes`       | Specialized electronic waste drop-off locations    |
 
 ---
 
 ## 4. OpenStreetMap Annotated Code Masterclass
 
 ### Lesson 1: Leaflet.js Initialization with OSM Tiles & HTML Markers
+
 ```javascript
 // Step 1: Include Leaflet CSS & JS in HTML
 // <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -80,7 +82,7 @@ function initOSMMap() {
   // Add OpenStreetMap Standard Tile Layer
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
 
   // Add Custom HTML Pin Marker (Recycling Hub)
@@ -88,7 +90,7 @@ function initOSMMap() {
     className: 'osm-custom-pin',
     html: '<div class="pin-inner">♻️<span class="badge">85%</span></div>',
     iconSize: [38, 38],
-    iconAnchor: [19, 19]
+    iconAnchor: [19, 19],
   });
 
   L.marker([37.7749, -122.4194], { icon: customIcon })
@@ -98,6 +100,7 @@ function initOSMMap() {
 ```
 
 ### Lesson 2: Fetching Recycling Bins via Overpass API (JavaScript)
+
 ```javascript
 async function fetchRecyclingNodesOverpass(south, west, north, east) {
   // Overpass QL Query: Search for recycling amenities within bounding box [S, W, N, E]
@@ -112,7 +115,7 @@ async function fetchRecyclingNodesOverpass(south, west, north, east) {
 
   const response = await fetch('https://overpass-api.de/api/interpreter', {
     method: 'POST',
-    body: 'data=' + encodeURIComponent(overpassQuery)
+    body: 'data=' + encodeURIComponent(overpassQuery),
   });
 
   const result = await response.json();
@@ -122,14 +125,15 @@ async function fetchRecyclingNodesOverpass(south, west, north, east) {
 ```
 
 ### Lesson 3: Address Geocoding with Nominatim API
+
 ```javascript
 async function geocodeAddressOSM(addressString) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressString)}`;
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'CircularEconomyApp/1.0 (contact@your-domain.org)' // Nominatim policy requires User-Agent header
-    }
+      'User-Agent': 'CircularEconomyApp/1.0 (contact@your-domain.org)', // Nominatim policy requires User-Agent header
+    },
   });
 
   const results = await response.json();
@@ -142,6 +146,7 @@ async function geocodeAddressOSM(addressString) {
 ```
 
 ### Lesson 4: Routing Waste Pickup Vehicles with OSRM
+
 ```javascript
 async function getOSRMRoute(startLng, startLat, endLng, endLat) {
   // Free public OSRM server endpoint
@@ -155,7 +160,9 @@ async function getOSRMRoute(startLng, startLat, endLng, endLat) {
     const distanceMeters = data.routes[0].distance;
     const durationSeconds = data.routes[0].duration;
 
-    console.log(`Route Distance: ${(distanceMeters / 1000).toFixed(2)} km, Duration: ${(durationSeconds / 60).toFixed(0)} mins`);
+    console.log(
+      `Route Distance: ${(distanceMeters / 1000).toFixed(2)} km, Duration: ${(durationSeconds / 60).toFixed(0)} mins`,
+    );
     return routeGeoJSON;
   }
   return null;

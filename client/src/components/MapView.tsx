@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 import { MapFacade } from '../lib/map/MapFacade';
 import { MARKER_COLORS } from '../lib/types';
 import './MapView.css';
@@ -28,28 +28,23 @@ export default function MapView({
   hoveredLocationId,
   className = '',
 }: MapViewProps) {
-  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapContainerId = useId();
   const [isInitializing, setIsInitializing] = useState(true);
   const [initError, setInitError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!mapContainerRef.current) return;
-
-    const containerId = 'map-container-' + Math.random().toString(36).substring(2, 9);
-    mapContainerRef.current.id = containerId;
+  const initializeMap = useCallback((container: HTMLDivElement | null) => {
+    if (!container) return;
 
     try {
-      MapFacade.init(containerId);
-      setIsInitializing(false);
+      MapFacade.init(container.id);
+      setInitError(null);
     } catch (err) {
       console.error('Failed to initialize map', err);
       setInitError('Could not load the map. Please try refreshing.');
-      setIsInitializing(false);
     }
+    setIsInitializing(false);
 
-    return () => {
-      MapFacade.destroy();
-    };
+    return () => MapFacade.destroy();
   }, []);
 
   useEffect(() => {
@@ -94,7 +89,8 @@ export default function MapView({
         </div>
       )}
       <div
-        ref={mapContainerRef}
+        id={mapContainerId}
+        ref={initializeMap}
         className="map-view-container"
         style={{ visibility: isInitializing || initError ? 'hidden' : 'visible' }}
       />

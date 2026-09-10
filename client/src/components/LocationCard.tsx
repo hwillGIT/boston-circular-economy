@@ -20,7 +20,7 @@ const LocationCard: React.FC<LocationCardProps> = ({
   isSelected = false,
 }) => {
   let isOpen = null;
-  const hours = location.hours || (location as any).opening_hours;
+  const hours = location.hours;
   if (hours) {
     const todayStr = new Date().toLocaleDateString('en-US', { weekday: 'long' });
     const todayHours = hours.split('; ').find((d: string) => d.startsWith(todayStr));

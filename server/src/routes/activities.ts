@@ -45,7 +45,7 @@ router.get('/', (req, res, next) => {
 
     const totalRow = db
       .prepare('SELECT COUNT(*) as total FROM activities WHERE user_id = ?')
-      .get(req.user.id) as { total: number };
+      .get(req.user!.id) as { total: number };
 
     const activities = db
       .prepare(
@@ -58,7 +58,7 @@ router.get('/', (req, res, next) => {
       LIMIT ? OFFSET ?
     `,
       )
-      .all(req.user.id, limit, offset);
+      .all(req.user!.id, limit, offset);
 
     res.json({ data: activities, meta: { page, limit, total: totalRow.total } });
   } catch (err) {
@@ -105,7 +105,7 @@ router.post('/', (req, res, next) => {
     `,
       )
       .run(
-        req.user.id,
+        req.user!.id,
         input.date || new Date().toISOString(),
         input.action,
         input.item,
@@ -142,7 +142,7 @@ router.get('/stats', (req, res, next) => {
       WHERE user_id = ?
     `,
       )
-      .get(req.user.id);
+      .get(req.user!.id);
 
     res.json({ data: stats });
   } catch (err) {
@@ -160,7 +160,7 @@ router.delete('/:id', (req, res, next) => {
 
     const result = db
       .prepare('DELETE FROM activities WHERE id = ? AND user_id = ?')
-      .run(id, req.user.id);
+      .run(id, req.user!.id);
     if (result.changes === 0) {
       return res.status(404).json({ error: 'Activity not found' });
     }

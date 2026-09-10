@@ -1,15 +1,14 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 import json
 import os
+from datetime import UTC, datetime
 from typing import Any
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from base.querier import BaseQuerier
 from dtos import RawLocation
-
 
 GOOGLE_PLACES_ENDPOINT = "https://places.googleapis.com/v1/places:searchText"
 
@@ -22,18 +21,18 @@ class GooglePlacesQuerier(BaseQuerier):
 
     def fetch(self) -> list[RawLocation]:
         """Fetches locations from the Google Places API based on the text query.
-        
+
         Makes a POST request to the Google Places API using the initialized
         text query and API key, and parses the response into a list of
         RawLocation objects.
-        
+
         Returns:
             A list of RawLocation objects representing the fetched places.
-            
+
         Raises:
             RuntimeError: If the GOOGLE_API_KEY is not provided or if the
                 underlying API request fails.
-                
+
         Examples:
             >>> querier = GooglePlacesQuerier(api_key="test", text_query="query", data_source="source")
             >>> # querier.fetch()  # Would make a network request
@@ -43,7 +42,7 @@ class GooglePlacesQuerier(BaseQuerier):
 
         payload = self._request({"textQuery": self.text_query})
         places = payload.get("places", [])
-        fetched_at = datetime.now(timezone.utc)
+        fetched_at = datetime.now(UTC)
         raw_locations: list[RawLocation] = []
         for index, place in enumerate(places):
             raw_locations.append(
@@ -76,9 +75,15 @@ class GooglePlacesQuerier(BaseQuerier):
 
 class GooglePlacesRepairQuerier(GooglePlacesQuerier):
     def __init__(self, api_key: str | None = None):
-        super().__init__(api_key=api_key, text_query="shoe repair Boston MA", data_source="google_places_repair")
+        super().__init__(
+            api_key=api_key, text_query="shoe repair Boston MA", data_source="google_places_repair"
+        )
 
 
 class GooglePlacesDonationQuerier(GooglePlacesQuerier):
     def __init__(self, api_key: str | None = None):
-        super().__init__(api_key=api_key, text_query="donation centers Boston MA", data_source="google_places_donations")
+        super().__init__(
+            api_key=api_key,
+            text_query="donation centers Boston MA",
+            data_source="google_places_donations",
+        )

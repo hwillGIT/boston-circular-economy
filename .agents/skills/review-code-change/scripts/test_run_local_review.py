@@ -1,0 +1,356 @@
+from __future__ import annotations
+
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from run_local_review import (
+    build_codex_command,
+    changed_files,
+    effective_risk,
+    infer_minimum_risk,
+    load_risk_policy,
+    path_matches,
+)
+
+ROOT = Path(__file__).resolve().parents[4]
+SCRIPT = Path(__file__).with_name("run_local_review.py")
+
+
+class LocalReviewRunnerTests(unittest.TestCase):
+    def dry_run(self, *arguments: str) -> dict[str, object]:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(SCRIPT),
+                "--base",
+                "HEAD",
+                "--dry-run",
+                *arguments,
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return json.loads(completed.stdout)
+
+    def test_green_review_uses_luna_without_invoking_codex(self) -> None:
+        result = self.dry_run("--risk", "green")
+        route = result["route"]
+        self.assertIsInstance(route, dict)
+        self.assertEqual(route["model"], "gpt-5.6-luna")
+        self.assertEqual(route["reasoning_effort"], "low")
+        self.assertEqual(result["command"][-2:], ["--base", "HEAD"])
+        self.assertNotIn("-", result["command"])
+        self.assertIn('sandbox_mode="read-only"', result["command"])
+
+    def test_yellow_review_uses_terra_without_invoking_codex(self) -> None:
+        result = self.dry_run("--risk", "yellow")
+        route = result["route"]
+        self.assertIsInstance(route, dict)
+        self.assertEqual(route["model"], "gpt-5.6-terra")
+        self.assertEqual(route["reasoning_effort"], "medium")
+
+    def test_production_path_raises_green_review_to_yellow(self) -> None:
+        assessment = infer_minimum_risk(
+            ["server/src/routes/locations.ts"], load_risk_policy()
+        )
+
+        self.assertEqual("yellow", assessment["risk"])
+        self.assertEqual("yellow", effective_risk("green", str(assessment["risk"])))
+
+    def test_authentication_path_requires_red_review(self) -> None:
+        paths = (
+            "client/src/lib/auth.tsx",
+            "client/src/Auth.tsx",
+            "client/src/security/authentication.ts",
+            "client/src/auth/oauth.ts",
+            "server/src/identity/oidc.ts",
+            "server/src/identity/OAuthClient.ts",
+            "server/src/routes/login.ts",
+            "server/src/services/user-session.ts",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+                self.assertEqual(
+                    "red",
+                    effective_risk("green", str(assessment["risk"])),
+                )
+
+    def test_migration_path_requires_red_review(self) -> None:
+        paths = (
+            "etl/migration.py",
+            "etl/migrations/0001_initial.py",
+            "etl/src/migration.py",
+            "etl/src/etl/migrations/0001_initial.py",
+            "server/src/db/migrations/add-column.ts",
+            "server/migration.sql",
+            "server/migrations/0001.sql",
+            "server/db/migrations/0002.sql",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+
+    def test_etl_privacy_path_requires_red_review(self) -> None:
+        paths = (
+            "etl/src/privacy.py",
+            "etl/src/etl/privacy/redact.py",
+            "etl/src/etl/jobs/privacy-export.py",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+
+    def test_etl_authentication_path_requires_red_review(self) -> None:
+        paths = (
+            "etl/src/etl/sources/google_places/auth.py",
+            "etl/src/etl/sources/google_places/authentication.py",
+            "etl/src/etl/sources/google_places/credentials.py",
+            "etl/src/etl/sources/google_places/oauth.py",
+            "etl/src/etl/security/authorization.py",
+            "etl/src/etl/secrets/provider.py",
+            "etl/src/etl/user_session.py",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+                self.assertEqual(
+                    "red",
+                    effective_risk("green", str(assessment["risk"])),
+                )
+
+    def test_critical_accessibility_path_requires_red_review(self) -> None:
+        paths = (
+            "client/src/accessibility/focus-trap.tsx",
+            "client/src/a11y/keyboard-navigation.tsx",
+            "client/src/components/aria-live-region.tsx",
+            "client/src/components/dialog-focus-trap.tsx",
+            "client/src/components/keyboard-navigation.tsx",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+
+    def test_ordinary_styling_does_not_require_red_review(self) -> None:
+        assessment = infer_minimum_risk(
+            ["client/src/styles/focus-ring.css"], load_risk_policy()
+        )
+
+        self.assertEqual("yellow", assessment["risk"])
+
+    def test_destructive_operation_path_requires_red_review(self) -> None:
+        paths = (
+            "client/src/pages/settings/delete-account.tsx",
+            "client/src/admin/delete-organization.tsx",
+            "server/src/users/delete-user.ts",
+            "server/src/admin/purge-expired-records.ts",
+            "server/src/maintenance/resetDatabase.ts",
+            "etl/src/jobs/delete-records.py",
+            "etl/src/etl/jobs/reset-data.py",
+            "etl/src/etl/jobs/purge-snapshots.py",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("red", assessment["risk"])
+
+    def test_non_destructive_reset_or_fixture_path_keeps_yellow_review(self) -> None:
+        paths = (
+            "client/src/pages/reset-password.tsx",
+            "client/src/pages/account/reset-preferences.tsx",
+            "server/tests/fixtures/purge-response.json",
+            "etl/tests/fixtures/reset-data.json",
+        )
+        policy = load_risk_policy()
+
+        for path in paths:
+            with self.subTest(path=path):
+                assessment = infer_minimum_risk([path], policy)
+                self.assertEqual("yellow", assessment["risk"])
+
+    def test_globstar_matches_zero_or_more_directories(self) -> None:
+        self.assertTrue(path_matches("client/src/auth.ts", "client/src/**/auth.*"))
+        self.assertTrue(path_matches("client/src/lib/auth.tsx", "client/src/**/auth.*"))
+
+    def test_documentation_path_keeps_green_review(self) -> None:
+        assessment = infer_minimum_risk(["docs/operator-guide.md"], load_risk_policy())
+
+        self.assertEqual("green", assessment["risk"])
+
+    @mock.patch.dict(
+        os.environ,
+        {key: value for key, value in os.environ.items() if not key.startswith("GIT_")},
+        clear=True,
+    )
+    def test_cross_boundary_rename_reviews_both_paths(self) -> None:
+        # A Git hook exports repository paths. Keep them out of temporary repositories.
+        with tempfile.TemporaryDirectory() as directory:
+            repository = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=repository, check=True)
+            subprocess.run(
+                ["git", "config", "user.email", "review@example.invalid"],
+                cwd=repository,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.name", "Review test"],
+                cwd=repository,
+                check=True,
+            )
+            client_file = repository / "client/src/lookup.ts"
+            client_file.parent.mkdir(parents=True)
+            client_file.write_text("export const lookup = true;\n", encoding="utf-8")
+            subprocess.run(["git", "add", "."], cwd=repository, check=True)
+            subprocess.run(
+                ["git", "commit", "-qm", "Add client file"],
+                cwd=repository,
+                check=True,
+            )
+            base = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repository,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            docs_file = repository / "docs/lookup.ts"
+            docs_file.parent.mkdir()
+            client_file.rename(docs_file)
+            subprocess.run(["git", "add", "-A"], cwd=repository, check=True)
+            subprocess.run(
+                ["git", "commit", "-qm", "Move client file"],
+                cwd=repository,
+                check=True,
+            )
+
+            files = changed_files(base, "branch", repository=repository)
+
+        self.assertEqual(files, ["client/src/lookup.ts", "docs/lookup.ts"])
+
+    def test_integration_review_uses_sol(self) -> None:
+        result = self.dry_run("--risk", "yellow", "--task-type", "integration")
+        route = result["route"]
+        self.assertIsInstance(route, dict)
+        self.assertEqual(route["model"], "gpt-5.6-sol")
+        self.assertEqual(route["reasoning_effort"], "high")
+
+    def test_uncommitted_scope_does_not_use_the_base(self) -> None:
+        command = build_codex_command(
+            {"model": "gpt-5.6-luna", "reasoning_effort": "low"},
+            "HEAD",
+            "uncommitted",
+        )
+        self.assertIsInstance(command, list)
+        self.assertIn("--uncommitted", command)
+        self.assertNotIn("--base", command)
+        self.assertNotIn("-", command)
+
+    def test_red_review_requires_escalation(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(SCRIPT),
+                "--base",
+                "HEAD",
+                "--dry-run",
+                "--risk",
+                "red",
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("specialist and human checkpoint", completed.stderr)
+
+    def test_repository_guidance_keeps_review_rules_near_the_change(self) -> None:
+        root_guidance = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        workflow_guidance = (ROOT / ".github/AGENTS.md").read_text(encoding="utf-8")
+
+        self.assertIn("review-code-change", root_guidance)
+        self.assertIn("write-self-explanatory-code", root_guidance)
+        self.assertIn("## Code Review Rules", root_guidance)
+        self.assertIn("### Contract and result", root_guidance)
+        self.assertIn("## Code Review Rules", workflow_guidance)
+        self.assertIn("### Untrusted pull request code", workflow_guidance)
+        self.assertIn("### Tested deployment identity", workflow_guidance)
+        self.assertIn("### Required check continuity", workflow_guidance)
+
+    def test_ci_keeps_separate_event_and_revision_runs(self) -> None:
+        workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertNotIn("edited", workflow)
+        self.assertIn(
+            "ci-${{ github.workflow }}-${{ github.event_name }}-${{",
+            workflow,
+        )
+        self.assertIn("github.event.pull_request.number || github.sha }}", workflow)
+        self.assertIn("cancel-in-progress: true", workflow)
+
+    def test_submission_executes_only_the_trusted_base_runner(self) -> None:
+        workflow = (ROOT / ".github/workflows/submission.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("pull_request_target:", workflow)
+        self.assertIn("branches: [main]", workflow)
+        self.assertIn("types: [opened, reopened, synchronize]", workflow)
+        self.assertNotIn("pull_request.body", workflow)
+        self.assertNotIn("merge_group:", workflow)
+        self.assertIn("ref: ${{ github.event.pull_request.base.sha }}", workflow)
+        self.assertNotIn("ref: ${{ github.event.pull_request.head.sha }}", workflow)
+        self.assertIn("persist-credentials: false", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("pull-requests: read", workflow)
+        self.assertIn("statuses: write", workflow)
+        self.assertIn("cancel-in-progress: false", workflow)
+        self.assertIn("HEAD_SHA: ${{ github.event.pull_request.head.sha }}", workflow)
+        self.assertIn(
+            "run: python -B .agents/skills/make-evidence-based-technical-case/"
+            "scripts/check_submission_workflow.py",
+            workflow,
+        )
+        self.assertNotIn("continue-on-error", workflow)
+
+    def test_unselected_host_cannot_publish(self) -> None:
+        deployment = (ROOT / ".github/workflows/deploy.yml").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("workflow_dispatch:", deployment)
+        self.assertNotIn("push:", deployment)
+        self.assertNotIn("workflow_run:", deployment)
+        self.assertNotIn("pages: write", deployment)
+        self.assertNotIn("id-token: write", deployment)
+        self.assertNotIn("deploy-pages@", deployment)
+        self.assertIn("exit 1", deployment)
+
+
+if __name__ == "__main__":
+    unittest.main()
