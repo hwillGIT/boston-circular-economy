@@ -313,6 +313,7 @@ class LocalReviewRunnerTests(unittest.TestCase):
         )
         self.assertIn("github.event.pull_request.number || github.sha }}", workflow)
         self.assertIn("cancel-in-progress: true", workflow)
+        self.assertIn("check_github_summary.py --event", workflow)
 
     def test_summary_workflow_checks_live_body_from_trusted_base(self) -> None:
         workflow = (ROOT / ".github/workflows/pull-request-summary.yml").read_text(

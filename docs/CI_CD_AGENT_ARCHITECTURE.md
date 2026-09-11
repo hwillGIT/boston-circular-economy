@@ -113,8 +113,8 @@ It executes the checker from the trusted base revision.
 The record starts with a plain-language technical summary.
 The summary states the risk, mechanical fix, and final workflow state.
 It defines three terms that reviewers need for the change.
-The Delivery policy checks the committed record.
-The Pull request summary workflow checks the live description from the trusted base.
+The Delivery policy checks the committed record and the live description during pull request runs.
+The Pull request summary workflow checks every description update from the trusted base.
 Both checks enforce the summary structure and language limits.
 
 The workflow checks the live pull request head before starting and before publishing its result.

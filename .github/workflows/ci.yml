@@ -244,6 +244,9 @@ jobs:
         run: python -B .agents/skills/make-evidence-based-technical-case/scripts/check_submission.py --body-file .github/submission.md
       - name: Check plain-language submission summary
         run: python -B .agents/skills/write-timeless-technical-prose/scripts/check_github_summary.py --body-file .github/submission.md
+      - name: Check pull-request technical summary
+        if: github.event_name == 'pull_request'
+        run: python -B .agents/skills/write-timeless-technical-prose/scripts/check_github_summary.py --event "$GITHUB_EVENT_PATH"
       - name: Test delivery policy
         run: |
           python -B -m unittest discover -s .agents/scripts -v
