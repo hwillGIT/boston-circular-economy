@@ -40,3 +40,8 @@ The CI workflow also uploads the reference as the `api-docs` artifact.
 - [Activity flow decisions](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/ux-decisions/UXDR-002-activity-logging-flow.md)
 - [Customer journey and team design](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/customer_journey_and_agentic_team_design.md)
 - [Architecture decisions](https://github.com/hwillGIT/boston-circular-economy/blob/main/docs/boston_team_adrs_and_architecture.md)
+
+### Collaboration
+
+- [Interested collaborators](interested-collaborators.md) — public professional
+  contact routes for people connected to the project's source report.
