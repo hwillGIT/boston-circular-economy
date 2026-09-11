@@ -67,7 +67,7 @@ Team approval remains separate from these checks.
 | Python tests             | The tested examples and merge rules produce the expected results.        | Live source queries work.                    |
 | Mypy                     | The merge package passes its configured type checks.                     | All Python modules have been checked.        |
 | Documentation audit      | Public callables reached from the configured entries have documentation. | Every comment is accurate or understandable. |
-| Architecture diagrams    | Checked diagram sources render to the committed HTML files.              | A diagram proves every runtime fact.         |
+| Architecture diagrams    | Checked sources match review images and render interactive build pages.  | A diagram proves every runtime fact.         |
 
 Server tests use an in-memory database. They do not open the repository's development database.
 Python tests use local examples. The source queriers still contain unimplemented methods.
@@ -109,7 +109,7 @@ Ask the review team to select one changed case that you have not rehearsed.
 ## Output and review
 
 CI uploads generated TypeScript documentation as the `api-docs` artifact.
-It also uploads the checked Archify diagrams.
+It uploads Archify sources, review images, and interactive review pages.
 On a pull request, it creates an architecture delta when both revisions contain its source.
 These artifacts belong to the revision shown in that CI run.
 Deployment has a separate workflow. Passing this workflow does not establish deployment readiness.

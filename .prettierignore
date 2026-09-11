@@ -4,10 +4,18 @@ data-explorations/**/samples/
 pnpm-lock.yaml
 client/pnpm-lock.yaml
 server/pnpm-lock.yaml
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
 
-# Vendored Archify source retains the upstream formatting and lockfile.
-.agents/skills/archify/
-
-# Archify renders these HTML files from checked JSON sources.
-docs/diagrams/*.html
+# Archify pages are generated during validation and remain outside source control.
+docs/diagrams/*.rendered.*.html
 docs/diagrams/*.visual-check.*
+
+# This policy skill is copied from a pinned external source.
+.agents/skills/write-timeless-technical-prose/
+
+# The technical summary checker requires asterisk concept bullets.
+.github/submission.md
+.github/pull_request_template.md

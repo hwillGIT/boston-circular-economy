@@ -15,9 +15,10 @@ Use these repository skills when the task needs them:
 
 - [Write self-explanatory code](.agents/skills/write-self-explanatory-code/SKILL.md) for implementation.
 - [Explain a technical decision](.agents/skills/make-evidence-based-technical-case/SKILL.md) for technical prose.
+- [Write timeless technical prose](.agents/skills/write-timeless-technical-prose/SKILL.md) for project documentation and GitHub communication.
 - [Review code changes](.agents/skills/review-code-change/SKILL.md) for a review.
 - [Route agent work](.agents/skills/route-agent-work/SKILL.md) for selecting checks and assistance.
-- [Create and review diagrams](.agents/skills/archify/SKILL.md) for checked system maps.
+- [Create and review diagrams](docs/diagrams/README.md) for checked system maps.
 
 User instructions and existing authorization take precedence over repository guidance.
 Continue authorized local work. Ask only for a missing decision that affects the next action.
@@ -35,6 +36,9 @@ Give evidence, explain why it supports the result, and state its limits.
 Compare the closest alternative fairly.
 Keep formal argumentation names and labels out of contributor-facing output.
 
+Use the timeless prose skill before you edit documentation, a README, an architecture page, workflow text, a review, or a pull request summary.
+Write one editorial present and use the project Simplified Technical English profile.
+
 Use [the developer prompts](docs/work-units/DEVELOPER_AI_GUIDE.md) to help a contributor practice.
 Ask one question and wait for the answer.
 A completed form or passing check cannot establish understanding.
@@ -48,11 +52,13 @@ Use the versions in `.node-version` and `etl/.python-version`.
 
 ```bash
 npm ci --no-audit --no-fund
-npm ci --prefix .agents/skills/archify --no-audit --no-fund
 python3 -m pip install -r .agents/requirements.txt
 uv sync --locked --dev --directory etl
 python3 -m pre_commit install --hook-type pre-commit --hook-type pre-push
 ```
+
+For diagram work, follow [the diagram guide](docs/diagrams/README.md).
+It installs the pinned renderer in `.archify-tool`, which Git ignores.
 
 Use [the workflow guide](docs/CI_CD_AGENT_ARCHITECTURE.md) for checks and submission.
 Local routing limits application checks to affected areas.
@@ -62,6 +68,13 @@ Unknown paths and workflow changes select all local application checks.
 Copy the pull request template into `.github/submission.md`.
 Replace inherited evidence with the current work and check results.
 Commit the record with the change. Copy it into the pull request description for reviewers.
+Run the summary check before you copy the record into a pull request. CI checks the
+committed record and the live pull request description.
+
+```bash
+python3 -B .agents/skills/write-timeless-technical-prose/scripts/check_github_summary.py --body-file .github/submission.md
+```
+
 Use a draft pull request while implementation or required checks remain incomplete.
 Mark it ready for review when its scoped work and checks are complete.
 Pending team approval is part of review and does not require draft status.

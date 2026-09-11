@@ -83,8 +83,8 @@ Do not create parallel agent work unless the user or applicable instructions aut
 
 Use a checked Archify diagram when a unit changes a system boundary, request path, state flow, data flow, or CI behavior.
 Read the [diagram guide](diagrams/README.md) before you start.
-Commit the JSON source and HTML result together.
-CI checks that the result still matches the source.
+Commit the JSON source, manifest record, and PNG review image together.
+CI renders the interactive page and checks the source hash for the review image.
 Ask the contributor to trace one changed connection and predict the result of a changed condition.
 
 Mechanical checks belong to deterministic tools.

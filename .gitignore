@@ -41,3 +41,6 @@ docs/api/
 .ruff_cache/
 .playwright-cli/
 output/playwright/
+
+# Local checkout of the pinned Archify renderer
+.archify-tool/

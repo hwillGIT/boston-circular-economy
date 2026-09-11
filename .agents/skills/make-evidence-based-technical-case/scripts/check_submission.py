@@ -70,6 +70,16 @@ DOCUMENTATION_OPTIONS = (
     "I recorded a follow-up issue for remaining work",
 )
 PLACEHOLDER = re.compile(r"<!--.*?-->", re.DOTALL)
+TECHNICAL_SUMMARY_MARKERS = (
+    "<!-- technical-summary:start -->",
+    "<!-- technical-summary:end -->",
+    "<!-- technical-risk:start -->",
+    "<!-- technical-risk:end -->",
+    "<!-- technical-fix:start -->",
+    "<!-- technical-fix:end -->",
+    "<!-- technical-state:start -->",
+    "<!-- technical-state:end -->",
+)
 REQUIRED_EVIDENCE_CHECKS = (
     "Client lint and build",
     "Server lint and build",
@@ -157,6 +167,14 @@ def has_meaningful_section_content(content: str) -> bool:
     decoded_entities = html.unescape(without_html)
     without_empty_markdown = EMPTY_MARKDOWN_LINE.sub("", decoded_entities)
     return any(character.isalnum() for character in without_empty_markdown)
+
+
+def has_template_placeholder(content: str) -> bool:
+    """Ignore the checked technical-summary markers before finding template comments."""
+
+    for marker in TECHNICAL_SUMMARY_MARKERS:
+        content = content.replace(marker, "")
+    return PLACEHOLDER.search(content) is not None
 
 
 def mask_markdown_code_blocks(body: str) -> str:
@@ -359,7 +377,7 @@ def check_submission(body: str) -> list[SubmissionFinding]:
                     SubmissionFinding("empty-label", f"{section_name}: {label}")
                 )
 
-    if PLACEHOLDER.search(record):
+    if has_template_placeholder(record):
         findings.append(
             SubmissionFinding("template-placeholder", "remove all HTML placeholders")
         )

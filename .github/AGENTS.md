@@ -31,6 +31,10 @@ Do not add path filters that leave a required context missing.
 ### Evidence and team review
 
 Keep submission evidence in the same commit as the work.
+Use the timeless prose skill for workflow text and the submission summary.
+Start the record with the required plain-language technical summary markers.
+The summary workflow checks the live pull request description from the trusted base.
+It must not execute code or install dependencies from the proposed revision.
 Check the live pull request head before publishing a commit status.
 A passing form check proves only that required fields have content.
 It cannot prove a test was run or a contributor understands the work.

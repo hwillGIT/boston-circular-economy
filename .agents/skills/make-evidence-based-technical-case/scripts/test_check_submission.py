@@ -102,6 +102,30 @@ class CheckSubmissionTests(unittest.TestCase):
     def test_valid_submission_passes(self) -> None:
         self.assertEqual(check_submission.check_submission(VALID_BODY), [])
 
+    def test_technical_summary_markers_pass(self) -> None:
+        summary = """<!-- technical-summary:start -->
+## Plain-English Technical Summary
+
+<!-- technical-risk:start -->
+The renderer adds too many lines to the pull request.
+<!-- technical-risk:end -->
+<!-- technical-fix:start -->
+CI builds the page as an artifact
+<!-- technical-fix:end -->
+<!-- technical-state:start -->
+while Git stores a compact review image.
+<!-- technical-state:end -->
+
+**Key Concepts Explained**
+
+* **\"Renderer\":** A renderer creates a review page from a diagram source.
+* **\"Artifact\":** CI stores this file with the run for team inspection.
+* **\"Review image\":** Git stores a compact diagram image for pull request review.
+<!-- technical-summary:end -->
+"""
+
+        self.assertEqual(check_submission.check_submission(f"{summary}\n{VALID_BODY}"), [])
+
     def test_repository_committed_submission_record_passes(self) -> None:
         root = Path(__file__).resolve().parents[4]
         record = (root / ".github/submission.md").read_text(encoding="utf-8")

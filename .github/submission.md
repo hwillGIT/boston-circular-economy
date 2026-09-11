@@ -1,92 +1,94 @@
+<!-- technical-summary:start -->
+
+## Plain-English Technical Summary
+
+<!-- technical-risk:start -->
+
+The renderer and interactive pages add 179,000 lines to a review pull request.
+<!-- technical-risk:end -->
+<!-- technical-fix:start -->
+
+CI checks out the pinned renderer and generates interactive pages as artifacts
+<!-- technical-fix:end -->
+<!-- technical-state:start -->
+
+while the repository keeps two review images and the JSON sources.
+<!-- technical-state:end -->
+
+**Key Concepts Explained**
+
+* **"Pinned renderer":** CI checks out one fixed source revision before it creates diagram review pages.
+* **"Review image":** A checked PNG lets reviewers inspect each diagram from the pull request file list.
+* **"Build artifact":** CI uploads the interactive page for detailed review without storing the page in Git.
+
+<!-- technical-summary:end -->
+
 ## Outcome
 
-Archify creates checked diagrams for delivery and review work.
-The CI workflow validates their JSON sources and committed HTML results.
-The UI-005 packet provides a checked template for a proposed clinic-search call.
-The main branch requires a current `Quality Gate`, `Submission record`, and two team approvals.
+The review team can inspect Archify diagrams without reviewing 179,000 vendored and generated lines.
+CI renders interactive pages from a pinned source revision and uploads them with the job.
 
-Issue exception: The Archify integration has no dedicated issue. The API template supports #7.
+Issue exception: This CI and documentation change has no dedicated issue.
 
 ## Evidence and limits
 
-- Evidence: Two Archify diagrams validate with nine checks each. The API template validates with its checked schema. Main protection requires the checked aggregate and submission status.
-- Why this evidence supports the result: The renderer confirms that each source matches its generated file. The schema rejects an incomplete API handoff before review.
-- Conditions and limits: Local ETL tests use repository fixtures. GitHub CI remains the final runner and action environment.
-- What could change the decision: A failed hosted check, a stale render, or an unreviewed renderer update requires a revision.
+- Evidence: The pinned renderer validates both JSON sources with nine checks. Both browser captures pass.
+- Why this evidence supports the result: The renderer confirms valid sources and produces the pages used for the review images.
+- Conditions and limits: The source hash records the image source revision. It does not prove that the PNG pixels match the page.
+- What could change the decision: A renderer change, failed diagram check, or misleading review image requires a revised artifact.
 
 ## Decision explanation
 
-- Why this design: JSON sources make system diagrams reviewable and reproducible. Checked HTML gives reviewers an interactive artifact. The API template separates route evidence from a proposal.
-- Closest alternative: A hand-drawn image could explain the same flow. It would not prove that the checked source still creates the image.
-- Trade-off accepted: The fork stores a pinned renderer and its lockfile. A renderer upgrade needs an explicit review.
-- Revisit when: A maintained organization-wide diagram tool replaces the pinned renderer.
+- Why this design: CI uses a fixed renderer revision. The repository keeps concise sources and images for review.
+- Closest alternative: Commit the renderer and interactive HTML pages. That supports local viewing but makes ordinary review impractical.
+- Trade-off accepted: Reviewers use the CI artifact for interactive controls. The checked PNG shows a static capture.
+- Revisit when: A maintained diagram tool produces compact, deterministic review artifacts with the same source checks.
 
 ## Code quality
 
-- Trace one example: `check_archify_diagrams.mjs` reads the manifest, delivers each diagram, then checks that Git tracks the source and HTML.
-- Where to make a likely change: `docs/diagrams/manifest.json` owns diagram locations. The source JSON owns the diagram's nodes and connections.
-- Who owns the rule and state: The CI workflow owns execution. The manifest owns included diagrams. The review team owns the decision.
-- Failure and recovery: A stale HTML file fails the check. Run the diagram check, inspect the result, and commit the generated file.
-- What became simpler or harder: Reviewers can inspect a current map from a pull request. Renderer updates need a deliberate dependency change.
+- Trace one example: `check_archify_diagrams.mjs` reads a manifest, validates the JSON, creates HTML, and checks the corresponding review image.
+- Where to make a likely change: `docs/diagrams/manifest.json` owns diagram paths, source hashes, and renderer revision.
+- Who owns the rule and state: The workflow runs the renderer. The manifest owns each diagram record.
+- Failure and recovery: A changed source hash fails the check. Refresh the PNG and update the manifest hash.
+- What became simpler or harder: Git review is smaller. A diagram refresh requires a browser capture.
 
 ## Risk and scope
 
 - Review level: Yellow
-- In scope: Pinned Archify source, checked diagrams, local validation, CI artifacts, developer guidance, API handoff templates, and main review enforcement.
-- Out of scope: Hosted AI reviews, deployment, backend changes, and Slack messages.
-- Rules that must remain true: CI uses read-only repository permissions. It does not invoke an AI model or approve a merge.
+- In scope: Archify sources, review images, diagram checks, CI artifacts, documentation, and writing policy.
+- Out of scope: Application behavior, deployment, hosted AI review, backend calls, and Slack messages.
+- Rules that must remain true: CI uses read-only repository access. Team approval remains separate from automated checks.
 
 ## What changed
 
-The fork contains two delivery diagrams with JSON sources and HTML results.
-The `architecture-diagrams` job installs the pinned renderer, validates both pairs, and uploads the review artifacts.
-It builds a comparison artifact when the pull request base and head both include the architecture source.
-Main now requires the `Quality Gate` and `Submission record` from GitHub Actions.
-It also requires two team approvals and dismisses stale approvals.
-Workflow guidance uses the same two-approval team review rule.
-The artifact uploader uses the pinned Node 24 release.
-The activation record states the tested Replit build, local SQLite limit, and required data decision.
-The activation record links one bounded task for hosting and one for hosted AI review.
-The activation guide uses an ordinary pull request for the hosted submission check.
-It does not require a separate invalid test request.
-
-The local runner calls the same diagram check before a push.
-Work-unit manifests name review-team roles and record two team members before acceptance.
-The schema test rejects an accepted work unit with only one recorded team member.
-The mentoring guide gives each review-team member a separate check and shared record.
-The UI-005 packet includes a proposed API call template and a checked schema.
-The template separates inspected routes from a proposed clinic-search operation.
-It requires success, empty, and failure cases before a contributor starts implementation.
-The delivery checker validates a copied API call manifest before team review.
-The server test command uses Node test discovery. It runs on Windows shells that do not expand file patterns.
-The developer playbook includes a prompt that asks contributors to trace a changed connection and predict a changed result.
-The formatting rules exclude only generated, imported, and vendored files.
+- CI checks out `tt-a1i/archify` at a fixed commit.
+- The diagram checker renders ignored HTML files and checks JSON source hashes for static PNG images.
+- The summary workflow checks new and edited pull request descriptions from the trusted base.
+- The repository contains two JSON sources and two compact PNG review images.
+- The workflow uploads interactive pages and an architecture comparison artifact.
+- The project contains the timeless technical prose skill and uses it for documentation and submission summaries.
 
 ## Challenge cases
 
-The diagram checker rejects unsupported types, missing files, paths outside the fork, repeated identifiers, and source metadata that disagrees with the manifest.
-It also rejects diagram pairs that Git does not track and HTML that does not match a current render.
-The delta step skips the first integration because its base revision has no architecture source.
-The API template check rejects a missing response case or an accepted contract with one team member.
+The check validates the external renderer path and the manifest revision before it creates a page.
+The browser captures show the full diagram at four viewport sizes.
+
+- Normal case: Both diagrams pass nine Archify checks with no warnings.
+- Boundary case: The checker rejects a PNG smaller than 640 by 400 pixels.
+- Failure case: The checker rejects a source hash that does not match its review image record.
+- Regression case: The architecture comparison artifact still renders when the base source exists.
 
 ## Evidence
 
-| Check                               | Result       | Evidence or reason not run                                                       |
-| ----------------------------------- | ------------ | -------------------------------------------------------------------------------- |
-| Client lint and build               | Pass         | Client lint, CSS lint, and a Node 22.23.2 production build pass.                 |
-| Server lint and build               | Pass         | Server lint, TypeScript build, and four authentication tests pass.               |
-| ETL tests                           | Pass         | Python 3.14.3 runs Ruff, Mypy, and all 22 ETL tests.                             |
-| Technical prose and editorial style | Pass         | Prose check reports zero violations. Delivery policy validates the API template. |
-| Replit production build             | Pass         | `npm run replit:build` passes on main with Node.js 22.23.2.                      |
-| Replit production smoke check       | Not run      | The Windows workspace blocks the native SQLite install script.                   |
-| Manual user journey                 | Not affected | This change adds CI and documentation. It does not change a product journey.     |
-| Accessibility / responsive          | Not affected | This change adds CI and documentation. It does not change rendered product UI.   |
-| Security / privacy / recovery       | Not run      | Hosted workflow permissions and artifact retention need GitHub CI evidence.      |
-
-The application documentation audit and generation pass.
-Archify validates both diagrams with nine checks and no warnings.
-The browser review passes for the current architecture diagram.
-It shows the main branch label and active status rules.
+| Check                               | Result       | Evidence or reason not run                                                                   |
+| ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
+| Client lint and build               | Not affected | The change does not alter client source files.                                               |
+| Server lint and build               | Not affected | The change does not alter server source files.                                               |
+| ETL tests                           | Not affected | The change does not alter ETL source files.                                                  |
+| Technical prose and editorial style | Pass         | The delivery prose check and the technical summary check pass.                               |
+| Manual user journey                 | Not affected | The change does not alter a product journey.                                                 |
+| Accessibility / responsive          | Not affected | The change does not alter application screens.                                               |
+| Security / privacy / recovery       | Pass         | CI uses `contents: read` and an exact Archify commit. The job uploads review artifacts only. |
 
 ## AI assistance
 
@@ -95,18 +97,12 @@ It shows the main branch label and active status rules.
 - [x] AI assisted with review or challenge
 
 This record does not establish contributor understanding. The review team must check the explanation against the submitted work.
-The trusted-base checker still needs this legacy statement while it is updated by this pull request.
-This record does not establish contributor understanding. Human review must check the explanation against the submitted work.
 
 ## Review focus and uncertainty
 
-Review the pinned Archify source, the renderer lockfile, the main protection settings, and the narrow formatting exclusions.
-Confirm that the new CI job has no write permission and that its uploaded artifacts match this revision.
-The first pull request can only demonstrate that the delta step skips a base without diagram source.
+Review the external checkout path, fixed renderer revision, JSON source hashes, and static image quality.
+The browser check supports layout claims but does not replace team inspection of the diagram meaning.
 
 ## Documentation and learning
 
 - [x] I updated the relevant README, `AGENTS.md`, decision record, or runbook
-
-The diagram guide records update, review, and mentoring steps.
-The developer prompt asks for a personal trace and prediction before feedback.

@@ -1,7 +1,30 @@
+<!-- technical-summary:start -->
+
+## Plain-English Technical Summary
+
+<!-- technical-risk:start -->
+<!-- State the concrete failure risk or conflict. -->
+<!-- technical-risk:end -->
+<!-- technical-fix:start -->
+<!-- State the mechanical fix. -->
+<!-- technical-fix:end -->
+<!-- technical-state:start -->
+<!-- State the result after the method or workflow completes. -->
+<!-- technical-state:end -->
+
+**Key Concepts Explained**
+
+* **"Term one":** Define the term and state its effect on the changed behavior.
+* **"Term two":** Define the term and state its effect on the changed behavior.
+* **"Term three":** Define the term and state its effect on the changed behavior.
+
+<!-- technical-summary:end -->
+
 <!--
 The required submission record is .github/submission.md. Replace that file with this
-template's completed content and commit it with every change. You may mirror the same
-record here for review-team convenience. CI does not validate this pull request body.
+template's completed content and commit it with every change. Copy the same record into
+the pull request description for team review. CI validates the record and the live pull
+request description.
 -->
 
 ## Outcome

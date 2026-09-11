@@ -4,7 +4,7 @@
   "meta": {
     "title": "CI, Review, and Documentation Workflow",
     "locale": "en",
-    "output": "docs/diagrams/ci-review.workflow.html",
+    "output": "docs/diagrams/ci-review.rendered.workflow.html",
     "quality_profile": "showcase",
     "views": [
       {
@@ -17,7 +17,7 @@
         "id": "checks",
         "label": "Checks and docs",
         "focus": ["open_pr", "ci_checks", "archify_render", "review_artifacts"],
-        "note": "GitHub checks committed evidence, code, prose, and diagrams."
+        "note": "GitHub checks committed evidence, code, prose, and diagram sources."
       },
       {
         "id": "decision",

@@ -50,6 +50,7 @@ Do not hide uncertainty behind numerical scores or confident wording.
 
 ## Write for a project newcomer
 
+Use the [timeless prose skill](../.agents/skills/write-timeless-technical-prose/SKILL.md) for documentation, workflow text, and submission summaries.
 Use short, active sentences.
 Keep one instruction in each sentence.
 Use one term for each concept.

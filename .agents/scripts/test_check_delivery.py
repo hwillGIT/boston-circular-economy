@@ -60,10 +60,10 @@ class ProseBaselineTests(unittest.TestCase):
             path.write_bytes(b"One line.\r\nAnother line.\r\n")
             self.assertEqual(digest, content_digest(path))
 
-    def test_vendored_archify_text_stays_outside_project_prose_checks(self) -> None:
+    def test_copied_skill_text_stays_outside_project_prose_checks(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            vendored = root / ".agents/skills/archify/SKILL.md"
+            vendored = root / ".agents/skills/write-timeless-technical-prose/SKILL.md"
             authored = root / "docs/guide.md"
             vendored.parent.mkdir(parents=True)
             authored.parent.mkdir(parents=True)

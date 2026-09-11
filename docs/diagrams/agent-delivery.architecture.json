@@ -4,7 +4,7 @@
   "meta": {
     "title": "AI-Assisted Delivery and Review",
     "locale": "en",
-    "output": "docs/diagrams/agent-delivery.architecture.html",
+    "output": "docs/diagrams/agent-delivery.rendered.architecture.html",
     "quality_profile": "showcase",
     "viewBox": [1100, 560],
     "repository": {
@@ -24,7 +24,7 @@
         "id": "automated-checks",
         "label": "Automated checks",
         "focus": ["pull_request", "ci", "archify", "diagram_artifact"],
-        "note": "Checks validate committed evidence and checked-in diagrams."
+        "note": "Checks validate committed evidence and diagram sources."
       },
       {
         "id": "team-decision",
@@ -201,7 +201,7 @@
       "title": "Automation",
       "items": [
         "CI checks code, prose, records, and diagrams.",
-        "Archify validates sources and renders checked-in files."
+        "Archify validates sources and creates review artifacts."
       ]
     },
     {

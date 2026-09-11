@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { dirname, isAbsolute, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
@@ -19,6 +19,18 @@ function requireRevision(name) {
     throw new Error(`${name} must be a 40-character Git commit identifier.`);
   }
   return value;
+}
+
+function archifyBinary() {
+  const configuredRoot = process.env.ARCHIFY_ROOT || '.archify-tool/archify';
+  const root = isAbsolute(configuredRoot) ? configuredRoot : resolve(ROOT, configuredRoot);
+  const binary = resolve(root, 'bin/archify.mjs');
+  if (!existsSync(binary)) {
+    throw new Error(
+      `Archify is unavailable at ${root}. Check out the pinned renderer there or set ARCHIFY_ROOT.`,
+    );
+  }
+  return binary;
 }
 
 function architectureSource() {
@@ -68,7 +80,7 @@ writeFileSync(headPath, headSource.stdout, 'utf8');
 const completed = spawnSync(
   process.execPath,
   [
-    '.agents/skills/archify/bin/archify.mjs',
+    archifyBinary(),
     'compare',
     'architecture',
     basePath,

@@ -37,16 +37,20 @@ describes that transition.
 | Test • ETL            | Python tests                                                       |
 | Docs • Generate       | Public function documentation and generated API reference          |
 | Docs • Python         | Advisory Python docstring audit                                    |
-| Architecture diagrams | Checked Archify sources and rendered review documents              |
+| Architecture diagrams | Archify sources, review images, and generated review pages         |
 | Delivery policy       | Prose, work-unit manifests, submission structure, and policy tests |
+| Pull request summary  | Plain-language description checked from the trusted base           |
 | Quality Gate          | All listed jobs completed successfully                             |
 
 The Python docstring audit remains advisory.
 Read its step output for missing documentation, even when its job succeeds.
 The other listed failures prevent a successful Quality Gate.
 
-Architecture diagrams use JSON sources and checked HTML outputs.
-CI rebuilds the HTML and fails when a committed output is stale.
+Architecture diagrams use JSON sources and checked PNG review images.
+CI checks out the pinned renderer and creates interactive HTML review pages.
+The HTML pages are build artifacts and are not committed.
+The diagram manifest records the source hash used for each PNG image.
+The checker rejects a changed source without a refreshed image record.
 Pull requests also receive a comparison artifact when both revisions include the architecture source.
 The artifact guides review. The review team decides whether the diagram supports the change.
 
@@ -70,10 +74,11 @@ Before pushing, the local runner requires a clean worktree and the checked-out c
 python3 -B .agents/skills/route-agent-work/scripts/run_local_checks.py --base origin/main
 ```
 
-To check only the diagrams, install their nested dependencies and run this command.
+To check only the diagrams, follow [the diagram guide](diagrams/README.md).
+It checks out the pinned renderer outside the tracked project files.
 
 ```bash
-npm ci --prefix .agents/skills/archify --no-audit --no-fund
+$env:ARCHIFY_ROOT = '.archify-tool/archify'
 node .agents/scripts/check_archify_diagrams.mjs
 ```
 
@@ -104,6 +109,13 @@ The pull request description is the readable copy of `.github/submission.md`.
 The record must differ from the base record.
 The submission workflow reads the committed record through the GitHub API.
 It executes the checker from the trusted base revision.
+
+The record starts with a plain-language technical summary.
+The summary states the risk, mechanical fix, and final workflow state.
+It defines three terms that reviewers need for the change.
+The Delivery policy checks the committed record.
+The Pull request summary workflow checks the live description from the trusted base.
+Both checks enforce the summary structure and language limits.
 
 The workflow checks the live pull request head before starting and before publishing its result.
 It writes the `Submission record` status to that head.

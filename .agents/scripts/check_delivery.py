@@ -12,7 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 PROSE_SCRIPTS = ROOT / ".agents/skills/make-evidence-based-technical-case/scripts"
-VENDORED_PROSE_DIRECTORIES = (Path(".agents/skills/archify"),)
+VENDORED_PROSE_DIRECTORIES = (Path(".agents/skills/write-timeless-technical-prose"),)
 sys.path.insert(0, str(PROSE_SCRIPTS))
 import check_prose  # noqa: E402
 
@@ -24,13 +24,13 @@ def content_digest(path: Path) -> str:
 
 
 def is_vendored_prose(path: Path, root: Path) -> bool:
-    """Keep a pinned external skill outside the project prose policy."""
+    """Keep copied external skill text outside the project prose policy."""
     relative = path.resolve().relative_to(root.resolve())
     return any(relative.is_relative_to(directory) for directory in VENDORED_PROSE_DIRECTORIES)
 
 
 def project_prose_paths(paths: list[Path], root: Path) -> list[Path]:
-    """Keep authored project text while preserving vendored source unchanged."""
+    """Check authored project text while preserving copied skill text unchanged."""
     return [path for path in paths if not is_vendored_prose(path, root)]
 
 
