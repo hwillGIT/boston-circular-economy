@@ -1,77 +1,65 @@
 ## Outcome
 
-Contributors receive five bounded frontend assignments with prompts, deliverables, and a human explanation checkpoint.
-The workflow checks the fork's application and committed work evidence.
+Collaborators can find public professional contact routes for the people who
+created the source report and represented its MassDEP client.
+The directory identifies the report as a Tufts field project and links each
+route to its public source.
 
-Closes #11
+Issue exception: This requested collaborator directory has no dedicated issue.
 
 ## Evidence and limits
 
-- Evidence: Local checks pass for client and server builds, four server tests, 22 Python tests, and 158 delivery-policy tests.
-- Why this evidence supports the result: Application checks preserve the fork's behavior. Policy tests reject incomplete records, invalid dependencies, and failed required jobs.
-- Conditions and limits: A completed record cannot establish that its statements are correct or that a contributor understands the work.
-- What could change the decision: Missing required checks, incorrect routing, or execution of untrusted code with a write token require revision.
+- Evidence: The directory uses the Tufts archive, employer pages, and agency pages that publish the listed roles or contact routes.
+- Why this evidence supports the result: Each row links to the page that establishes the person, role, or professional route.
+- Conditions and limits: A public address can become invalid after a job change. The directory does not establish willingness to collaborate.
+- What could change the decision: A contact correction from the named person or organization requires an update.
 
 ## Decision explanation
 
-- Why this design: Build on PR #10's tested fork revision and retain its application checks.
-- Closest alternative: The original pilot branch preserves earlier review history. It has conflicting application changes and continues to change elsewhere.
-- Trade-off accepted: This integration needs a separate review and an explicit merge order.
-- Revisit when: The maintainer selects another shared workflow or the host-specific release procedure.
+- Why this design: A small sourced directory gives collaborators a clear starting point without copying personal information into the repository.
+- Closest alternative: A list of names without contact routes is shorter. It would require each reader to repeat the same research.
+- Trade-off accepted: Some rows use an organization route because no individual professional address was published.
+- Revisit when: A source changes, a person requests removal, or the project adds an approved outreach owner.
 
 ## Code quality
 
-- Trace one example: A changed legacy document loses its content exemption. The prose checker reports violations for correction before submission.
-- Where to make a likely change: The delivery checker owns baseline matching and manifest checks. The submission checker owns required record fields.
-- Who owns the rule and state: Versioned policy owns mechanical rules. GitHub owns check results. A human reviewer owns acceptance.
-- Failure and recovery: A missing field, unaccepted dependency, or failed required check prevents success. Correct the affected artifact and submit a new revision.
-- What became simpler or harder: Ordinary questions connect the assignment, record, and review. Content fingerprints preserve existing prose debt without exempting edited files.
+- Trace one example: A maintainer selects a contact route, opens its source, and confirms the listed organization before outreach.
+- Where to make a likely change: `docs/interested-collaborators.md` owns the directory rows and source links.
+- Who owns the rule and state: The document owns its wording. The listed organizations own their public contact information.
+- Failure and recovery: A stale route can misdirect outreach. Replace it only after a public professional source confirms the correction.
+- What became simpler or harder: The directory makes the report's contributors easier to find. It requires periodic source checks.
 
 ## Risk and scope
 
-- Review level: Red
-- In scope: Assignment guidance, local checks, CI integration, committed submission validation, review instructions, and activation steps.
-- Out of scope: New product behavior, live API credentials, automatic human approval, and Slack messages.
-- Rules that must remain true: Required checks remain effective. Privileged workflows execute trusted base code and treat the submitted record as data.
+- Review level: Yellow
+- In scope: A source-linked collaborator directory and a documentation index link.
+- Out of scope: Outreach, invitations, personal contact details, and changes to product behavior.
+- Rules that must remain true: Each listed route is public and professional. No address is guessed from a naming pattern.
 
 ## What changed
 
-Five manifests connect research, specifications, wireframes, visual design, and a backend-call proposal.
-Prompts ask contributors to predict, trace, compare, change a condition, and explain independently.
-
-The integration starts from PR #10 at revision `4a25a6f`.
-The workflow tools derive from `6ac23f9`, with fork-specific checks and ordinary language.
-A fingerprint baseline records 52 unchanged legacy files.
-The manual deployment readiness workflow performs no publication while hosting remains unresolved.
-
-The submission status script exercises GitHub calls through a testable boundary.
-It reads the record from the expected source commit and publishes through the base repository.
-The workflow executes that script from trusted base code.
+- Added a source-linked directory for the five field-project authors and the two MassDEP project partners.
+- Added a note that the archived report is a Tufts University field project, not a UMass project.
+- Linked the directory from the documentation index.
 
 ## Challenge cases
 
-Tests cover missing fields, misleading Markdown, incomplete acceptance, unknown dependencies, cycles, and missing sources.
-An edited legacy file loses its exemption.
-Each failed, skipped, or cancelled required job prevents a successful Quality Gate.
-The review router raises the minimum review level for sensitive paths.
-Submission tests cover changed commits, failed API reads and writes, malformed records, and contributor forks.
-Embedded record commands remain inert text.
+The research found current roles that differ from the 2021 report. The directory
+therefore labels public routes as routes rather than proof of current project
+participation. It also uses organization contacts when no individual address was
+published.
 
 ## Evidence
 
-| Check                               | Result       | Evidence or reason not run                                                                                      |
-| ----------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Client lint and build               | Pass         | Client lint, CSS checks, Prettier, and production build. Existing bundle warnings remain.                       |
-| Server lint and build               | Pass         | Server lint, TypeScript build, and four isolated authentication tests.                                          |
-| ETL tests                           | Pass         | Ruff checks, format, Mypy, and all 22 tests.                                                                    |
-| Technical prose and editorial style | Pass         | No new prose violations, five valid manifests, 158 policy tests, and four validated skills.                     |
-| Manual user journey                 | Not affected | Application source matches PR #10, which records the browser journey checks.                                    |
-| Accessibility / responsive          | Not affected | This integration changes delivery files and assignment guidance.                                                |
-| Security / privacy / recovery       | Not run      | Hosted trusted-base submission tests, human workflow review, and host-specific recovery remain activation work. |
-
-The public function documentation audit and generation pass.
-The existing Python docstring audit remains advisory.
-Hosted integration CI must be checked against the submitted commit.
+| Check                               | Result       | Evidence or reason not run                                                                |
+| ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| Client lint and build               | Not affected | The change does not alter client files.                                                   |
+| Server lint and build               | Not affected | The change does not alter server files.                                                   |
+| ETL tests                           | Not affected | The change does not alter ETL files.                                                      |
+| Technical prose and editorial style | Pass         | The technical prose and formatting checks pass for both changed documents.                |
+| Manual user journey                 | Not affected | The change does not alter an application flow.                                            |
+| Accessibility / responsive          | Not affected | The change does not alter a screen.                                                       |
+| Security / privacy / recovery       | Pass         | The directory excludes personal addresses, private phone numbers, and inferred addresses. |
 
 ## AI assistance
 
@@ -83,16 +71,10 @@ This record does not establish contributor understanding. Human review must chec
 
 ## Review focus and uncertainty
 
-Review the trusted-base submission workflow, baseline exemptions, preserved CI checks, and the decision to defer publication.
-The first integration cannot demonstrate trusted-base enforcement until its policy exists on main.
-A follow-up pull request must test that path before required status checks are enabled.
-
-Human review, a contributor demonstration, hosted AI review configuration, and deployment remain pending.
-The activation guide gives concrete checks and the required merge order.
+Confirm that each source supports the listed route and that the directory does
+not expose personal contact information. Confirm that the Tufts affiliation
+correction is clear.
 
 ## Documentation and learning
 
-- [x] I recorded a follow-up issue for remaining work
-
-[Issue #11](https://github.com/hwillGIT/boston-circular-economy/issues/11) tracks integration and activation evidence.
-The developer guide contains practice prompts. Acceptance records remain empty until human review.
+- [x] I updated the relevant README, `AGENTS.md`, decision record, or runbook
