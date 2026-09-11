@@ -48,12 +48,16 @@ REQUIRED_SECTION_LABELS = {
         "Rules that must remain true:",
     ),
 }
-ACCOUNTABILITY = (
-    "This record does not establish contributor understanding. "
-    "The review team must check the explanation against the submitted work."
+ACCOUNTABILITY_PREFIX = "This record does not establish contributor understanding. "
+ACCOUNTABILITY_REQUIREMENTS = (
+    ACCOUNTABILITY_PREFIX
+    + "The review team must check the explanation against the submitted work.",
+    ACCOUNTABILITY_PREFIX
+    + "Human review must check the explanation against the submitted work.",
 )
+ACCOUNTABILITY = ACCOUNTABILITY_REQUIREMENTS[0]
 ACCOUNTABILITY_PARAGRAPH = re.compile(
-    rf"(?m)^[ \t]*{re.escape(ACCOUNTABILITY)}[ \t]*$"
+    rf"(?m)^[ \t]*(?:{'|'.join(re.escape(value) for value in ACCOUNTABILITY_REQUIREMENTS)})[ \t]*$"
 )
 ISSUE_REFERENCE = re.compile(r"(?im)^\s*(?:closes|fixes|resolves)\s+#\d+\s*$")
 ISSUE_EXCEPTION = re.compile(r"(?im)^\s*issue exception:\s*\S.+$")
@@ -483,7 +487,10 @@ def check_submission(body: str) -> list[SubmissionFinding]:
         findings.extend(evidence_findings(sections[evidence_key]))
     if ACCOUNTABILITY_PARAGRAPH.search(record) is None:
         findings.append(
-            SubmissionFinding("accountability", "include the review team requirement")
+            SubmissionFinding(
+                "accountability",
+                "include the human or review-team explanation requirement",
+            )
         )
     return findings
 

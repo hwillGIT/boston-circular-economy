@@ -26,6 +26,10 @@ ACCOUNTABILITY = (
     "This record does not establish contributor understanding. "
     "The review team must check the explanation against the submitted work."
 )
+LEGACY_ACCOUNTABILITY = (
+    "This record does not establish contributor understanding. "
+    "Human review must check the explanation against the submitted work."
+)
 
 VALID_BODY = f"""## Outcome
 
@@ -101,6 +105,10 @@ Review the stale-data boundary.
 class CheckSubmissionTests(unittest.TestCase):
     def test_valid_submission_passes(self) -> None:
         self.assertEqual(check_submission.check_submission(VALID_BODY), [])
+
+    def test_legacy_human_review_requirement_passes(self) -> None:
+        body = VALID_BODY.replace(ACCOUNTABILITY, LEGACY_ACCOUNTABILITY)
+        self.assertEqual(check_submission.check_submission(body), [])
 
     def test_technical_summary_markers_pass(self) -> None:
         summary = """<!-- technical-summary:start -->
