@@ -4,7 +4,7 @@
 
 <!-- technical-risk:start -->
 
-The renderer and interactive pages add 179,000 lines to a review pull request.
+The copied renderer and interactive pages can add 179,000 lines to a review pull request.
 <!-- technical-risk:end -->
 <!-- technical-fix:start -->
 
