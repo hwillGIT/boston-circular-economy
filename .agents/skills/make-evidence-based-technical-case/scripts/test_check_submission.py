@@ -24,6 +24,10 @@ REFACTOR_BOUNDARY = (
 )
 ACCOUNTABILITY = (
     "This record does not establish contributor understanding. "
+    "The review team must check the explanation against the submitted work."
+)
+LEGACY_ACCOUNTABILITY = (
+    "This record does not establish contributor understanding. "
     "Human review must check the explanation against the submitted work."
 )
 
@@ -102,6 +106,34 @@ class CheckSubmissionTests(unittest.TestCase):
     def test_valid_submission_passes(self) -> None:
         self.assertEqual(check_submission.check_submission(VALID_BODY), [])
 
+    def test_legacy_human_review_requirement_passes(self) -> None:
+        body = VALID_BODY.replace(ACCOUNTABILITY, LEGACY_ACCOUNTABILITY)
+        self.assertEqual(check_submission.check_submission(body), [])
+
+    def test_technical_summary_markers_pass(self) -> None:
+        summary = """<!-- technical-summary:start -->
+## Plain-English Technical Summary
+
+<!-- technical-risk:start -->
+The renderer adds too many lines to the pull request.
+<!-- technical-risk:end -->
+<!-- technical-fix:start -->
+CI builds the page as an artifact
+<!-- technical-fix:end -->
+<!-- technical-state:start -->
+while Git stores a compact review image.
+<!-- technical-state:end -->
+
+**Key Concepts Explained**
+
+* **\"Renderer\":** A renderer creates a review page from a diagram source.
+* **\"Artifact\":** CI stores this file with the run for team inspection.
+* **\"Review image\":** Git stores a compact diagram image for pull request review.
+<!-- technical-summary:end -->
+"""
+
+        self.assertEqual(check_submission.check_submission(f"{summary}\n{VALID_BODY}"), [])
+
     def test_repository_committed_submission_record_passes(self) -> None:
         root = Path(__file__).resolve().parents[4]
         record = (root / ".github/submission.md").read_text(encoding="utf-8")
@@ -155,8 +187,8 @@ class CheckSubmissionTests(unittest.TestCase):
             "boundary, failure, and regression cases that apply."
         )
         review_guidance = (
-            "What should the human reviewer examine most closely? Which choice "
-            "needs human judgment? What is not yet proven?"
+            "What should the review team examine most closely? Which choice "
+            "needs team judgment? What is not yet proven?"
         )
         cases = (
             (

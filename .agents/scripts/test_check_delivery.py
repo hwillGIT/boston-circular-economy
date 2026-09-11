@@ -13,7 +13,16 @@ import unittest
 from jsonschema import ValidationError
 import yaml
 
-from check_delivery import ROOT, content_digest, find_prose_violations, validate_units
+from check_delivery import (
+    ROOT,
+    check_api_call_manifest,
+    content_digest,
+    find_prose_violations,
+    main,
+    project_prose_paths,
+    validate_api_call_template,
+    validate_units,
+)
 
 
 class ProseBaselineTests(unittest.TestCase):
@@ -51,11 +60,28 @@ class ProseBaselineTests(unittest.TestCase):
             path.write_bytes(b"One line.\r\nAnother line.\r\n")
             self.assertEqual(digest, content_digest(path))
 
+    def test_copied_skill_text_stays_outside_project_prose_checks(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            vendored = root / ".agents/skills/write-timeless-technical-prose/SKILL.md"
+            authored = root / "docs/guide.md"
+            vendored.parent.mkdir(parents=True)
+            authored.parent.mkdir(parents=True)
+            vendored.write_text("We cannot proceed; the input is absent.\n", encoding="utf-8")
+            authored.write_text("One clear sentence.\n", encoding="utf-8")
+            self.assertEqual([authored], project_prose_paths([authored, vendored], root))
+
 
 class ManifestTests(unittest.TestCase):
     def setUp(self) -> None:
         directory = ROOT / "docs/work-units"
         self.schema = json.loads((directory / "manifest.schema.json").read_text())
+        self.api_schema = json.loads(
+            (directory / "api-call-manifest.schema.json").read_text()
+        )
+        self.api_template = yaml.safe_load(
+            (directory / "api-call-manifest.template.yaml").read_text()
+        )
         self.units = [
             json.loads(path.read_text(encoding="utf-8"))
             for path in sorted(directory.glob("ui-*.json"))
@@ -64,11 +90,66 @@ class ManifestTests(unittest.TestCase):
     def test_catalog_is_consistent(self) -> None:
         validate_units(self.units, self.schema, ROOT)
 
-    def test_acceptance_requires_human_evidence(self) -> None:
+    def test_api_call_template_is_consistent(self) -> None:
+        validate_api_call_template(self.api_template, self.api_schema)
+        template_path = ROOT / "docs/work-units/api-call-manifest.template.yaml"
+        self.assertEqual(0, check_api_call_manifest(template_path))
+        self.assertEqual(
+            0, main(["api-call", "--api-call-file", str(template_path)])
+        )
+
+    def test_api_call_requires_success_empty_and_failure_cases(self) -> None:
+        template = copy.deepcopy(self.api_template)
+        template["response_cases"].pop()
+        template["response_cases"].append(
+            {
+                "id": "empty",
+                "transport_status": None,
+                "meaning": "A second empty result case.",
+                "client_behavior": None,
+                "recovery_rule": None,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            validate_api_call_template(template, self.api_schema)
+
+    def test_accepted_api_call_requires_two_team_members(self) -> None:
+        template = copy.deepcopy(self.api_template)
+        template["status"] = "accepted"
+        template["source"]["accepted_ui_spec_revision"] = "ui-002-revision"
+        template["source"]["inspected_server_revision"] = "server-revision"
+        template["operation"]["proposed_path"] = "/api/v1/clinic-search"
+        template["review"].update(
+            {
+                "team_members": ["Frontend work lead"],
+                "accepted_revision": "contract-revision",
+                "team_observation": "The team checked the contract.",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            validate_api_call_template(template, self.api_schema)
+        template["review"]["team_members"].append("Backend/API lead")
+        validate_api_call_template(template, self.api_schema)
+
+    def test_acceptance_requires_two_review_team_members(self) -> None:
         unit = copy.deepcopy(self.units[0])
         unit["status"] = "accepted"
+        unit["completion_record"].update(
+            {
+                "artifact_links": ["https://example.test/artifact"],
+                "review_team_members": ["Frontend work lead"],
+                "review_date": "2026-09-10",
+                "accepted_revision": "example-revision",
+                "contributor_explanation": "The contributor traced the chosen behavior.",
+                "review_team_observation": "The team checked the explanation.",
+            }
+        )
         with self.assertRaises(ValidationError):
             validate_units([unit], self.schema, ROOT)
+        unit["completion_record"]["review_team_members"].append(
+            "Product or design owner"
+        )
+        validate_units([unit], self.schema, ROOT)
 
     def test_claiming_work_requires_accepted_input(self) -> None:
         self.units[1]["status"] = "claimed"
@@ -105,6 +186,7 @@ class QualityGateTests(unittest.TestCase):
         required = {
             "lint-client", "lint-server", "lint-etl", "typecheck",
             "test-etl", "docs", "docs-python", "delivery-policy",
+            "architecture-diagrams",
         }
         self.assertEqual(required, set(gate["needs"]))
         self.assertEqual("always()", gate["if"])

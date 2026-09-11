@@ -13,7 +13,7 @@
     "timebox_minutes",
     "journey",
     "owner_role",
-    "reviewer_roles",
+    "review_team_roles",
     "related_issues",
     "depends_on",
     "inputs",
@@ -73,9 +73,10 @@
       "type": "string",
       "minLength": 1
     },
-    "reviewer_roles": {
+    "review_team_roles": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 2,
+      "uniqueItems": true,
       "items": {
         "type": "string"
       }
@@ -176,11 +177,11 @@
       "type": "object",
       "required": [
         "artifact_links",
-        "reviewed_by",
+        "review_team_members",
         "review_date",
         "accepted_revision",
         "contributor_explanation",
-        "reviewer_observation"
+        "review_team_observation"
       ],
       "properties": {
         "artifact_links": {
@@ -189,8 +190,13 @@
             "type": "string"
           }
         },
-        "reviewed_by": {
-          "type": ["string", "null"]
+        "review_team_members": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "review_date": {
           "type": ["string", "null"]
@@ -201,7 +207,7 @@
         "contributor_explanation": {
           "type": ["string", "null"]
         },
-        "reviewer_observation": {
+        "review_team_observation": {
           "type": ["string", "null"]
         }
       },
@@ -242,9 +248,8 @@
               "artifact_links": {
                 "minItems": 1
               },
-              "reviewed_by": {
-                "type": "string",
-                "minLength": 1
+              "review_team_members": {
+                "minItems": 2
               },
               "review_date": {
                 "type": "string",
@@ -258,7 +263,7 @@
                 "type": "string",
                 "minLength": 1
               },
-              "reviewer_observation": {
+              "review_team_observation": {
                 "type": "string",
                 "minLength": 1
               }

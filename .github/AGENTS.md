@@ -28,9 +28,13 @@ Require every application job and Delivery policy in that gate.
 A skipped, cancelled, or failed dependency must prevent a successful gate.
 Do not add path filters that leave a required context missing.
 
-### Evidence and human review
+### Evidence and team review
 
 Keep submission evidence in the same commit as the work.
+Use the timeless prose skill for workflow text and the submission summary.
+Start the record with the required plain-language technical summary markers.
+The summary workflow checks the live pull request description from the trusted base.
+It must not execute code or install dependencies from the proposed revision.
 Check the live pull request head before publishing a commit status.
 A passing form check proves only that required fields have content.
 It cannot prove a test was run or a contributor understands the work.
@@ -38,4 +42,4 @@ It cannot prove a test was run or a contributor understands the work.
 Changing the prose baseline changes enforcement.
 Require evidence that an entry refers to unchanged legacy text.
 Do not use the baseline to exempt new policy, new prose, or a failing new change.
-Keep the one-review requirement. Do not use an administrator bypass.
+Keep the required two team approvals. Do not use an administrator bypass.

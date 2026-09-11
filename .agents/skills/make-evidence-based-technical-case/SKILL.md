@@ -73,4 +73,4 @@ python3 -B .agents/scripts/check_delivery.py prose
 ```
 
 The checker tests wording patterns and length. It cannot establish accuracy or understanding.
-A human reviewer checks the reasoning, evidence, fair comparison, and contributor explanation.
+The review team checks the reasoning, evidence, fair comparison, and contributor explanation.

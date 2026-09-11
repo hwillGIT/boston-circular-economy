@@ -313,6 +313,19 @@ class LocalReviewRunnerTests(unittest.TestCase):
         )
         self.assertIn("github.event.pull_request.number || github.sha }}", workflow)
         self.assertIn("cancel-in-progress: true", workflow)
+        self.assertIn("check_github_summary.py --event", workflow)
+
+    def test_summary_workflow_checks_live_body_from_trusted_base(self) -> None:
+        workflow = (ROOT / ".github/workflows/pull-request-summary.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("pull_request_target:", workflow)
+        self.assertIn("types: [opened, reopened, synchronize, edited]", workflow)
+        self.assertIn("ref: ${{ github.event.pull_request.base.sha }}", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("pull-requests: read", workflow)
+        self.assertIn("persist-credentials: false", workflow)
+        self.assertIn("check_github_summary.py --event", workflow)
 
     def test_submission_executes_only_the_trusted_base_runner(self) -> None:
         workflow = (ROOT / ".github/workflows/submission.yml").read_text(

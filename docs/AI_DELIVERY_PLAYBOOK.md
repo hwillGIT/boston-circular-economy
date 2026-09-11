@@ -2,7 +2,7 @@
 
 The developer owns the work and its explanation.
 AI helps with research, alternatives, drafts, checks, and practice.
-A human reviewer decides whether the result and explanation meet the assignment.
+The review team decides whether the result and explanation meet the assignment.
 
 Use this workflow in `hwillGIT/boston-circular-economy`.
 Upstream issues and Slack discussions provide context.
@@ -66,7 +66,7 @@ It must not write the contributor's defense or claim that the contributor unders
 
 ## Use a role for a bounded purpose
 
-| AI role                  | Useful output                                        | Human decision                                    |
+| AI role                  | Useful output                                        | Team decision                                     |
 | ------------------------ | ---------------------------------------------------- | ------------------------------------------------- |
 | Research assistant       | Sources, observations, gaps, and assumptions         | Which evidence is sufficient for the unit         |
 | Design assistant         | Screen states, options, and tradeoffs                | Which design meets the resident's need            |
@@ -78,6 +78,14 @@ The [routing policy](../.agents/skills/route-agent-work/references/delivery-rout
 Treat a model recommendation as a starting point.
 Check tool availability and the user's preferences before selecting a model.
 Do not create parallel agent work unless the user or applicable instructions authorize it.
+
+## Explain a change with a diagram
+
+Use a checked Archify diagram when a unit changes a system boundary, request path, state flow, data flow, or CI behavior.
+Read the [diagram guide](diagrams/README.md) before you start.
+Commit the JSON source, manifest record, and PNG review image together.
+CI renders the interactive page and checks the source hash for the review image.
+Ask the contributor to trace one changed connection and predict the result of a changed condition.
 
 Mechanical checks belong to deterministic tools.
 Use an existing repository skill for a repeated method.
@@ -104,7 +112,7 @@ Complete the versioned `.github/submission.md` record.
 Link the work unit and the artifacts.
 Record actual check results and the exact evidence used.
 Open a draft PR while the scoped implementation or required checks remain incomplete.
-Mark it ready when the reviewer has a complete change and its evidence.
+Mark it ready when the review team has a complete change and its evidence.
 Record unresolved approval and follow-up decisions in the submission.
 
 The submission checker validates record structure.
@@ -127,8 +135,9 @@ Use the manifest's completion fields only after the review occurs.
 Leave acceptance fields empty while the work is pending.
 If a gap remains, name one specific revision or learning task.
 
-Human approval remains required for merging.
+Two review-team approvals remain required for merging.
 AI review supports that decision and does not replace it.
+Use the [team review record](MENTOR_PILOT.md#split-the-team-review) for the two observations and the changed case.
 
 ## Activate the workflow
 
@@ -139,6 +148,8 @@ Do not describe draft-PR CI as proof that deployment or team adoption is complet
 The fork's current setup points to Replit.
 The earlier pilot targets GitHub Pages.
 The deployment destination still needs the user's selection.
+Use [issue #16](https://github.com/hwillGIT/boston-circular-economy/issues/16) to record that selection and its release evidence.
+Use [issue #17](https://github.com/hwillGIT/boston-circular-economy/issues/17) to evaluate a hosted AI review service before connecting one.
 
 Do not send Slack announcements or messages to people without explicit authorization.
 Coordination instructions can be prepared without sending them.

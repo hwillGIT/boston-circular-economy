@@ -48,12 +48,16 @@ REQUIRED_SECTION_LABELS = {
         "Rules that must remain true:",
     ),
 }
-ACCOUNTABILITY = (
-    "This record does not establish contributor understanding. "
-    "Human review must check the explanation against the submitted work."
+ACCOUNTABILITY_PREFIX = "This record does not establish contributor understanding. "
+ACCOUNTABILITY_REQUIREMENTS = (
+    ACCOUNTABILITY_PREFIX
+    + "The review team must check the explanation against the submitted work.",
+    ACCOUNTABILITY_PREFIX
+    + "Human review must check the explanation against the submitted work.",
 )
+ACCOUNTABILITY = ACCOUNTABILITY_REQUIREMENTS[0]
 ACCOUNTABILITY_PARAGRAPH = re.compile(
-    rf"(?m)^[ \t]*{re.escape(ACCOUNTABILITY)}[ \t]*$"
+    rf"(?m)^[ \t]*(?:{'|'.join(re.escape(value) for value in ACCOUNTABILITY_REQUIREMENTS)})[ \t]*$"
 )
 ISSUE_REFERENCE = re.compile(r"(?im)^\s*(?:closes|fixes|resolves)\s+#\d+\s*$")
 ISSUE_EXCEPTION = re.compile(r"(?im)^\s*issue exception:\s*\S.+$")
@@ -70,6 +74,16 @@ DOCUMENTATION_OPTIONS = (
     "I recorded a follow-up issue for remaining work",
 )
 PLACEHOLDER = re.compile(r"<!--.*?-->", re.DOTALL)
+TECHNICAL_SUMMARY_MARKERS = (
+    "<!-- technical-summary:start -->",
+    "<!-- technical-summary:end -->",
+    "<!-- technical-risk:start -->",
+    "<!-- technical-risk:end -->",
+    "<!-- technical-fix:start -->",
+    "<!-- technical-fix:end -->",
+    "<!-- technical-state:start -->",
+    "<!-- technical-state:end -->",
+)
 REQUIRED_EVIDENCE_CHECKS = (
     "Client lint and build",
     "Server lint and build",
@@ -102,8 +116,8 @@ TEMPLATE_GUIDANCE = (
     "Describe how you tried to prove the change wrong. Include normal, boundary, "
     "failure, and regression cases that apply.",
     "For UI changes, add before-and-after screenshots or a recording.",
-    "What should the human reviewer examine most closely? Which choice needs "
-    "human judgment? What is not yet proven?",
+    "What should the review team examine most closely? Which choice needs "
+    "team judgment? What is not yet proven?",
     "Follow the [`Code Change Standard`](https://github.com/hwillGIT/"
     "boston-circular-economy/blob/main/docs/CODE_CHANGE_STANDARD.md) for the "
     "submission and explanation rules.",
@@ -157,6 +171,14 @@ def has_meaningful_section_content(content: str) -> bool:
     decoded_entities = html.unescape(without_html)
     without_empty_markdown = EMPTY_MARKDOWN_LINE.sub("", decoded_entities)
     return any(character.isalnum() for character in without_empty_markdown)
+
+
+def has_template_placeholder(content: str) -> bool:
+    """Ignore the checked technical-summary markers before finding template comments."""
+
+    for marker in TECHNICAL_SUMMARY_MARKERS:
+        content = content.replace(marker, "")
+    return PLACEHOLDER.search(content) is not None
 
 
 def mask_markdown_code_blocks(body: str) -> str:
@@ -359,7 +381,7 @@ def check_submission(body: str) -> list[SubmissionFinding]:
                     SubmissionFinding("empty-label", f"{section_name}: {label}")
                 )
 
-    if PLACEHOLDER.search(record):
+    if has_template_placeholder(record):
         findings.append(
             SubmissionFinding("template-placeholder", "remove all HTML placeholders")
         )
@@ -465,7 +487,10 @@ def check_submission(body: str) -> list[SubmissionFinding]:
         findings.extend(evidence_findings(sections[evidence_key]))
     if ACCOUNTABILITY_PARAGRAPH.search(record) is None:
         findings.append(
-            SubmissionFinding("accountability", "include the human review requirement")
+            SubmissionFinding(
+                "accountability",
+                "include the human or review-team explanation requirement",
+            )
         )
     return findings
 

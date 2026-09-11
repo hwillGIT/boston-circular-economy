@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "generator": {
+    "name": "archify",
+    "version": "2.17.0-dev.1",
+    "source": "https://github.com/tt-a1i/archify",
+    "revision": "18911058008f17dc065af23a2cdc9bfeff6d3f7a"
+  },
+  "diagrams": [
+    {
+      "id": "agent-delivery",
+      "type": "architecture",
+      "source": "docs/diagrams/agent-delivery.architecture.json",
+      "render_output": "docs/diagrams/agent-delivery.rendered.architecture.html",
+      "review_image": "docs/diagrams/agent-delivery.architecture.png",
+      "review_image_source_sha256": "e30ba8bbb2ac621976b28242f6dd549cf44aa92482cd83ed3022464bea11c88e",
+      "verify_repository": true,
+      "review_delta": true
+    },
+    {
+      "id": "ci-review",
+      "type": "workflow",
+      "source": "docs/diagrams/ci-review.workflow.json",
+      "render_output": "docs/diagrams/ci-review.rendered.workflow.html",
+      "review_image": "docs/diagrams/ci-review.workflow.png",
+      "review_image_source_sha256": "6026bd72149c1eec895552433fb3cf8a51ebd07241b4d7ab7e6c4ea47484d396",
+      "verify_repository": false,
+      "review_delta": false
+    }
+  ]
+}

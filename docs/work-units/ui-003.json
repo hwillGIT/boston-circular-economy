@@ -32,11 +32,11 @@
   ],
   "completion_record": {
     "artifact_links": [],
-    "reviewed_by": null,
+    "review_team_members": [],
     "review_date": null,
     "accepted_revision": null,
     "contributor_explanation": null,
-    "reviewer_observation": null
+    "review_team_observation": null
   },
   "id": "UI-003",
   "title": "Generate and compare two clinic wireframes",
@@ -44,7 +44,7 @@
   "status": "waiting_for_reviewed_input",
   "risk": "Yellow",
   "timebox_minutes": 90,
-  "reviewer_roles": ["Frontend work lead", "Design owner"],
+  "review_team_roles": ["Frontend work lead", "Design owner"],
   "related_issues": ["https://github.com/codeforboston/boston-circular-economy/issues/38"],
   "depends_on": ["UI-002"],
   "objective": "Make two layout alternatives concrete enough to compare before visual styling.",
@@ -90,7 +90,7 @@
     {
       "name": "wireframe-decision.md",
       "format": "Markdown or linked Google Doc",
-      "contents": "At most 300 words with trade-offs, observed checks, and the human selection."
+      "contents": "At most 300 words with trade-offs, observed checks, and the review-team selection."
     },
     {
       "name": "contributor-explanation",
@@ -100,11 +100,11 @@
   ],
   "acceptance": [
     "Both alternatives implement the same accepted UI-002 behavior.",
-    "A reviewer can follow filter application and clearing without a spoken explanation.",
+    "The review team can follow filter application and clearing without a spoken explanation.",
     "The chosen flow shows two clinics becoming one when machines are required.",
     "Focus order and announced state changes are annotated or demonstrated.",
     "The design owner records the selected alternative and unresolved concerns.",
-    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "The contributor explains the result in their own words and answers one changed-case question from the review team.",
     "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
     "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
     "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."

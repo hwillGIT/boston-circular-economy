@@ -20,7 +20,7 @@ Use a 15-minute opening checkpoint:
 
 1. Ask the contributor to explain the outcome in their own words.
 2. Check issue comments, existing artifacts, and current claims.
-3. Confirm the inputs, timebox, deliverable, and available reviewer.
+3. Confirm the inputs, timebox, deliverable, and available review team.
 4. Run the manifest's brainstorming prompt together.
 5. Ask the contributor to choose and explain the next step.
 
@@ -41,12 +41,35 @@ At review, ask for a three-minute explanation and one remaining uncertainty.
 Choose one changed case that the contributor has not rehearsed.
 Ask them to locate the controlling code, specification, or design frame.
 Ask why the chosen design fits the evidence and when another choice would be better.
-Record the contributor's explanation and the reviewer's observation.
+Record the contributor's explanation and the review team's observation.
+
+## Split the team review
+
+Use two people for every accepted assignment. One person checks the user outcome,
+evidence, and artifact. Another person checks the changed case, failure behavior, and
+contract or code boundary. For research and design work, the second person checks the
+source interpretation and the proposed state or call behavior.
+
+Each person records an observation from the same artifact revision. A repeated pass by
+one person does not satisfy the two-person acceptance record. AI findings can guide the
+discussion. They do not replace either observation.
+
+Use this short record in the issue, pull request, or completion record:
+
+```text
+Artifact and exact revision:
+Outcome and evidence reviewer:
+Changed-case and boundary reviewer:
+Changed case selected by the team:
+Contributor response and evidence checked:
+Team decision: accept, revise, or stop:
+Remaining uncertainty or next action:
+```
 
 For code, inspect names, types, state ownership, and failure behavior.
 Request a smaller boundary or clearer name when the behavior is hard to trace.
 More comments cannot compensate for hidden state or duplicated rules.
-The AI can identify gaps. A human reviewer accepts the explanation.
+The AI can identify gaps. The review team accepts the explanation.
 Product/design approve their interpretation and visual choices. Hubert accepts the
 frontend handoff. The backend lead confirms the shared call contract.
 

@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AI-Assisted Delivery and Review",
+    "locale": "en",
+    "output": "docs/diagrams/agent-delivery.rendered.architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1100, 560],
+    "repository": {
+      "url": "https://github.com/hwillGIT/boston-circular-economy",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "43bf979ac01aed1e76475a308ae8942a4ce845c5"
+    },
+    "views": [
+      {
+        "id": "authoring",
+        "label": "Authoring",
+        "focus": ["developer", "work_unit", "ai_assistant", "fork", "pull_request"],
+        "note": "The developer owns the scope, work, and explanation."
+      },
+      {
+        "id": "automated-checks",
+        "label": "Automated checks",
+        "focus": ["pull_request", "ci", "archify", "diagram_artifact"],
+        "note": "Checks validate committed evidence and diagram sources."
+      },
+      {
+        "id": "team-decision",
+        "label": "Team decision",
+        "focus": ["ci", "diagram_artifact", "review_team", "protected_main"],
+        "note": "Two team members review the result before an approved change reaches main."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "developer",
+      "type": "external",
+      "label": "Developer",
+      "sublabel": "owns work",
+      "pos": [40, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "work_unit",
+      "type": "database",
+      "label": "Work-unit manifest",
+      "sublabel": "scope and inputs",
+      "pos": [210, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "ai_assistant",
+      "type": "external",
+      "label": "AI assistant",
+      "sublabel": "research and practice",
+      "pos": [380, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "fork",
+      "type": "database",
+      "label": "Fork repository",
+      "sublabel": "versioned code and docs",
+      "pos": [550, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "pull_request",
+      "type": "security",
+      "label": "Draft pull request",
+      "sublabel": "committed evidence",
+      "pos": [720, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "ci",
+      "type": "cloud",
+      "label": "GitHub Actions",
+      "sublabel": "deterministic checks",
+      "sources": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "label": "CI workflow"
+        }
+      ],
+      "pos": [890, 110],
+      "size": [132, 68]
+    },
+    {
+      "id": "archify",
+      "type": "backend",
+      "label": "Archify",
+      "sublabel": "checks sources",
+      "pos": [890, 280],
+      "size": [132, 68]
+    },
+    {
+      "id": "diagram_artifact",
+      "type": "database",
+      "label": "Review artifacts",
+      "sublabel": "API docs and diagrams",
+      "pos": [720, 280],
+      "size": [132, 68]
+    },
+    {
+      "id": "review_team",
+      "type": "external",
+      "label": "Review team",
+      "sublabel": "two approvals",
+      "pos": [550, 280],
+      "size": [132, 68]
+    },
+    {
+      "id": "protected_main",
+      "type": "security",
+      "label": "Main branch",
+      "sublabel": "two approvals",
+      "pos": [380, 280],
+      "size": [132, 68]
+    }
+  ],
+  "connections": [
+    {
+      "id": "choose-unit",
+      "from": "developer",
+      "to": "work_unit",
+      "label": "select",
+      "variant": "emphasis",
+      "labelDy": -28
+    },
+    {
+      "id": "use-ai",
+      "from": "work_unit",
+      "to": "ai_assistant",
+      "label": "brief",
+      "labelDy": -28
+    },
+    {
+      "id": "draft-change",
+      "from": "ai_assistant",
+      "to": "fork",
+      "label": "draft",
+      "labelDy": -28
+    },
+    {
+      "id": "open-pr",
+      "from": "fork",
+      "to": "pull_request",
+      "label": "commit",
+      "labelDy": -28
+    },
+    {
+      "id": "start-ci",
+      "from": "pull_request",
+      "to": "ci",
+      "label": "start checks",
+      "variant": "emphasis",
+      "labelDy": -28
+    },
+    {
+      "id": "validate-diagrams",
+      "from": "ci",
+      "to": "archify",
+      "label": "validate",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 56
+    },
+    {
+      "id": "render-diagrams",
+      "from": "archify",
+      "to": "diagram_artifact",
+      "label": "render",
+      "variant": "dashed",
+      "labelDy": 30
+    },
+    {
+      "id": "read-artifacts",
+      "from": "diagram_artifact",
+      "to": "review_team",
+      "label": "inspect",
+      "variant": "dashed",
+      "labelDy": -28
+    },
+    {
+      "id": "approve-change",
+      "from": "review_team",
+      "to": "protected_main",
+      "label": "approve",
+      "variant": "security",
+      "labelDy": -28
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Automation",
+      "items": [
+        "CI checks code, prose, records, and diagrams.",
+        "Archify validates sources and creates review artifacts."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Team review",
+      "items": [
+        "Two team members check the result and explanation.",
+        "A green check does not approve a decision."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Release state",
+      "items": [
+        "A host is not selected.",
+        "Main requires Quality Gate and Submission record.",
+        "Main also requires two team approvals.",
+        "The readiness workflow does not publish."
+      ]
+    }
+  ]
+}

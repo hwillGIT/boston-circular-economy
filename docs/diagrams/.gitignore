@@ -1,0 +1,4 @@
+*.visual-check.json
+*.visual-check.html
+*.visual-check.*.png
+*.rendered.*.html

@@ -1,0 +1,65 @@
+manifest_version: 1
+status: proposed
+source:
+  accepted_ui_spec_revision: null
+  inspected_server_revision: null
+  evidence:
+    - path: server/src/index.ts
+      observation: The service mounts location routes at /api/v1/locations.
+      limit: This does not show a textile clinic contract.
+    - path: server/src/routes/locations.ts
+      observation: The list and nearby routes provide general location reads.
+      limit: They do not prove clinic fields or filter meanings.
+operation:
+  id: clinic-search
+  user_outcome: Find textile repair clinics that match selected filters.
+  method: GET
+  proposed_path: null
+  current_capabilities:
+    - path: /api/v1/locations
+      state: implemented
+      evidence: server/src/routes/locations.ts
+      limit: It supports general list filters, not clinic-specific fields.
+    - path: /api/v1/locations/nearby
+      state: implemented
+      evidence: server/src/routes/locations.ts
+      limit: It supports distance reads, not the required clinic filters.
+  unresolved_requirements: []
+request:
+  trigger_action_id: null
+  parameters: []
+  cancellation_rule: null
+  stale_response_rule: null
+response_cases:
+  - id: success
+    transport_status: null
+    meaning: A valid result contains one or more matching clinics.
+    client_behavior: null
+    recovery_rule: null
+  - id: empty
+    transport_status: null
+    meaning: A valid result contains no matching clinics.
+    client_behavior: null
+    recovery_rule: null
+  - id: failure
+    transport_status: null
+    meaning: The request or response is not valid for display.
+    client_behavior: null
+    recovery_rule: null
+client_behavior:
+  loading: null
+  empty: null
+  failure: null
+  missing_data: null
+examples:
+  success: success.json
+  empty: empty.json
+  error: error.json
+open_decisions: []
+review:
+  team_roles:
+    - Frontend work lead
+    - Backend/API lead
+  team_members: []
+  accepted_revision: null
+  team_observation: null

@@ -78,7 +78,7 @@ Set an explicit output limit for inventories, research results, and reviews.
 Place repeatable decisions near the state transition that needs them:
 
 - local formatting and focused tests during implementation.
-- pull-request CI before human review and merge.
+- pull-request CI before team review and merge.
 - protected-branch checks before the merge transition.
 - deployment only after the exact commit passes its required checks.
 - scheduled dependency checks outside the implementation conversation.

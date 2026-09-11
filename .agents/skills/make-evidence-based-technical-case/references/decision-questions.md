@@ -31,4 +31,4 @@ Ask them to explain the result without reading an AI answer.
 
 Choose the exercise that addresses the actual gap.
 Do not require every exercise for every assignment.
-A reviewer checks the explanation against the submitted revision.
+The review team checks the explanation against the submitted revision.

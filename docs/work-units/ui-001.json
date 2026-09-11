@@ -32,11 +32,11 @@
   ],
   "completion_record": {
     "artifact_links": [],
-    "reviewed_by": null,
+    "review_team_members": [],
     "review_date": null,
     "accepted_revision": null,
     "contributor_explanation": null,
-    "reviewer_observation": null
+    "review_team_observation": null
   },
   "id": "UI-001",
   "title": "Research clinic result cards and filters",
@@ -44,7 +44,7 @@
   "status": "ready_for_research",
   "risk": "Green",
   "timebox_minutes": 60,
-  "reviewer_roles": ["Frontend work lead", "Product or design owner"],
+  "review_team_roles": ["Frontend work lead", "Product or design owner"],
   "related_issues": ["https://github.com/codeforboston/boston-circular-economy/issues/38"],
   "depends_on": [],
   "objective": "Identify the minimum information and interactions needed to compare two textile repair clinics.",
@@ -99,7 +99,7 @@
     "Every reference is opened and checked by the contributor.",
     "The note identifies which clinic fields are absent or unproven in current DTOs.",
     "Hubert can select a recommendation or state one decision needed before specification.",
-    "The contributor explains the result in their own words and answers one changed-case question from the reviewer.",
+    "The contributor explains the result in their own words and answers one changed-case question from the review team.",
     "If the artifact contains code, the contributor locates the input, decision owner, visible result, and supporting behavior check.",
     "Names, types, and boundaries expose any generated code's purpose. Comments preserve reasons that the code cannot express.",
     "The explanation defines unfamiliar terms and states the evidence, limits, and condition for reconsidering the decision."

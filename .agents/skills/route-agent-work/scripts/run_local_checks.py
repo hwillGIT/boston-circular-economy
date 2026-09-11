@@ -138,6 +138,7 @@ def main(argv: list[str] | None = None) -> int:
     print(json.dumps(route.as_dict(), indent=2, sort_keys=True))
 
     run([sys.executable, "-B", ".agents/scripts/check_delivery.py", "all"])
+    run(["node", ".agents/scripts/check_archify_diagrams.mjs"])
     run(
         [
             sys.executable,

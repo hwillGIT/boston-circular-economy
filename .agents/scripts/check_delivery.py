@@ -1,4 +1,4 @@
-"""Check contribution evidence without claiming human acceptance."""
+"""Check contribution evidence without claiming team acceptance."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 PROSE_SCRIPTS = ROOT / ".agents/skills/make-evidence-based-technical-case/scripts"
+VENDORED_PROSE_DIRECTORIES = (Path(".agents/skills/write-timeless-technical-prose"),)
 sys.path.insert(0, str(PROSE_SCRIPTS))
 import check_prose  # noqa: E402
 
@@ -20,6 +21,17 @@ def content_digest(path: Path) -> str:
     """Ignore platform line endings when identifying unchanged legacy text."""
     text = path.read_text(encoding="utf-8")
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def is_vendored_prose(path: Path, root: Path) -> bool:
+    """Keep copied external skill text outside the project prose policy."""
+    relative = path.resolve().relative_to(root.resolve())
+    return any(relative.is_relative_to(directory) for directory in VENDORED_PROSE_DIRECTORIES)
+
+
+def project_prose_paths(paths: list[Path], root: Path) -> list[Path]:
+    """Check authored project text while preserving copied skill text unchanged."""
+    return [path for path in paths if not is_vendored_prose(path, root)]
 
 
 def find_prose_violations(
@@ -49,15 +61,20 @@ def check_repository_prose() -> int:
         check=True,
         capture_output=True,
     )
-    paths = [
+    all_paths = [
         ROOT / name.decode("utf-8")
         for name in completed.stdout.split(b"\0")
         if name
     ]
+    paths = project_prose_paths(all_paths, ROOT)
+    vendored = len(all_paths) - len(paths)
     findings, skipped = find_prose_violations(paths, baseline, ROOT)
     for finding in findings:
         print(finding.format())
-    print(f"Prose: {len(findings)} violations; {skipped} unchanged legacy files.")
+    print(
+        f"Prose: {len(findings)} violations; {skipped} unchanged legacy files; "
+        f"{vendored} vendored skill files."
+    )
     return int(bool(findings))
 
 
@@ -96,8 +113,34 @@ def validate_units(units: list[dict], schema: dict, root: Path) -> None:
     }).static_order())
 
 
+def validate_api_call_template(template: dict, schema: dict) -> None:
+    """Reject an incomplete API handoff template before contributors use it."""
+
+    from jsonschema import Draft202012Validator
+
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(template)
+
+
+def check_api_call_manifest(path: Path) -> int:
+    """Validate one proposed API call manifest against the shared schema."""
+
+    import yaml
+
+    directory = ROOT / "docs/work-units"
+    manifest = yaml.safe_load(path.read_text(encoding="utf-8"))
+    schema = json.loads(
+        (directory / "api-call-manifest.schema.json").read_text(encoding="utf-8")
+    )
+    if not isinstance(manifest, dict):
+        raise ValueError("API call manifest must contain a mapping")
+    validate_api_call_template(manifest, schema)
+    print(f"Validated API call manifest: {path}")
+    return 0
+
+
 def check_manifests() -> int:
-    """Validate the catalog and parse the reusable screen template."""
+    """Validate work units and their reusable screen and API templates."""
     import yaml
 
     directory = ROOT / "docs/work-units"
@@ -114,19 +157,25 @@ def check_manifests() -> int:
     )
     if not isinstance(template, dict):
         raise ValueError("screen template must contain a mapping")
-    print(f"Validated {len(units)} work units and the screen template.")
+    check_api_call_manifest(directory / "api-call-manifest.template.yaml")
+    print(f"Validated {len(units)} work units and the screen and API templates.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("check", choices=["prose", "manifests", "all"])
+    parser.add_argument("check", choices=["prose", "manifests", "api-call", "all"])
+    parser.add_argument("--api-call-file", type=Path)
     arguments = parser.parse_args(argv)
     result = 0
     if arguments.check in {"prose", "all"}:
         result |= check_repository_prose()
     if arguments.check in {"manifests", "all"}:
         result |= check_manifests()
+    if arguments.check == "api-call":
+        if arguments.api_call_file is None:
+            parser.error("api-call requires --api-call-file")
+        result |= check_api_call_manifest(arguments.api_call_file)
     return result
 
 
